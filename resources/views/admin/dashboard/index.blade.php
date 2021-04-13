@@ -2,12 +2,77 @@
 
 @section('content')
 
-<div class="section-header">
-    <h1>Dashboard</h1>
-</div>
 
-<div class="section-body">
-    <h6>Lorem ipsum dolor sit amet consectetur adipisicing elit. Eum cum inventore obcaecati id doloremque laudantium odit culpa nam? Autem vitae maxime, fugit cupiditate labore cum eaque deserunt aliquam repellendus esse quidem quam fugiat atque placeat explicabo obcaecati natus suscipit amet mollitia facilis doloremque quisquam ipsa architecto. Doloribus tempore voluptas est at placeat sunt? Ipsum dolore aut, mollitia reprehenderit incidunt consequuntur. Est ipsum error minima ipsam laudantium cupiditate dolorem incidunt necessitatibus voluptates animi ea quibusdam nisi quo reprehenderit aliquid, velit placeat officiis consequuntur nulla. Vel, modi odit? Est dolores sit cumque error architecto, natus facilis. Natus, consectetur voluptas? Illum repellendus earum praesentium expedita, reprehenderit eius repudiandae laudantium nulla nihil ut delectus optio molestias exercitationem officiis quo, a est, tempore beatae odio? Molestiae eveniet, vero reiciendis nostrum dignissimos voluptatibus rem obcaecati repudiandae illum? Accusantium voluptatibus aspernatur expedita minima non ullam minus dolore vel placeat atque cum reiciendis suscipit soluta, nemo praesentium quasi molestiae voluptate provident, saepe eaque alias. Quasi, libero. Maiores omnis aut ullam numquam molestias ipsum molestiae velit, aliquid quis dolores at nobis quam possimus corrupti repellat quia esse magnam quas reiciendis id incidunt. Nostrum consequuntur expedita cupiditate vel, alias rem deserunt quisquam eum accusantium, reiciendis harum magnam voluptatibus iure autem, tempore laboriosam itaque sapiente eius ratione. Praesentium et perferendis, quod veniam amet corporis excepturi nulla? Enim consequuntur modi ab tempore eveniet recusandae cum fugiat eos labore eaque, atque repudiandae esse exercitationem dicta aperiam rem! Recusandae porro nesciunt eius iste a esse voluptatibus blanditiis ipsam, adipisci mollitia vel nostrum corrupti officiis voluptates consequatur numquam exercitationem quos dolor voluptatem. Accusantium quo ipsa commodi, cum blanditiis dolor quis esse sapiente iste harum totam minus qui porro. Cum atque deleniti amet iure illo, ipsum possimus deserunt sunt debitis voluptatum quibusdam magni tenetur sit nemo dignissimos architecto veritatis consectetur. A amet unde molestiae optio doloremque error sapiente. Expedita repudiandae excepturi eos nesciunt sit ea, et numquam iste, atque quasi molestiae, harum sapiente voluptatum quisquam! Quaerat, natus illum itaque commodi sed dolor asperiores laborum veniam dolores animi eveniet, unde tempora possimus fuga corrupti vero quidem molestiae optio tempore quisquam, aliquam quis nostrum velit. Ipsa eos culpa accusamus dolorem, sapiente quam quos temporibus nostrum harum molestiae eaque ratione necessitatibus dolore quia quisquam aut, illum earum suscipit vel voluptates officiis! Error commodi velit aliquid accusamus rerum exercitationem quos sint nisi quod odio laborum doloremque, assumenda neque voluptas fugiat nulla optio, illum voluptatum. Adipisci iusto voluptatum dolorum veniam aspernatur perspiciatis similique saepe quasi quod est modi accusantium assumenda aut temporibus unde omnis expedita, nostrum aliquam neque! Nam voluptatem illum facilis labore veritatis. Atque illo alias tempora eligendi consectetur delectus explicabo ut, laborum blanditiis enim suscipit modi voluptatibus voluptas unde omnis quisquam odit voluptatem nisi exercitationem amet, animi ab doloremque sed! Dolores, soluta dolore quisquam impedit commodi sit officiis quas qui eaque possimus incidunt reprehenderit nihil quia autem minus blanditiis, repellendus tempore quam itaque! In architecto, veritatis, incidunt dicta suscipit veniam aspernatur distinctio temporibus iusto ullam sint voluptatum. Deserunt labore ut possimus, ducimus repudiandae modi soluta quidem corporis nam consequatur.</h6>
+<div class="row">
+    <div class="col-lg-4 col-md-4 col-sm-12">
+        <div class="card card-statistic-2">
+            <div class="card-stats">
+                <div class="card-stats-title mb-1 font-weight-bold">Statistik Penjualan
+
+                </div>
+                <div class="card-stats-items">
+                    <div class="card-stats-item">
+                        <div class="card-stats-item-count">24</div>
+                        <div class="card-stats-item-label">Pending</div>
+                    </div>
+                    <div class="card-stats-item">
+                        <div class="card-stats-item-count">12</div>
+                        <div class="card-stats-item-label">Shipping</div>
+                    </div>
+                    <div class="card-stats-item">
+                        <div class="card-stats-item-count">23</div>
+                        <div class="card-stats-item-label">Completed</div>
+                    </div>
+                </div>
+            </div>
+            <div class="card-icon shadow-primary bg-primary">
+                <i class="fas fa-archive"></i>
+            </div>
+            <div class="card-wrap">
+                <div class="card-header">
+                    <h4>Total Orders</h4>
+                </div>
+                <div class="card-body">
+                    59
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-4 col-md-4 col-sm-12">
+        <div class="card card-statistic-2">
+            <div class="card-chart">
+                <canvas id="balance-chart" height="80"></canvas>
+            </div>
+            <div class="card-icon shadow-primary bg-primary">
+                <i class="fas fa-dollar-sign"></i>
+            </div>
+            <div class="card-wrap">
+                <div class="card-header">
+                    <h4>Balance</h4>
+                </div>
+                <div class="card-body">
+                    $187,13
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-4 col-md-4 col-sm-12">
+        <div class="card card-statistic-2">
+            <div class="card-chart">
+                <canvas id="sales-chart" height="80"></canvas>
+            </div>
+            <div class="card-icon shadow-primary bg-primary">
+                <i class="fas fa-shopping-bag"></i>
+            </div>
+            <div class="card-wrap">
+                <div class="card-header">
+                    <h4>Sales</h4>
+                </div>
+                <div class="card-body">
+                    4,732
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
-</section>
 @stop

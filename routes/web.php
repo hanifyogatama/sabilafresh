@@ -16,8 +16,9 @@ Route::get('/', function () {
 });
 
 Route::group(
-    ['namespace'=>'Admin','prefix'=>'admin'],
-    function(){
-        Route::get('dashboard','DashboardController@index');
+    ['namespace' => 'Admin', 'prefix' => 'admin'],
+    function () {
+        Route::get('dashboard', 'DashboardController@index');
+        Route::resource('categories', 'CategoryController');
     }
 );
