@@ -1,0 +1,43 @@
+<?php
+
+use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
+
+class CreateAtributProdukTable extends Migration
+{
+    /**
+     * Run the migrations.
+     *
+     * @return void
+     */
+    public function up()
+    {
+        Schema::create('atribut_produk', function (Blueprint $table) {
+            $table->bigIncrements('id');
+            $table->unsignedBigInteger('id_produk');
+            $table->unsignedBigInteger('id_atribut');
+            $table->text('text_value')->nullable();
+            $table->boolean('boolean_value')->nullable();
+            $table->integer('integer_value')->nullable();
+            $table->decimal('float_value')->nullable();
+            $table->datetime('datetime_value')->nullable();
+            $table->date('date_value')->nullable();
+            $table->text('json_value')->nullable();
+            $table->timestamps();
+
+            $table->foreign('id_produk')->references('id')->on('produk')->onDelete('cascade');
+            $table->foreign('id_atribut')->references('id')->on('atribut')->onDelete('cascade');
+        });
+    }
+
+    /**
+     * Reverse the migrations.
+     *
+     * @return void
+     */
+    public function down()
+    {
+        Schema::dropIfExists('atribut_produk');
+    }
+}

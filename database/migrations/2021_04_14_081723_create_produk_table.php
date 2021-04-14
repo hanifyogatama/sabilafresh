@@ -1,0 +1,44 @@
+<?php
+
+use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
+
+class CreateProdukTable extends Migration
+{
+    /**
+     * Run the migrations.
+     *
+     * @return void
+     */
+    public function up()
+    {
+        Schema::create('produk', function (Blueprint $table) {
+            $table->bigIncrements('id');
+            $table->unsignedBigInteger('id_user');
+            $table->string('sku');
+            $table->string('nama'); // name
+            $table->string('slug');
+            $table->decimal('harga', 15, 2); // price
+            $table->decimal('berat', 10, 2); //weight
+            $table->decimal('lebar', 10, 2); // width
+            $table->decimal('tinggi', 10, 2); // height
+            $table->text('deskripsi'); // short_description
+            $table->text('detail_deskripsi'); // description
+            $table->integer('status');
+            $table->timestamps();
+
+            $table->foreign('id_user')->references('id')->on('users');
+        });
+    }
+
+    /**
+     * Reverse the migrations.
+     *
+     * @return void
+     */
+    public function down()
+    {
+        Schema::dropIfExists('produk');
+    }
+}
