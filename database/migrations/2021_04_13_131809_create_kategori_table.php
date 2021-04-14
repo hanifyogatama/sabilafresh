@@ -17,7 +17,7 @@ class CreateKategoriTable extends Migration
             $table->bigIncrements('id');
             $table->string('nama'); // name
             $table->string('slug');  // slug
-            $table->bigInteger('parent_id');
+            $table->bigInteger('parent_id')->nullable();
             $table->timestamps();
         });
     }

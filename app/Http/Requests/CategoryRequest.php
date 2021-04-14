@@ -24,27 +24,24 @@ class CategoryRequest extends FormRequest
     public function rules()
     {
 
-        $messages = [
-            'nama.required' => 'nama kategori harus diisi'
-        ];
-
         $parentId = (int) $this->get('parent_id');
         $id = (int) $this->get('id');
 
         if ($this->method() == 'PUT') {
             if ($parentId > 0) {
-                $nama = 'required|unique:categories,nama,' . $id . ',id,parent_id,' . $parentId;
+                $nama = 'required:kategori,nama,' . $id . ',id,parent_id' . $parentId;
             } else {
-                $nama = 'required|unique:categories,nama,' . $id;
+                $nama = 'required:kategori,nama,' . $id;
             }
 
-            $slug = 'unique:categories,slug,' . $id;
+            $slug = 'unique:kategori,slug,' . $id;
         } else {
-            $nama = 'required|unique:categories,nama,NULL,id,parent_id,' . $parentId;
-            $slug = 'unique:categories,slug';
+            $nama = 'required|unique:kategori,nama,NULL,id,parent_id,' . $parentId;
+            $slug = 'unique:kategori,slug';
         }
 
         return [
+            // medefinisikan validasi
             'nama' => $nama,
             'slug' => $slug,
         ];

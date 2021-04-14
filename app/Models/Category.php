@@ -10,4 +10,17 @@ class Category extends Model
     protected $table = "kategori";
 
     protected $fillable = ['nama', 'slug', 'parent_id'];
+
+    // childs relation
+    public function childs()
+    {
+        return $this->hasMany('App\Models\Category', 'parent_id');
+    }
+
+    public function parent()
+    {
+        return $this->belongsTo('App\Models\Category', 'parent_id');
+    }
+    
+    protected $guarded = [];
 }
