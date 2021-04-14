@@ -15,13 +15,13 @@ class CreateInventoriProdukTable extends Migration
     {
         Schema::create('inventori_produk', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->unsignedBigInteger('id_produk');
-            $table->unsignedBigInteger('id_inventori_produk');
+            $table->unsignedBigInteger('product_id');
+            $table->unsignedBigInteger('product_attribute_value_id');
             $table->integer('qty');
             $table->timestamps();
 
-            $table->foreign('id_produk')->references('id')->on('produk')->onDelete('cascade');
-            $table->foreign('id_inventori_produk')->references('id')->on('inventori_produk')->onDelete('cascade');
+            $table->foreign('product_id')->references('id')->on('produk')->onDelete('cascade');
+            $table->foreign('product_attribute_value_id')->references('id')->on('atribut_produk')->onDelete('cascade');
         });
     }
 

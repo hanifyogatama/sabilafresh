@@ -15,11 +15,11 @@ class CreateGambarProdukTable extends Migration
     {
         Schema::create('gambar_produk', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->unsignedBigInteger('id_produk');
+            $table->unsignedBigInteger('product_id');
             $table->text('path');
             $table->timestamps();
 
-            $table->foreign('id_produk')->references('id')->on('produk')->onDelete('cascade');
+            $table->foreign('product_id')->references('id')->on('produk')->onDelete('cascade');
         });
     }
 

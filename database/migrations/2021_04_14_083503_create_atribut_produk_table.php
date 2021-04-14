@@ -15,8 +15,8 @@ class CreateAtributProdukTable extends Migration
     {
         Schema::create('atribut_produk', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->unsignedBigInteger('id_produk');
-            $table->unsignedBigInteger('id_atribut');
+            $table->unsignedBigInteger('product_id');
+            $table->unsignedBigInteger('attribute_id');
             $table->text('text_value')->nullable();
             $table->boolean('boolean_value')->nullable();
             $table->integer('integer_value')->nullable();
@@ -26,8 +26,8 @@ class CreateAtributProdukTable extends Migration
             $table->text('json_value')->nullable();
             $table->timestamps();
 
-            $table->foreign('id_produk')->references('id')->on('produk')->onDelete('cascade');
-            $table->foreign('id_atribut')->references('id')->on('atribut')->onDelete('cascade');
+            $table->foreign('product_id')->references('id')->on('produk')->onDelete('cascade');
+            $table->foreign('attribute_id')->references('id')->on('atribut')->onDelete('cascade');
         });
     }
 

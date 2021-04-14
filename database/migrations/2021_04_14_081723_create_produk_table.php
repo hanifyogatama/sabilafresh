@@ -15,8 +15,8 @@ class CreateProdukTable extends Migration
     {
         Schema::create('produk', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->unsignedBigInteger('id_user');
-            $table->string('sku');
+            $table->unsignedBigInteger('user_id');
+            $table->string('sku'); 
             $table->string('nama'); // name
             $table->string('slug');
             $table->decimal('harga', 15, 2); // price
@@ -28,7 +28,7 @@ class CreateProdukTable extends Migration
             $table->integer('status');
             $table->timestamps();
 
-            $table->foreign('id_user')->references('id')->on('users');
+            $table->foreign('user_id')->references('id')->on('users');
         });
     }
 
