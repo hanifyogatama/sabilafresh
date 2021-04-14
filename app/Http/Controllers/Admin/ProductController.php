@@ -5,7 +5,9 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\Category;
 use App\Models\Product;
+use App\Models\ProductImage;
 use App\Http\Requests\ProductRequest;
+use App\Http\Requests\ProductImageRequest;
 
 use Str;
 use Auth;
@@ -43,6 +45,7 @@ class ProductController extends Controller
 
         $this->data['categories'] = $categories->toArray();
         $this->data['products'] = null;
+        $this->data['productID'] = 0;
         $this->data['categoryIDs'] = [];
 
         return view('admin.products.form', $this->data);
@@ -96,11 +99,16 @@ class ProductController extends Controller
      */
     public function edit($id)
     {
+        if (empty($id)) {
+            return redirect('admin/products/create');
+        }
+
         $product = Product::findOrFail($id);
         $categories = Category::orderBy('nama', 'ASC')->get();
 
         $this->data['categories'] = $categories->toArray();
         $this->data['product'] = $product;
+        $this->data['productID'] = $product->id;
         $this->data['categoryIDs'] = $product->categories->pluck('id')->toArray();
 
         return view('admin.products.form', $this->data);
@@ -152,5 +160,73 @@ class ProductController extends Controller
         }
 
         return redirect('admin/products');
+    }
+
+    public function images($id)
+    {
+        if (empty($id)) {
+            return redirect('admin/products/create');
+        }
+
+        $product = Product::findOrFail($id);
+
+        $this->data['productID'] = $product->id;
+        $this->data['productImages'] = $product->productImages;
+
+        return view('admin.products.images', $this->data);
+    }
+
+    public function add_image($id)
+    {
+        if (empty($id)) {
+            return redirect('admin/products');
+        }
+
+        $product = Product::findOrFail($id);
+
+        $this->data['productID'] = $product->id;
+        $this->data['product'] = $product;
+
+        return view('admin.products.image_form', $this->data);
+    }
+
+    public function upload_image(ProductImageRequest $request, $id)
+    {
+        $product = product::findOrFail($id);
+
+        if ($request->has('image')) {
+            $image = $request->file('image');
+            $name = $product->slug . '_' . time();
+            $fileName = $name . '_' . $image->getClientOriginalExtension();
+
+            $folder = '/upload/images';
+            $filePath = $image->storeAs($folder, $fileName, 'public');
+
+            $params = [
+                'product_id' => $product->id,
+                'path' => $filePath,
+            ];
+
+            if (ProductImage::create($params)) {
+                Session::flash('success', 'Gambar berhasil ditambah');
+            } else {
+                Session::flash('error', 'Gambar gagal ditambah');
+            }
+
+            return redirect('admin/products/' . $id . '/images');
+        }
+    }
+
+    public function remove_image($id)
+    {
+        $image = ProductImage::findOrFail($id);
+
+        if ($image->delete()) {
+            Session::flash('success', 'Gambar berhasi dihapus');
+        } else {
+            Session::flash('error', 'Gambar gagal dihapus');
+        }
+
+        return redirect('admin/products/' . $image->product->id . '/images');
     }
 }

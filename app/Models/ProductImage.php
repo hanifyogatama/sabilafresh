@@ -7,4 +7,14 @@ use Illuminate\Database\Eloquent\Model;
 class ProductImage extends Model
 {
     protected $table = "gambar_produk";
+
+    protected $fillable = [
+        'product_id',
+        'path'
+    ];
+
+    public function product()
+    {
+        return $this->belongsTo('App\Models\Product');
+    }
 }

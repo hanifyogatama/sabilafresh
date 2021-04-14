@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use PhpParser\Node\Expr\FuncCall;
 
 class Product extends Model
 {
@@ -36,6 +37,11 @@ class Product extends Model
         return $this->belongsToMany('App\Models\Category', 'kategori_produk');
     }
 
+    public function productImages()
+    {
+        return $this->hasMany('App\Models\ProductImage');
+    }
+
     public static function statuses()
     {
         return [
@@ -44,6 +50,9 @@ class Product extends Model
             2 => 'inactive',
         ];
     }
+
+
+
 
     protected $guarded = [];
 }

@@ -18,7 +18,11 @@ $formTitle = !empty($category) ? 'Edit' : 'Tambah'
 
 
 <div class="row">
-    <div class="col-lg-6">
+    <div class="col-lg-4">
+        @include('admin.products.product_menus')
+    </div>
+
+    <div class="col-lg-8">
         <div class="card card-default">
             <div class="card-body">
                 @include('admin.partials.flash', ['$errors' => $errors])
