@@ -16,7 +16,6 @@ $formTitle = !empty($category) ? 'Edit' : 'Tambah'
 </div>
 
 
-
 <div class="row">
     <div class="col-lg-6">
         <div class="card card-default">

@@ -26,7 +26,7 @@
                 <a href="#" class="nav-link has-dropdown" data-toggle="dropdown"><i class="fas fa-box-open"></i><span>Katalog</span></a>
                 <ul class="dropdown-menu">
                     <li><a class="nav-link" href="{{ url('admin/products')}}">Produk</a></li>
-                    <li><a class="nav-link" href="layout-top-navigation.html">Produk Atribut</a></li>
+                    <li><a class="nav-link" href="{{ url('admin/attributes')}}">Produk Atribut</a></li>
                     <li><a class="nav-link" href="layout-top-navigation.html">Produk Gambar</a></li>
                     <li><a class="nav-link" href="{{ url('admin/categories')}}">Kategori</a></li>
                 </ul>
