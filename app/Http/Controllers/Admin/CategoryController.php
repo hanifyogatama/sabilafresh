@@ -9,9 +9,11 @@ use App\Http\Requests\CategoryRequest;
 use Str;
 use Session;
 
+use App\Authorizable;
 
 class CategoryController extends Controller
 {
+    use Authorizable;
     /**
      * Display a listing of the resource.
      *

@@ -26,7 +26,7 @@ class AddPanjangToProdukTable extends Migration
     public function down()
     {
         Schema::table('produk', function (Blueprint $table) {
-            $table->dropColumn('panjang', 10, 2);
+            $table->dropColumn('panjang');
         });
     }
 }

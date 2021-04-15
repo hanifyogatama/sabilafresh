@@ -28,7 +28,7 @@ class RemoveColumnProductAttributeValuesIdInInventoriProdukTable extends Migrati
     {
         Schema::table('inventori_produk', function (Blueprint $table) {
             $table->unsignedBigInteger('product_attribute_value_id');
-            $table->foreign('product_attribute_value_id')->references('id')->on('product_attribute_values')->onDelete('cascade');
+            $table->foreign('product_attribute_value_id')->references('id')->on('atribut_produk')->onDelete('cascade');
         });
     }
 }

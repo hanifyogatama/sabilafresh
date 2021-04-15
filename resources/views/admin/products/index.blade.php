@@ -20,12 +20,14 @@
                 <div class="card-body">
 
                     @include('admin.partials.flash')
+                    @can('add_products')
                     <div class="row">
                         <div class="col">
                             <a href="{{url('admin/products/create')}}" class="btn btn-primary mb-3"><i class="fas fa-plus"></i></a>
                         </div>
                         <div class="col"></div>
                     </div>
+                    @endcan
 
                     <!-- <div class="card-header-form">
                         <form>
@@ -61,11 +63,12 @@
                                 <td>{{ $product->status_label() }}</td>
                                 <td>
                                     <a href="{{ url('admin/products/'.$product->id.'/edit') }}" class="btn btn-warning btn-sm" data-toggle="tooltip" title="Edit"><i class="far fa-edit"></i></a>
-
+                                    @can('delete_products')
                                     {!! Form::open(['url' => 'admin/products/'.$product->id,'class' => 'delete','style' => 'display:inline-block']) !!}
                                     {!! Form::hidden('_method', 'DELETE') !!}
                                     {!! Form::button(' <i class="far fa-trash-alt"></i> ',['type' => 'submit', 'class' => 'btn btn-danger btn-sm', 'data-toggle'=>'tooltip','title'=>'Hapus']) !!}
                                     {!! form::close() !!}
+                                    @endcan
                                 </td>
                             </tr>
                             @empty

@@ -20,8 +20,11 @@ use Auth;
 use DB;
 use Session;
 
+use App\Authorizable;
+
 class ProductController extends Controller
 {
+    use Authorizable;
 
     public function __construct()
     {
@@ -130,7 +133,6 @@ class ProductController extends Controller
         }
     }
 
-    //  having trouble in here
     private function saveProductAttributeValues($product, $variant)
     {
         foreach (array_values($variant) as $attributeOptionID) {
@@ -162,7 +164,7 @@ class ProductController extends Controller
         $product = DB::transaction(function () use ($params) {
             $categoryIds = !empty($params['category_ids']) ? $params['category_ids'] : [];
             $product = Product::create($params);
-            $product->categories()->sync($params['category_ids']);
+            $product->categories()->sync($categoryIds);
 
             if ($params['tipe'] == 'configurable') {
                 $this->generateProductVariants($product, $params);
@@ -204,6 +206,8 @@ class ProductController extends Controller
         }
 
         $product = Product::findOrFail($id);
+        $product->qty = isset($product->productInventory) ? $product->productInventory->qty : null;
+
         $categories = Category::orderBy('nama', 'ASC')->get();
 
         $this->data['categories'] = $categories->toArray();
