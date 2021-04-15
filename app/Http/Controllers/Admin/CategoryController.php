@@ -92,7 +92,7 @@ class CategoryController extends Controller
     public function edit($id)
     {
         $category = Category::findOrFail($id);
-        $categories = Category::orderBy('nama', 'asc')->get();
+        $categories = Category::where('id','!=',$id)->orderBy('nama', 'asc')->get();
 
         $this->data['categories'] = $categories->toArray();
         $this->data['category'] = $category;
