@@ -3,9 +3,15 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+
 use App\Models\Category;
 use App\Models\Product;
 use App\Models\ProductImage;
+use App\Models\Attribute;
+use App\Models\AttributeOption;
+use App\Models\ProductAttributeValue;
+use App\Models\ProductInventory;
+
 use App\Http\Requests\ProductRequest;
 use App\Http\Requests\ProductImageRequest;
 
@@ -20,6 +26,7 @@ class ProductController extends Controller
     public function __construct()
     {
         $this->data['statuses'] = Product::statuses();
+        $this->data['types'] = Product::types();
     }
 
     /**
@@ -42,14 +49,103 @@ class ProductController extends Controller
     public function create()
     {
         $categories = Category::orderBy('nama', 'DESC')->get();
+        $configurableAttributes = $this->getConfigurableAttributes();
 
         $this->data['categories'] = $categories->toArray();
-        $this->data['products'] = null;
+        $this->data['product'] = null;
         $this->data['productID'] = 0;
         $this->data['categoryIDs'] = [];
+        $this->data['configurableAttributes'] = $configurableAttributes;
 
         return view('admin.products.form', $this->data);
     }
+
+    private function getConfigurableAttributes()
+    {
+        return Attribute::where('is_configurable', true)->get();
+    }
+
+    private function generateAttributeCombinations($arrays)
+    {
+        $result = [[]];
+        foreach ($arrays as $property => $property_values) {
+            $tmp = [];
+            foreach ($result as $result_item) {
+                foreach ($property_values as $property_value) {
+                    $tmp[] = array_merge($result_item, array($property => $property_value));
+                }
+            }
+            $result = $tmp;
+        }
+        return $result;
+    }
+
+
+    private function convertVariantAsName($variant)
+    {
+        $variantName = '';
+
+        foreach (array_keys($variant) as $key => $code) {
+            $attributeOptionID = $variant[$code];
+            $attributeOption = AttributeOption::find($attributeOptionID);
+
+            if ($attributeOption) {
+                $variantName .= ' - ' . $attributeOption->nama;
+            }
+        }
+
+        return $variantName;
+    }
+
+    private function generateProductVariants($product, $params)
+    {
+        $configurableAttributes = $this->getConfigurableAttributes();
+
+        $variantAttributes = [];
+        foreach ($configurableAttributes as $attribute) {
+            $variantAttributes[$attribute->kode] = $params[$attribute->kode];
+        }
+
+        $variants = $this->generateAttributeCombinations($variantAttributes);
+
+        if ($variants) {
+            foreach ($variants as $variant) {
+                $variantParams = [
+                    'parent_id' => $product->id,
+                    'user_id' => Auth::user()->id,
+                    'sku' => $product->sku . '-' . implode('-', array_values($variant)),
+                    'tipe' => 'simple',
+                    'nama' => $product->nama . $this->convertVariantAsName($variant),
+                ];
+
+                $variantParams['slug'] = Str::slug($variantParams['nama']);
+
+                $newProductVariant = Product::create($variantParams);
+
+                $categoryIds = !empty($params['category_ids']) ? $params['category_ids'] : [];
+                $newProductVariant->categories()->sync($categoryIds);
+
+                $this->saveProductAttributeValues($newProductVariant, $variant);
+            }
+        }
+    }
+
+    //  having trouble in here
+    private function saveProductAttributeValues($product, $variant)
+    {
+        foreach (array_values($variant) as $attributeOptionID) {
+            $attributeOption = AttributeOption::find($attributeOptionID);
+
+            $attributeValueParams = [
+                'product_id' => $product->id,
+                'attribute_id' => $attributeOption->attribute_id,
+                'text_value' => $attributeOption->nama,
+            ];
+
+            ProductAttributeValue::create($attributeValueParams);
+        }
+    }
+
 
     /**
      * Store a newly created resource in storage.
@@ -63,21 +159,25 @@ class ProductController extends Controller
         $params['slug'] = Str::slug($params['nama']);
         $params['user_id'] = Auth::user()->id;
 
-        $saved = false;
-        $saved = DB::transaction(function () use ($params) {
+        $product = DB::transaction(function () use ($params) {
+            $categoryIds = !empty($params['category_ids']) ? $params['category_ids'] : [];
             $product = Product::create($params);
             $product->categories()->sync($params['category_ids']);
 
-            return true;
+            if ($params['tipe'] == 'configurable') {
+                $this->generateProductVariants($product, $params);
+            }
+
+            return $product;
         });
 
-        if ($saved) {
-            Session::flash('success', 'Data berhasil ditambah');
+        if ($product) {
+            Session::flash('success', 'Product has been saved');
         } else {
-            Session::flash('error', 'Data gagal ditambah');
+            Session::flash('error', 'Product could not be saved');
         }
 
-        return redirect('admin/products');
+        return redirect('admin/products/' . $product->id . '/edit/');
     }
 
     /**
@@ -130,19 +230,42 @@ class ProductController extends Controller
 
         $saved = false;
         $saved = DB::transaction(function () use ($product, $params) {
+            $categoryIds = !empty($params['category_ids']) ? $params['category_ids'] : [];
             $product->update($params);
-            $product->categories()->sync($params['category_ids']);
+            $product->categories()->sync($categoryIds);
+
+            if ($product->tipe == 'configurable') {
+                $this->updateProductVariants($params);
+            } else {
+                ProductInventory::updateOrCreate(['product_id' => $product->id], ['qty' => $params['qty']]);
+            }
 
             return true;
         });
 
         if ($saved) {
-            Session::flash('success', 'Data berhasil ditambah');
+            Session::flash('success', 'Product has been saved');
         } else {
-            Session::flash('error', 'Data gagal ditambah');
+            Session::flash('error', 'Product could not be saved');
         }
 
         return redirect('admin/products');
+    }
+
+
+    private function updateProductVariants($params)
+    {
+        if ($params['variants']) {
+            foreach ($params['variants'] as $productParams) {
+                $product = Product::find($productParams['id']);
+                $product->update($productParams);
+
+                $product->status = $params['status'];
+                $product->save();
+
+                ProductInventory::updateOrCreate(['product_id' => $product->id], ['qty' => $productParams['qty']]);
+            }
+        }
     }
 
     /**

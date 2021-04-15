@@ -12,9 +12,10 @@ class Product extends Model
     // protected $primaryKey = 'id_produk';
 
     protected $fillable = [
-
+        'parent_id',
         'user_id',
         'sku',
+        'tipe',
         'nama',
         'slug',
         'harga',
@@ -32,9 +33,30 @@ class Product extends Model
         return $this->belongsTo('App\Models\User');
     }
 
+    public function productInventory()
+    {
+        return $this->hasOne('App\Models\ProductInventory');
+    }
+
+
     public function categories()
     {
         return $this->belongsToMany('App\Models\Category', 'kategori_produk');
+    }
+
+    public function variants()
+    {
+        return $this->hasMany('App\Models\Product', 'parent_id');
+    }
+
+    public function parent()
+    {
+        return $this->belongsTo('App\Models\Product', 'parent_id');
+    }
+
+    public function productAttributesValues()
+    {
+        return $this->hasMany('App\Models\ProductAttributesValue');
     }
 
     public function productImages()
@@ -52,7 +74,20 @@ class Product extends Model
     }
 
 
+    public static function types()
+    {
+        return [
+            'simple' => 'Tanpa Atribut',
+            'configurable' => 'Pakai Atribut',
+        ];
+    }
 
+    function status_label()
+    {
+        $statuses = $this->statuses();
+
+       return isset($this->status) ? $statuses[$this->status] : null;
+    }
 
     protected $guarded = [];
 }

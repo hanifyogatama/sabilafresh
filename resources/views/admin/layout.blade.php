@@ -77,6 +77,23 @@
         $(".delete").on("submit", function() {
             return confirm("Yakin ingin menghapus data?");
         });
+
+        function showHideConfigurableAttributes() {
+            var productType = $(".product-type").val();
+
+            if (productType == 'configurable') {
+                $(".configurable-attributes").show();
+            } else {
+                $(".configurable-attributes").hide();
+            }
+        }
+
+        $(function() {
+            showHideConfigurableAttributes();
+            $(".product-type").change(function() {
+                showHideConfigurableAttributes();
+            });
+        });
     </script>
 
 </body>

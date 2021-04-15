@@ -43,6 +43,7 @@
                             <tr>
                                 <th scope="col">No</th>
                                 <th scope="col">Kode</th>
+                                <th scope="col">Tipe</th>
                                 <th scope="col">Nama</th>
                                 <th scope="col">Harga</th>
                                 <th scope="col">Status</th>
@@ -54,10 +55,10 @@
                             <tr>
                                 <th scope="row">{{ $products->firstItem() + $key }}</th>
                                 <td>{{$product->sku}}</td>
+                                <td>{{$product->tipe}}</td>
                                 <td>{{$product->nama}}</td>
-                                <td>{{$product->harga}}</td>
-                                <td>{{$product->status}}</td>
-
+                                <td>{{ number_format($product->harga) }}</td>
+                                <td>{{ $product->status_label() }}</td>
                                 <td>
                                     <a href="{{ url('admin/products/'.$product->id.'/edit') }}" class="btn btn-warning btn-sm" data-toggle="tooltip" title="Edit"><i class="far fa-edit"></i></a>
 
