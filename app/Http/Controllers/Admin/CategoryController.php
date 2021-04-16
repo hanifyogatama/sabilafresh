@@ -50,25 +50,11 @@ class CategoryController extends Controller
     {
         $params = $request->except('_token');
         $params['slug'] = Str::slug($params['nama']);
+        $params['parent_id'] = (int)$params['parent_id'];
 
-        //    $params['parent_id'] = (int)$params['parent_id'];
-
-
-        if (isset($params['parent_id'])) {
-            $params['parent_id'] = (int)$params['parent_id'];
+        if (Category::create($params)) {
+            Session::flash('success', 'Data berhasil disimpan');
         }
-
-
-        // Category::create([
-        //     'body' => request('body'),
-        //     'title' => request('title'),
-        //     'user_id' => auth()->id()
-        // ]);
-
-        if (Category::insert($params)) {
-            Session::flash('success', 'Data berhasil ditambah');
-        }
-
         return redirect('admin/categories');
     }
 
@@ -92,7 +78,7 @@ class CategoryController extends Controller
     public function edit($id)
     {
         $category = Category::findOrFail($id);
-        $categories = Category::where('id','!=',$id)->orderBy('nama', 'asc')->get();
+        $categories = Category::where('id', '!=', $id)->orderBy('nama', 'asc')->get();
 
         $this->data['categories'] = $categories->toArray();
         $this->data['category'] = $category;

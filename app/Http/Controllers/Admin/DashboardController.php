@@ -4,6 +4,9 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Models\User;
+use App\Models\Role;
+use App\Models\Permission;
 
 class DashboardController extends Controller
 {
@@ -14,7 +17,31 @@ class DashboardController extends Controller
      */
     public function index()
     {
-        return view('admin.dashboard.index'); 
+        // $users = User::all();
+
+        $customers = User::whereHas(
+            'roles',
+            function ($q) {
+                $q->where('name', '');
+            }
+        )->get();
+
+        $admins = User::whereHas(
+            'roles',
+            function ($q) {
+                $q->where('name', 'Admin');
+            }
+        )->get();
+
+        $owners = User::whereHas(
+            'roles',
+            function ($q) {
+                $q->where('name', 'Owner');
+            }
+        )->get();
+
+
+        return view('admin.dashboard.index', compact('admins', 'customers', 'owners'));
     }
 
     /**

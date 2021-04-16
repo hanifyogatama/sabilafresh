@@ -15,13 +15,16 @@
             <li class="menu-header">Menu User</li>
 
             <li class="nav-item dropdown">
-                <a href="#" class="nav-link has-dropdown"><i class="fas fa-users"></i> <span>Users &amp; Roles</span></a>
+                <a href="#" class="nav-link has-dropdown"><i class="fas fa-users"></i> <span>User &amp; Role</span></a>
                 <ul class="dropdown-menu">
-                    <li><a href="auth-forgot-password.html">Users</a></li>
-                    <li><a href="auth-login.html">Roles</a></li>
+                    <li><a href="{{ url('admin/users')}}">User</a></li>
+                    @role('Admin')
+                    <li><a href="{{ url('admin/roles')}}">Role</a></li>
+                    @endrole
                 </ul>
             </li>
 
+            @role('Admin')
             <li class="nav-item dropdown">
                 <a href="#" class="nav-link has-dropdown" data-toggle="dropdown"><i class="fas fa-box-open"></i><span>Katalog</span></a>
                 <ul class="dropdown-menu">
@@ -30,7 +33,9 @@
                     <li><a class="nav-link" href="{{ url('admin/categories')}}">Kategori</a></li>
                 </ul>
             </li>
+            @endrole
 
+            @role('Admin')
             <li class="nav-item dropdown">
                 <a href="#" class="nav-link has-dropdown"><i class="fas fa-shopping-cart"></i> <span>Cek Pemesanan</span></a>
                 <ul class="dropdown-menu">
@@ -39,6 +44,7 @@
                     <li><a href="auth-login.html">Sampah</a></li>
                 </ul>
             </li>
+            @endrole
 
             <li class="nav-item dropdown">
                 <a href="#" class="nav-link has-dropdown"><i class="fas fa-chart-bar"></i> <span>Laporan</span></a>
@@ -50,12 +56,14 @@
                 </ul>
             </li>
 
+            @role('Admin')
             <li class="nav-item dropdown">
                 <a href="#" class="nav-link has-dropdown"><i class="fas fa-cogs"></i> <span>Setting</span></a>
                 <ul class="dropdown-menu">
                     <li><a href="utilities-contact.html">Slides</a></li>
                 </ul>
             </li>
+            @endrole
         </ul>
 
         <!-- <div class="mt-4 mb-4 p-3 hide-sidebar-mini">

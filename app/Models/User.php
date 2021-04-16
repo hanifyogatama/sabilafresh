@@ -7,6 +7,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 
 use Spatie\Permission\Traits\HasRoles;
+use App\Models\Role;
 
 class User extends Authenticatable
 {
@@ -43,5 +44,11 @@ class User extends Authenticatable
     public function products()
     {
         return $this->hasMany('App\Models\Product');
+    }
+
+    public function getCountCostumer()
+    {
+        $countCustomers = User::where();
+        return  $countCustomers;
     }
 }

@@ -1,64 +1,89 @@
 @extends('admin.layout')
 
 @section('content')
-    <div class="content">
-        <div class="row">
-            <div class="col-lg-12">
-                <div class="card card-default">
-                    <div class="card-header card-header-border-bottom">
-                        <h2>Users</h2>
-                    </div>
-                    <div class="card-body">
-                        @include('admin.partials.flash')
-                        <table class="table table-bordered table-stripped">
-                            <thead>
-                                <th>#</th>
-                                <th>Name</th>
-                                <th>Email</th>
-                                <th>Role</th>
-                                <th>Created At</th>
-                                <th>Action</th>
-                            </thead>
-                            <tbody>
-                                @forelse ($users as $user)
-                                    <tr>    
-                                        <td>{{ $user->id }}</td>
-                                        <td>{{ $user->name }}</td>
-                                        <td>{{ $user->email }}</td>
-                                        <td>{{ $user->roles->implode('name', ', ') }}</td>
-                                        <td>{{ $user->created_at }}</td>
-                                        <td>
-                                        @if (!$user->hasRole('Admin'))
-                                            @can('edit_categories')
-                                                <a href="{{ url('admin/users/'. $user->id .'/edit') }}" class="btn btn-warning btn-sm">edit</a>
-                                            @endcan
 
-                                            @can('delete_categories')
-                                                {!! Form::open(['url' => 'admin/users/'. $user->id, 'class' => 'delete', 'style' => 'display:inline-block']) !!}
-                                                {!! Form::hidden('_method', 'DELETE') !!}
-                                                {!! Form::submit('remove', ['class' => 'btn btn-danger btn-sm']) !!}
-                                                {!! Form::close() !!}
-                                            @endcan
-                                        @endif
-                                        </td>
-                                    </tr>
-                                @empty
-                                    <tr>
-                                        <td colspan="6">No records found</td>
-                                    </tr>
-                                @endforelse
-                            </tbody>
-                        </table>
-                        {{ $users->links() }}
-                    </div>
+<div class="section-header">
+    <h1>User</h1>
+    <div class="section-header-breadcrumb">
+        <div class="breadcrumb-item active"><a href="#">User & Role</a></div>
+        <div class="breadcrumb-item"><a href="{{url('admin/users')}}">User</a></div>
+        <!-- <div class="breadcrumb-item">Table</div> -->
+    </div>
+</div>
+
+<div class="section-body">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="card">
+                <div class="card-body">
+                    @include('admin.partials.flash')
 
                     @can('add_users')
-                        <div class="card-footer text-right">
-                            <a href="{{ url('admin/users/create') }}" class="btn btn-primary">Add New</a>
+                    <div class="row">
+                        <div class="col">
+                            <a href="{{ url('admin/users/create') }}" class="btn btn-primary mb-3"><i class="fas fa-plus"></i></a>
                         </div>
+                    </div>
                     @endcan
+
+                    <table class="table ">
+                        <thead>
+                            <th>No</th>
+                            <th>Name</th>
+                            <th>Email</th>
+                            <th>Role</th>
+                            <th>Dibuat</th>
+                            <th>Action</th>
+                        </thead>
+                        <tbody>
+                            @forelse ($users as $key => $user)
+                            <tr>
+                                <th scope="row">{{ $users->firstItem() + $key }}</th>
+                                <td>{{ $user->name }}</td>
+                                <td>{{ $user->email }}</td>
+                                <td>
+
+                                    @if ($user->roles->contains('name', 'Admin'))
+                                    <span class="badge badge-primary">{{ $user->roles->implode('name', ', ') }}</span>
+                                    @elseif ($user->roles->contains('name', 'Owner'))
+                                    <span class="badge badge-info">{{ $user->roles->implode('name', ', ') }}</span>
+                                    @else
+                                    <span class="badge badge-success">Pelanggan</span>
+                                    @endif
+
+                                </td>
+                                <td>{{ $user->created_at }}</td>
+                                <td>
+
+                                    @role('Owner')
+                                    <span class="badge badge-danger">Khusus Admin</span>
+                                    @endrole
+
+                                    @can('add_users')
+                                    <a href="{{ url('admin/users/'. $user->id .'/edit') }}" class="btn btn-warning btn-sm" data-toggle="tooltip" title="Edit"><i class="far fa-edit"></i></a>
+                                    @endcan
+
+                                    @if (!$user->hasRole('Admin'))
+                                    @can('add_users')
+                                    {!! Form::open(['url' => 'admin/users/'. $user->id, 'class' => 'delete', 'style' => 'display:inline-block']) !!}
+                                    {!! Form::hidden('_method', 'DELETE') !!}
+                                    {!! Form::button('<i class="far fa-trash-alt"></i> ', ['type' => 'submit','class' => 'btn btn-danger btn-sm', 'data-toggle'=>'tooltip','title'=>'Hapus']) !!}
+                                    {!! Form::close() !!}
+                                    @endcan
+                                    @endif
+                                </td>
+                            </tr>
+                            @empty
+                            <tr>
+                                <td colspan="6">No records found</td>
+                            </tr>
+                            @endforelse
+                        </tbody>
+                    </table>
+                    {{ $users->links() }}
                 </div>
             </div>
         </div>
     </div>
+</div>
 @endsection

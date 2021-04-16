@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, shrink-to-fit=no" name="viewport">
-    <title>Blank Page &mdash; Stisla</title>
+    <title>Sabilafresh</title>
 
     <!-- General CSS Files -->
     <link rel="stylesheet" href="{{ URL::asset('admin/assets/modules/bootstrap/css/bootstrap.min.css') }}">
@@ -14,7 +14,8 @@
     <!-- CSS Libraries -->
     <link rel="stylesheet" href="{{ URL::asset('admin/assets/modules/jqvmap/dist/jqvmap.min.css') }}">
     <link rel="stylesheet" href="{{ URL::asset('admin/assets/modules/summernote/summernote-bs4.css') }}">
-    <link rel="stylesheet" href="{{ URL::asset('admin/assets/modules/owlcarousel2/dist/assets/owl.carousel.min.css') }}">
+    <link rel="stylesheet" href="{{ URL::asset('admin/assets/modules/izitoast/css/iziToast.min.css') }}">
+    <link rel=" stylesheet" href="{{ URL::asset('admin/assets/modules/owlcarousel2/dist/assets/owl.carousel.min.css') }}">
     <link rel="stylesheet" href="{{ URL::asset('admin/assets/modules/owlcarousel2/dist/assets/owl.theme.default.min.css') }}">
 
     <!-- Template CSS -->
@@ -60,9 +61,10 @@
     <script src="{{ URL::asset('admin/assets/js/stisla.js') }}"></script>
 
     <!-- JS Libraies -->
+    <script src="{{ URL::asset('admin/assets/modules/izitoast/js/iziToast.min.js') }}"></script>
     <script src="{{ URL::asset('admin/assets/modules/jquery.sparkline.min.js') }}"></script>
     <script src="{{ URL::asset('admin/assets/modules/chart.min.js') }}"></script>
-    <script src="{{ URL::asset('admin/assets/modules/owlcarousel2/dist/owl.carousel.min.js') }}"></script>
+    <!-- <script src="{{ URL::asset('admin/assets/modules/owlcarousel2/dist/owl.carousel.min.js') }}"></script> -->
     <script src="{{ URL::asset('admin/assets/modules/summernote/summernote-bs4.js') }}"></script>
     <script src="{{ URL::asset('admin/assets/modules/chocolat/dist/js/jquery.chocolat.min.js') }}"></script>
 

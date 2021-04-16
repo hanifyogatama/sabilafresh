@@ -15,7 +15,7 @@
                         @include('admin.users.form')
                         <!-- Submit Form Button -->
                         <div class="form-footer pt-5 border-top">
-                        {!! Form::submit('Save Changes', ['class' => 'btn btn-primary']) !!}
+                        {!! Form::submit('Simpan', ['class' => 'btn btn-primary']) !!}
                         </div>
                     {!! Form::close() !!}
                 </div>

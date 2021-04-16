@@ -1,4 +1,4 @@
-<div class="card">
+<div class="card border rounded">
     <div class="card-header" id="heading-{{ isset($title) ? Str::slug($title) : 'permission-heading' }}">
         <a class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapse-{{ isset($title) ? Str::slug($title) : 'permission-heading' }}" aria-expanded="false" aria-controls="collapse-{{ isset($title) ? Str::slug($title) : 'permission-heading' }}">
             {{ $title }}
@@ -9,32 +9,34 @@
         <div class="card-body">
             <div class="row">
                 @foreach($permissions as $perm)
-                    <?php
-                        $per_found = null;
+                <?php
+                $per_found = null;
 
-                        if( isset($role) ) {
-                            $per_found = $role->hasPermissionTo($perm->name);
-                        }
+                if (isset($role)) {
+                    $per_found = $role->hasPermissionTo($perm->name);
+                }
 
-                        if( isset($user)) {
-                            $per_found = $user->hasDirectPermission($perm->name);
-                        }
-                    ?>
+                if (isset($user)) {
+                    $per_found = $user->hasDirectPermission($perm->name);
+                }
+                ?>
 
-                    <div class="col-md-3">
-                        <div class="checkbox">
-                            <label class="{{ Str::contains($perm->name, 'delete') ? 'text-danger' : '' }}">
-                                {!! Form::checkbox("permissions[]", $perm->name, $per_found, isset($options) ? $options : []) !!} {{ $perm->name }}
-                            </label>
-                        </div>
+                <div class="col-md-3">
+                    <div class="checkbox">
+                        <label class="{{ Str::contains($perm->name, 'delete') ? 'text-danger' : '' }}">
+                            {!! Form::checkbox("permissions[]", $perm->name, $per_found, isset($options) ? $options : []) !!} {{ $perm->name }}
+                        </label>
                     </div>
+                </div>
                 @endforeach
             </div>
         </div>
+        @if ($role->name!='Admin')
         @can('edit_roles')
-            <div class="card-footer">
-                {!! Form::submit('Save', ['class' => 'btn btn-primary']) !!}
-            </div>
+        <div class="card-footer">
+            {!! Form::submit('Simpan', ['class' => 'btn btn-primary']) !!}
+        </div>
         @endcan
+        @endif
     </div>
 </div>

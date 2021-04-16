@@ -1,6 +1,6 @@
 @extends('admin.layout')
 
-@section('title', 'Roles & Permissions')
+@section('title', 'Role & Permission')
 
 @section('content')
 <!-- Modal -->
@@ -31,39 +31,46 @@
         </div>
     </div>
 </div>
+
+<div class="section-header">
+    <h1>Role</h1>
+    <div class="section-header-breadcrumb">
+        <div class="breadcrumb-item active"><a href="#">User & Role</a></div>
+        <div class="breadcrumb-item"><a href="{{url('admin/roles')}}">Role</a></div>
+        <!-- <div class="breadcrumb-item">Table</div> -->
+    </div>
+</div>
+
 <div class="content">
-        <div class="row">
-            <div class="col-lg-12">
-                <div class="card card-default">
-                    <div class="card-header card-header-border-bottom">
-                        <h2>Roles and Permissions</h2>
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="card">
+                <div class="card-body mt-3">
+                    @include('admin.partials.flash')
+                    <div id="accordion-role-permission" class="accordion accordion-bordered ">
+                        @forelse ($roles as $role)
+                        {!! Form::model($role, ['method' => 'PUT', 'route' => ['roles.update', $role->id ], 'class' => 'm-b']) !!}
+
+                        @if($role->name === 'Admin')
+                        @include('admin.roles._permissions', ['title' => $role->name .' Permissions', 'options' => ['disabled'], 'showButton' => true])
+                        @else
+                        @include('admin.roles._permissions', ['title' => $role->name .' Permissions', 'model' => $role, 'showButton' => true])
+                        @endif
+
+                        {!! Form::close() !!}
+
+                        @empty
+                        <p>tidak ada data silahkan jalankan <code>php artisan db:seed</code> untuk mendapatkan data dummy.</p>
+                        @endforelse
                     </div>
-                    <div class="card-body">
-                        @include('admin.partials.flash')
-                        <div id="accordion-role-permission" class="accordion accordion-bordered ">
-                            @forelse ($roles as $role)
-                                {!! Form::model($role, ['method' => 'PUT', 'route' => ['roles.update',  $role->id ], 'class' => 'm-b']) !!}
-
-                                @if($role->name === 'Admin')
-                                    @include('admin.roles._permissions', ['title' => $role->name .' Permissions', 'options' => ['disabled'], 'showButton' => true])
-                                @else
-                                    @include('admin.roles._permissions', ['title' => $role->name .' Permissions', 'model' => $role, 'showButton' => true])
-                                @endif
-
-                                {!! Form::close() !!}
-
-                            @empty
-                                <p>No Roles defined, please run <code>php artisan db:seed</code> to seed some dummy data.</p>
-                            @endforelse
-                        </div>
-                    </div>
-                    @can('add_roles')
-                        <div class="card-footer text-right">
-                            <a href="#" class="btn btn-success pull-right" data-toggle="modal" data-target="#roleModal"> <i class="glyphicon glyphicon-plus"></i> New Role</a>        
-                        </div>
-                    @endcan
                 </div>
+                @can('add_roles')
+                <div class="card-footer text-right">
+                    <a href="#" class="btn btn-success pull-right" data-toggle="modal" data-target="#roleModal"> <i class="glyphicon glyphicon-plus"></i> New Role</a>
+                </div>
+                @endcan
             </div>
         </div>
     </div>
+</div>
 @endsection

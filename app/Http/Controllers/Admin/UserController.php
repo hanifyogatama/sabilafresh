@@ -24,6 +24,8 @@ class UserController extends Controller
      */
     public function index()
     {
+
+        $this->data['roles'] = Role::all();
         $this->data['users'] = User::latest()->paginate(10);
 
         return view('admin.users.index', $this->data);

@@ -2,7 +2,11 @@
 
 @section('content')
 <div class="section-header">
-    <h1>Dashboard</h1>
+
+    <div class="col-lg-10">
+        <h1>Dashboard</h1>
+    </div>
+    <div class="col-lg-2"> {{ Auth::user()->name }}</div>
 
 </div>
 
@@ -11,34 +15,40 @@
     <div class="col-lg-3 col-md-6 col-sm-6 col-12">
         <div class="card card-statistic-1">
             <div class="card-icon bg-primary">
-                <i class="far fa-user"></i>
+                <i class="fas fa-user"></i>
             </div>
             <div class="card-wrap">
                 <div class="card-header">
                     <h4>Total User</h4>
+
                 </div>
                 <div class="card-body">
-                    10
+                    <div class="mt-1" style="font-size: 12px;">
+                        <span>Admin : {{ $admins->count() }}</span>
+                        <span>Owner : {{ $owners->count() }}</span>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
+
     <div class="col-lg-3 col-md-6 col-sm-6 col-12">
         <div class="card card-statistic-1">
             <div class="card-icon bg-danger">
-                <i class="far fa-newspaper"></i>
+                <i class="fas fa-users"></i>
             </div>
             <div class="card-wrap">
                 <div class="card-header">
-                    <h4>News</h4>
+                    <h4>Pelanggan</h4>
                 </div>
                 <div class="card-body">
-                    42
+                    {{ $customers->count() }}
                 </div>
             </div>
         </div>
     </div>
-    <div class="col-lg-3 col-md-6 col-sm-6 col-12">
+
+    <!-- <div class="col-lg-3 col-md-6 col-sm-6 col-12">
         <div class="card card-statistic-1">
             <div class="card-icon bg-warning">
                 <i class="far fa-file"></i>
@@ -52,8 +62,9 @@
                 </div>
             </div>
         </div>
-    </div>
-    <div class="col-lg-3 col-md-6 col-sm-6 col-12">
+    </div> -->
+
+    <!-- <div class="col-lg-3 col-md-6 col-sm-6 col-12">
         <div class="card card-statistic-1">
             <div class="card-icon bg-success">
                 <i class="fas fa-circle"></i>
@@ -67,11 +78,12 @@
                 </div>
             </div>
         </div>
-    </div>
+    </div> -->
+
 </div>
 
 <!-- report orders -->
-<div class="row">
+<!-- <div class="row">
     <div class="col-lg-4 col-md-4 col-sm-12">
         <div class="card card-statistic-2">
             <div class="card-stats">
@@ -141,11 +153,11 @@
             </div>
         </div>
     </div>
-</div>
+</div> -->
 
 
 <!-- chart -->
-<div class="row">
+<!-- <div class="row">
     <div class="col-lg-8">
         <div class="card">
             <div class="card-header">
@@ -156,7 +168,7 @@
             </div>
         </div>
     </div>
-</div>
+</div> -->
 
 
 

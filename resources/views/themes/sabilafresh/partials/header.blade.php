@@ -151,9 +151,9 @@
                                         <li><a href="blog-details-sidebar.html">blog details 2</a></li>
                                     </ul>
                                 </li>
-                                <li><a href="contact.html"> Contact  </a></li>
+                                <li><a href="contact.html"> Contact </a></li>
                             </ul>
-                        </nav>							
+                        </nav>
                     </div>
                 </div>
             </div>
@@ -169,8 +169,8 @@
                     </ul>
                 </div>
                 <div class="furniture-search">
-                    <form action="#">
-                        <input placeholder="I am Searching for . . ." type="text">
+                    <form action="{{ url('products') }}" method="GET">
+                        <input placeholder="I am Searching for . . ." type="text" name="q" value="">
                         <button>
                             <i class="ti-search"></i>
                         </button>

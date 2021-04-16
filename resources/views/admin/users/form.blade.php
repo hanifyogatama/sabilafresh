@@ -26,7 +26,7 @@
     @if ($errors->has('roles')) <p class="help-block">{{ $errors->first('roles') }}</p> @endif
 </div>
 
-<!-- Permissions -->
+<!-- Permissions
 @if(isset($user))
 <div class="form-group">
     <label>Override Permissions</label>
@@ -54,4 +54,4 @@
     </div>
     @endforeach
 </div>
-@endif
+@endif -->
