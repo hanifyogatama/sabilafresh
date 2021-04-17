@@ -26,7 +26,7 @@ class UserController extends Controller
     {
 
         $this->data['roles'] = Role::all();
-        $this->data['users'] = User::latest()->paginate(10);
+        $this->data['users'] = User::orderBy('id','asc')->paginate(10);
 
         return view('admin.users.index', $this->data);
     }
@@ -52,9 +52,9 @@ class UserController extends Controller
     public function store(Request $request)
     {
         $this->validate($request, [
-            'name' => 'bail|required|min:2',
+            'nama_depan' => 'bail|required|min:2',
             'email' => 'required|email|unique:users',
-            'password' => 'required|min:6',
+            'password' => 'required|min:8',
             'roles' => 'required|min:1'
         ]);
 
@@ -139,7 +139,7 @@ class UserController extends Controller
     public function update(Request $request, $id)
     {
         $this->validate($request, [
-            'name' => 'bail|required|min:2',
+            'nama_depan' => 'bail|required|min:2',
             'email' => 'required|email|unique:users,email,' . $id,
             'roles' => 'required|min:1'
         ]);

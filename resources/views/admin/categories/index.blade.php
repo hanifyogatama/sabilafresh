@@ -54,7 +54,7 @@
                                 <th scope="row">{{ $categories->firstItem() + $key }}</th>
                                 <td>{{$category->nama}}</td>
                                 <td>{{$category->slug}}</td>
-                                <td>{{ $category->parent ? $category->parent->nama : '' }}</td>
+                                <td>{{ $category->parent ? $category->parent->nama : '-' }}</td>
 
                                 <td>
                                     <a href="{{ url('admin/categories/'.$category->id.'/edit') }}" class="btn btn-warning btn-sm" data-toggle="tooltip" title="Edit"><i class="far fa-edit"></i></a>

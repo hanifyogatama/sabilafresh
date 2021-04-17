@@ -103,6 +103,16 @@
     @endif
 
 
+    @if(Session::has('login-success'))
+    <script>
+        iziToast.info({
+            title: 'Login Berhasil',
+            message: 'Selamat Datang',
+            position: 'topCenter',
+        });
+    </script>
+    @endif
+
 
     <script>
         $(".delete").on("submit", function() {

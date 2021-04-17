@@ -80,6 +80,7 @@ class DatabaseSeeder extends Seeder
             $this->command->info('Here is your admin details to login:');
             $this->command->warn($user->email);
             $this->command->warn('Password is "password"');
+            // $this->command->
         }
     }
 }

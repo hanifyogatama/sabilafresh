@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\User;
+use App\Models\Produk;
 use App\Models\Role;
 use App\Models\Permission;
 
@@ -17,14 +18,9 @@ class DashboardController extends Controller
      */
     public function index()
     {
-        // $users = User::all();
+        $users = User::all()->take(1);
 
-        $customers = User::whereHas(
-            'roles',
-            function ($q) {
-                $q->where('name', '');
-            }
-        )->get();
+        $customers = User::where('is_admin', '==', 0)->get();
 
         $admins = User::whereHas(
             'roles',
@@ -40,8 +36,10 @@ class DashboardController extends Controller
             }
         )->get();
 
+        $products = Produk::all();
 
-        return view('admin.dashboard.index', compact('admins', 'customers', 'owners'));
+
+        return view('admin.dashboard.index', compact('admins', 'customers', 'owners','products','users'));
     }
 
     /**

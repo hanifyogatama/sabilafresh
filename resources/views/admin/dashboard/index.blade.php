@@ -6,8 +6,16 @@
     <div class="col-lg-10">
         <h1>Dashboard</h1>
     </div>
-    <div class="col-lg-2"> {{ Auth::user()->name }}</div>
+    <div class="col-lg-2 ml-5">
 
+        @role('Admin')
+        <span class="badge badge-info">Admin</span>
+        @endrole
+        @role('Owner')
+        <span class="badge badge-danger">Owner</span>
+        @endrole
+
+    </div>
 </div>
 
 <!-- admin  -->
@@ -48,21 +56,21 @@
         </div>
     </div>
 
-    <!-- <div class="col-lg-3 col-md-6 col-sm-6 col-12">
+    <div class="col-lg-3 col-md-6 col-sm-6 col-12">
         <div class="card card-statistic-1">
             <div class="card-icon bg-warning">
-                <i class="far fa-file"></i>
+                <i class="fas fa-box"></i>
             </div>
             <div class="card-wrap">
                 <div class="card-header">
-                    <h4>Reports</h4>
+                    <h4>Produk</h4>
                 </div>
                 <div class="card-body">
-                    1,201
+                    {{ $products->count() }}
                 </div>
             </div>
         </div>
-    </div> -->
+    </div>
 
     <!-- <div class="col-lg-3 col-md-6 col-sm-6 col-12">
         <div class="card card-statistic-1">

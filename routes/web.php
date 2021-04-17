@@ -19,6 +19,13 @@ Route::get('/', 'HomeController@index');
 Route::get('/products', 'ProductController@index');
 Route::get('/product/{slug}', 'ProductController@show');
 
+Route::get('/carts', 'CartController@index');
+Route::get('/carts/remove/{cartID}', 'CartController@destroy');
+Route::post('/carts', 'CartController@store');
+Route::post('/carts/update', 'CartController@update');
+
+Route::get('logout', '\App\Http\Controllers\Auth\LoginController@logout');
+
 Route::group(
     ['namespace' => 'Admin', 'prefix' => 'admin', 'middleware' => ['auth']],
     function () {

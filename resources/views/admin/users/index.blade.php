@@ -32,15 +32,15 @@
                             <th>Name</th>
                             <th>Email</th>
                             <th>Role</th>
-                            <th>Dibuat</th>
+                            <th>Terdaftar</th>
                             <th>Action</th>
                         </thead>
                         <tbody>
                             @forelse ($users as $key => $user)
                             <tr>
                                 <th scope="row">{{ $users->firstItem() + $key }}</th>
-                                <td>{{ $user->name }}</td>
-                                <td>{{ $user->email }}</td>
+                                <td>{{Str::limit($user->nama_depan, '15') }}</td>
+                                <td>{{Str::limit($user->email, '23') }}</td>
                                 <td>
 
                                     @if ($user->roles->contains('name', 'Admin'))
@@ -52,11 +52,11 @@
                                     @endif
 
                                 </td>
-                                <td>{{ $user->created_at }}</td>
+                                <td>{{ $user->created_at->format('m-d-Y') }}</td>
                                 <td>
 
                                     @role('Owner')
-                                    <span class="badge badge-danger">Khusus Admin</span>
+                                    <span class="badge badge-danger"><i class="fas fa-exclamation-triangle"></i> Admin</span>
                                     @endrole
 
                                     @can('add_users')
