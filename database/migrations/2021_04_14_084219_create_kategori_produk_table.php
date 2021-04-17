@@ -15,11 +15,11 @@ class CreateKategoriProdukTable extends Migration
     {
         Schema::create('kategori_produk', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->unsignedBigInteger('product_id');
-            $table->unsignedBigInteger('category_id');
+            $table->unsignedBigInteger('produk_id');
+            $table->unsignedBigInteger('kategori_id');
 
-            $table->foreign('product_id')->references('id')->on('produk')->onDelete('cascade');
-            $table->foreign('category_id')->references('id')->on('kategori')->onDelete('cascade');
+            $table->foreign('produk_id')->references('id')->on('produk')->onDelete('cascade');
+            $table->foreign('kategori_id')->references('id')->on('kategori')->onDelete('cascade');
         });
     }
 

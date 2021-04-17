@@ -9,8 +9,8 @@ class ProductAttributeValue extends Model
     protected $table = "atribut_produk";
 
     protected $fillable = [
-        'product_id',
-        'attribute_id',
+        'produk_id',
+        'atribut_id',
         'text_value',
         'boolean_value',
         'integer_value',
@@ -22,7 +22,7 @@ class ProductAttributeValue extends Model
 
     public function product()
     {
-        return $this->belongsTo('App\Models\Product');
+        return $this->belongsTo('App\Models\Produk');
     }
 
     public function attribute()
@@ -36,7 +36,7 @@ class ProductAttributeValue extends Model
         $attribute = Attribute::where('kode', $attributeCode)->first();
 
         $attributeOptions = ProductAttributeValue::where('attribute_id', $attribute->id)
-            ->whereIn('product_id', $productVariantIDs)
+            ->whereIn('produk_id', $productVariantIDs)
             ->get();
 
         return $attributeOptions;

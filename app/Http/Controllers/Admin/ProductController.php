@@ -4,8 +4,8 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 
-use App\Models\Category;
-use App\Models\Product;
+use App\Models\Kategori;
+use App\Models\Produk;
 use App\Models\ProductImage;
 use App\Models\Attribute;
 use App\Models\AttributeOption;
@@ -28,8 +28,8 @@ class ProductController extends Controller
 
     public function __construct()
     {
-        $this->data['statuses'] = Product::statuses();
-        $this->data['types'] = Product::types();
+        $this->data['statuses'] = Produk::statuses();
+        $this->data['types'] = Produk::types();
     }
 
     /**
@@ -39,7 +39,7 @@ class ProductController extends Controller
      */
     public function index()
     {
-        $this->data['products'] = Product::orderBy('nama', 'DESC')->paginate(10);
+        $this->data['products'] = Produk::orderBy('nama', 'DESC')->paginate(10);
 
         return view('admin.products.index', $this->data);
     }
@@ -51,13 +51,13 @@ class ProductController extends Controller
      */
     public function create()
     {
-        $categories = Category::orderBy('nama', 'DESC')->get();
+        $categories = Kategori::orderBy('nama', 'DESC')->get();
         $configurableAttributes = $this->getConfigurableAttributes();
 
         $this->data['categories'] = $categories->toArray();
         $this->data['product'] = null;
-        $this->data['productID'] = 0;
         $this->data['categoryIDs'] = [];
+        $this->data['productID'] = 0;
         $this->data['configurableAttributes'] = $configurableAttributes;
 
         return view('admin.products.form', $this->data);
@@ -123,10 +123,10 @@ class ProductController extends Controller
 
                 $variantParams['slug'] = Str::slug($variantParams['nama']);
 
-                $newProductVariant = Product::create($variantParams);
+                $newProductVariant = Produk::create($variantParams);
 
                 $categoryIds = !empty($params['category_ids']) ? $params['category_ids'] : [];
-                $newProductVariant->categories()->sync($categoryIds);
+                $newProductVariant->kategories()->sync($categoryIds);
 
                 $this->saveProductAttributeValues($newProductVariant, $variant);
             }
@@ -139,9 +139,9 @@ class ProductController extends Controller
             $attributeOption = AttributeOption::find($attributeOptionID);
 
             $attributeValueParams = [
-                'product_id' => $product->id,
-                'attribute_id' => $attributeOption->attribute_id,
-                'text_value' => $attributeOption->nama,
+                'produk_id' => $product->id,
+                'atribut_id' => $attributeOption->atribut_id,
+                'nama' => $attributeOption->nama,
             ];
 
             ProductAttributeValue::create($attributeValueParams);
@@ -163,8 +163,8 @@ class ProductController extends Controller
 
         $product = DB::transaction(function () use ($params) {
             $categoryIds = !empty($params['category_ids']) ? $params['category_ids'] : [];
-            $product = Product::create($params);
-            $product->categories()->sync($categoryIds);
+            $product = Produk::create($params);
+            $product->kategories()->sync($categoryIds);
 
             if ($params['tipe'] == 'configurable') {
                 $this->generateProductVariants($product, $params);
@@ -205,15 +205,15 @@ class ProductController extends Controller
             return redirect('admin/products/create');
         }
 
-        $product = Product::findOrFail($id);
+        $product = Produk::findOrFail($id);
         $product->qty = isset($product->productInventory) ? $product->productInventory->qty : null;
 
-        $categories = Category::orderBy('nama', 'ASC')->get();
+        $categories = Kategori::orderBy('nama', 'ASC')->get();
 
         $this->data['categories'] = $categories->toArray();
         $this->data['product'] = $product;
         $this->data['productID'] = $product->id;
-        $this->data['categoryIDs'] = $product->categories->pluck('id')->toArray();
+        $this->data['categoryIDs'] = $product->kategories->pluck('id')->toArray();
 
         return view('admin.products.form', $this->data);
     }
@@ -230,18 +230,18 @@ class ProductController extends Controller
         $params = $request->except('_token');
         $params['slug'] = Str::slug($params['nama']);
 
-        $product = Product::findOrFail($id);
+        $product = Produk::findOrFail($id);
 
         $saved = false;
         $saved = DB::transaction(function () use ($product, $params) {
             $categoryIds = !empty($params['category_ids']) ? $params['category_ids'] : [];
             $product->update($params);
-            $product->categories()->sync($categoryIds);
+            $product->kategories()->sync($categoryIds);
 
             if ($product->tipe == 'configurable') {
                 $this->updateProductVariants($params);
             } else {
-                ProductInventory::updateOrCreate(['product_id' => $product->id], ['qty' => $params['qty']]);
+                ProductInventory::updateOrCreate(['produk_id' => $product->id], ['qty' => $params['qty']]);
             }
 
             return true;
@@ -261,13 +261,13 @@ class ProductController extends Controller
     {
         if ($params['variants']) {
             foreach ($params['variants'] as $productParams) {
-                $product = Product::find($productParams['id']);
+                $product = Produk::find($productParams['id']);
                 $product->update($productParams);
 
                 $product->status = $params['status'];
                 $product->save();
 
-                ProductInventory::updateOrCreate(['product_id' => $product->id], ['qty' => $productParams['qty']]);
+                ProductInventory::updateOrCreate(['produk_id' => $product->id], ['qty' => $productParams['qty']]);
             }
         }
     }
@@ -280,7 +280,7 @@ class ProductController extends Controller
      */
     public function destroy($id)
     {
-        $product  = Product::findOrFail($id);
+        $product  = Produk::findOrFail($id);
 
         if ($product->delete()) {
             Session::flash('success',  'Data berhasil ditambah');
@@ -295,7 +295,7 @@ class ProductController extends Controller
             return redirect('admin/products/create');
         }
 
-        $product = Product::findOrFail($id);
+        $product = Produk::findOrFail($id);
 
         $this->data['productID'] = $product->id;
         $this->data['productImages'] = $product->productImages;
@@ -309,7 +309,7 @@ class ProductController extends Controller
             return redirect('admin/products');
         }
 
-        $product = Product::findOrFail($id);
+        $product = Produk::findOrFail($id);
 
         $this->data['productID'] = $product->id;
         $this->data['product'] = $product;
@@ -319,7 +319,7 @@ class ProductController extends Controller
 
     public function upload_image(ProductImageRequest $request, $id)
     {
-        $product = product::findOrFail($id);
+        $product = Produk::findOrFail($id);
 
         if ($request->has('image')) {
             $image = $request->file('image');
@@ -330,7 +330,7 @@ class ProductController extends Controller
             $filePath = $image->storeAs($folder, $fileName, 'public');
 
             $params = [
-                'product_id' => $product->id,
+                'produk_id' => $product->id,
                 'path' => $filePath,
             ];
 

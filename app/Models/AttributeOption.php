@@ -8,7 +8,7 @@ class AttributeOption extends Model
 {
     protected $table = "atribut_opsi";
 
-    protected $fillable = ['attribute_id', 'nama'];
+    protected $fillable = ['atribut_id', 'nama'];
 
     public function attribute()
     {

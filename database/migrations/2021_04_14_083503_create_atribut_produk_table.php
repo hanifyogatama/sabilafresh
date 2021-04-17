@@ -15,19 +15,13 @@ class CreateAtributProdukTable extends Migration
     {
         Schema::create('atribut_produk', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->unsignedBigInteger('product_id');
-            $table->unsignedBigInteger('attribute_id');
-            $table->text('text_value')->nullable();
-            $table->boolean('boolean_value')->nullable();
-            $table->integer('integer_value')->nullable();
-            $table->decimal('float_value')->nullable();
-            $table->datetime('datetime_value')->nullable();
-            $table->date('date_value')->nullable();
-            $table->text('json_value')->nullable();
+            $table->unsignedBigInteger('produk_id');
+            $table->unsignedBigInteger('atribut_id');
+            $table->text('nama')->nullable();
             $table->timestamps();
 
-            $table->foreign('product_id')->references('id')->on('produk')->onDelete('cascade');
-            $table->foreign('attribute_id')->references('id')->on('atribut');
+            $table->foreign('produk_id')->references('id')->on('produk')->onDelete('cascade');
+            $table->foreign('atribut_id')->references('id')->on('atribut');
         });
     }
 

@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Models\Category;
+use App\Models\Kategori;
 use App\Http\Requests\CategoryRequest;
 
 use Str;
@@ -21,7 +21,7 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        $this->data['categories'] = Category::orderBy('id', 'DESC')->paginate(10);
+        $this->data['categories'] = Kategori::orderBy('id', 'DESC')->paginate(10);
         return view('admin.categories.index', $this->data);
     }
 
@@ -32,7 +32,7 @@ class CategoryController extends Controller
      */
     public function create()
     {
-        $categories = Category::orderBy('nama', 'ASC')->get();
+        $categories = Kategori::orderBy('nama', 'ASC')->get();
 
         $this->data['categories'] = $categories->toArray();
         $this->data['category'] = null;
@@ -52,10 +52,9 @@ class CategoryController extends Controller
         $params['slug'] = Str::slug($params['nama']);
         $params['parent_id'] = (int)$params['parent_id'];
 
-        if (Category::create($params)) {
-            Session::flash('success', 'Data berhasil disimpan');
-        }
-        return redirect('admin/categories');
+        Kategori::create($params);
+
+        return redirect('admin/categories')->with('success-add','Sukses');
     }
 
     /**
@@ -77,8 +76,8 @@ class CategoryController extends Controller
      */
     public function edit($id)
     {
-        $category = Category::findOrFail($id);
-        $categories = Category::where('id', '!=', $id)->orderBy('nama', 'asc')->get();
+        $category = Kategori::findOrFail($id);
+        $categories = Kategori::where('id', '!=', $id)->orderBy('nama', 'asc')->get();
 
         $this->data['categories'] = $categories->toArray();
         $this->data['category'] = $category;
@@ -98,12 +97,11 @@ class CategoryController extends Controller
         $params['slug'] = Str::slug($params['nama']);
         $params['parent_id'] = (int)$params['parent_id'];
 
-        $category = Category::findOrFail($id);
-        if ($category->update($params)) {
-            Session::flash('success', 'data berhasil diubah');
-        }
+        $category = Kategori::findOrFail($id);
+        $category->update($params);
 
-        return redirect('admin/categories');
+
+        return redirect('admin/categories')->with('success-edit'.'Sukses');
     }
 
     /**
@@ -114,12 +112,11 @@ class CategoryController extends Controller
      */
     public function destroy($id)
     {
-        $category = Category::findOrFail($id);
+        $category = Kategori::findOrFail($id);
 
-        if ($category->delete()) {
-            Session::flash('success', 'Data berhasil dihapus');
-        }
+        $category->delete();
 
-        return redirect('admin/categories');
+
+        return redirect('admin/categories')->with('success-delete','Sukses');
     }
 }

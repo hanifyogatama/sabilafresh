@@ -23,12 +23,12 @@ class Attribute extends Model
     {
         return [
             'text' => 'Text',
-            'textarea' => 'Textarea',
-            'price' => 'Price',
-            'boolean' => 'Boolean',
+            // 'textarea' => 'Textarea',
+            // 'price' => 'Price',
+            // 'boolean' => 'Boolean',
             'select' => 'Select',
-            'datetime' => 'Datetime',
-            'date' => 'Date',
+            // 'datetime' => 'Datetime',
+            // 'date' => 'Date',
         ];
     }
 

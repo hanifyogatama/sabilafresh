@@ -15,11 +15,11 @@ class CreateAtributOpsiTable extends Migration
     {
         Schema::create('atribut_opsi', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->unsignedBigInteger('attribute_id');
+            $table->unsignedBigInteger('atribut_id');
             $table->string('nama');
             $table->timestamps();
 
-            $table->foreign('attribute_id')->references('id')->on('atribut')->onDelete('cascade');
+            $table->foreign('atribut_id')->references('id')->on('atribut')->onDelete('cascade');
         });
     }
 

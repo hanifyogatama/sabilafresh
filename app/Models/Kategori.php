@@ -4,7 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Category extends Model
+class Kategori extends Model
 {
     protected $table = 'kategori';
     //
@@ -12,17 +12,17 @@ class Category extends Model
 
     public function childs()
     {
-        return $this->hasMany('App\Models\Category', 'parent_id');
+        return $this->hasMany('App\Models\Kategori', 'parent_id');
     }
 
     public function parent()
     {
-        return $this->belongsTo('App\Models\Category', 'parent_id');
+        return $this->belongsTo('App\Models\Kategori', 'parent_id');
     }
 
-    public function products()
+    public function produks()
     {
-        return $this->belongsToMany('App\Models\Product', 'kategori_produk');
+        return $this->belongsToMany('App\Models\Produk');
     }
 
     public function scopeParentCategories($query)
@@ -32,13 +32,13 @@ class Category extends Model
 
     public static function childIds($parentId = 0)
     {
-        $categories = Category::select('id', 'nama', 'parent_id')->where('parent_id', $parentId)->get()->toArray();
+        $categories = Kategori::select('id', 'nama', 'parent_id')->where('parent_id', $parentId)->get()->toArray();
 
         $childIds = [];
         if (!empty($categories)) {
             foreach ($categories as $category) {
                 $childIds[] = $category['id'];
-                $childIds = array_merge($childIds, Category::childIds($category['id']));
+                $childIds = array_merge($childIds, Kategori::childIds($category['id']));
             }
         }
 

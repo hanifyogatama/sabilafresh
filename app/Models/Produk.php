@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use PhpParser\Node\Expr\FuncCall;
 
-class Product extends Model
+class Produk extends Model
 {
 
     protected $table = "produk";
@@ -38,29 +38,29 @@ class Product extends Model
         return $this->hasOne('App\Models\ProductInventory');
     }
 
-    public function categories()
+    public function kategories()
     {
-        return $this->belongsToMany('App\Models\Category', 'kategori_produk');
+        return $this->belongsToMany('App\Models\Kategori');
     }
 
     public function variants()
     {
-        return $this->hasMany('App\Models\Product', 'parent_id')->orderBy('harga','ASC');
+        return $this->hasMany('App\Models\Produk', 'parent_id')->orderBy('harga', 'ASC');
     }
 
     public function parent()
     {
-        return $this->belongsTo('App\Models\Product', 'parent_id');
+        return $this->belongsTo('App\Models\Produk', 'parent_id');
     }
 
     public function productAttributesValues()
     {
-        return $this->hasMany('App\Models\ProductAttributesValue');
+        return $this->hasMany('App\Models\ProductAttributesValue', 'parent_produk_id');
     }
 
     public function productImages()
     {
-        return $this->hasMany('App\Models\ProductImage')->orderBy('id','desc');
+        return $this->hasMany('App\Models\ProductImage')->orderBy('id', 'desc');
     }
 
     public static function statuses()
@@ -91,14 +91,17 @@ class Product extends Model
     public function scopeActive($query)
     {
         return $query->where('status', 1)
-            ->where('parent_id', NULL)
-            ->orderBy('created_at', 'DESC');
+            ->where('parent_id', NULL);
     }
+
+
+
+
 
     function price_label()
     {
         return ($this->variants->count() > 0) ? $this->variants->first()->harga : $this->harga;
     }
-    
+
     protected $guarded = [];
 }

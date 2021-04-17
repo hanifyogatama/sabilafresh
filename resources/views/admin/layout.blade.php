@@ -12,9 +12,10 @@
     <link rel="stylesheet" href="{{ URL::asset('admin/assets/modules/fontawesome/css/all.css') }}">
 
     <!-- CSS Libraries -->
+    <link rel="stylesheet" href="{{ URL::asset('admin/assets/modules/izitoast/css/iziToast.min.css') }}">
     <link rel="stylesheet" href="{{ URL::asset('admin/assets/modules/jqvmap/dist/jqvmap.min.css') }}">
     <link rel="stylesheet" href="{{ URL::asset('admin/assets/modules/summernote/summernote-bs4.css') }}">
-    <link rel="stylesheet" href="{{ URL::asset('admin/assets/modules/izitoast/css/iziToast.min.css') }}">
+
     <link rel=" stylesheet" href="{{ URL::asset('admin/assets/modules/owlcarousel2/dist/assets/owl.carousel.min.css') }}">
     <link rel="stylesheet" href="{{ URL::asset('admin/assets/modules/owlcarousel2/dist/assets/owl.theme.default.min.css') }}">
 
@@ -74,6 +75,34 @@
     <!-- Template JS File -->
     <script src="{{ URL::asset('admin/assets/js/scripts.js') }}"></script>
     <script src="{{ URL::asset('admin/assets/js/custom.js') }}"></script>
+
+    @if(Session::has('success-add'))
+    <script>
+        iziToast.success({
+            title: 'Sukses',
+            message: 'Data Berhasil Disimpan',
+            position: 'topRight',
+        });
+    </script>
+    @elseif(Session::has('success-edit'))
+    <script>
+        iziToast.success({
+            title: 'Sukses',
+            message: 'Data Berhasil Diedit',
+            position: 'topRight',
+        });
+    </script>
+    @elseif(Session::has('success-delete'))
+    <script>
+        iziToast.success({
+            title: 'Sukses',
+            message: 'Data Berhasil Dihapus',
+            position: 'topRight',
+        });
+    </script>
+    @endif
+
+
 
     <script>
         $(".delete").on("submit", function() {
