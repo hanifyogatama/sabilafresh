@@ -50,6 +50,19 @@ class ProductController extends Controller
 
         $products = Produk::active();
 
+        $products = $this->searchProducts($products, $request);
+        $products = $this->filterProductByPriceRange($products, $request);
+        $products = $this->sortProducts($products, $request);
+
+
+
+        $this->data['products'] = $products->paginate(10);
+
+        return $this->load_theme('products.index', $this->data);
+    }
+
+    private function searchProducts($products, $request)
+    {
         if ($q = $request->query('q')) {
             $q = str_replace('-', ' ', Str::slug($q));
 
@@ -70,6 +83,11 @@ class ProductController extends Controller
             });
         }
 
+        return $products;
+    }
+
+    private function filterProductByPriceRange($products, $request)
+    {
         $lowPrice = null;
         $highPrice = null;
 
@@ -92,6 +110,11 @@ class ProductController extends Controller
             }
         }
 
+        return $products;
+    }
+
+    private function sortProducts($products, $request)
+    {
         if ($sort = preg_replace('/\s+/', '', $request->query('sort'))) {
             $availableSorts = ['harga', 'created_at'];
             $availableOrder = ['asc', 'desc'];
@@ -107,11 +130,8 @@ class ProductController extends Controller
             $this->data['selectedSort'] = url('products?sort=' . $sort);
         }
 
-        $this->data['products'] = $products->paginate(10);
-
-        return $this->load_theme('products.index', $this->data);
+        return $products;
     }
-
 
     /**
      * Display the specified resource.
