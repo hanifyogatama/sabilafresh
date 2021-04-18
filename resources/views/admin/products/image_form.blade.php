@@ -27,8 +27,8 @@
                         {!! Form::file('image', ['class' => 'form-control-file', 'placeholder' => 'product image']) !!}
                     </div>
                     <div class="form-footer pt-5 border-top">
-                        <button type="submit" class="btn btn-primary btn-default">Save</button>
-                        <a href="{{ url('admin/products/'.$productID.'/images') }}" class="btn btn-secondary btn-default">Back</a>
+                        <button type="submit" class="btn btn-primary btn-default">Simpan</button>
+                        <a href="{{ url('admin/products/'.$productID.'/images') }}" class="btn btn-secondary btn-default">Kembali</a>
                     </div>
                     {!! Form::close() !!}
                 </div>

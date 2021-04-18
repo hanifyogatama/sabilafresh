@@ -27,8 +27,7 @@
             </div>
             <div class="card-wrap">
                 <div class="card-header">
-                    <h4>Total User</h4>
-
+                    <h4>User</h4>
                 </div>
                 <div class="card-body">
                     <div class="mt-1" style="font-size: 12px;">
@@ -72,23 +71,39 @@
         </div>
     </div>
 
-    <!-- <div class="col-lg-3 col-md-6 col-sm-6 col-12">
+    <div class="col-lg-3 col-md-6 col-sm-6 col-12">
         <div class="card card-statistic-1">
             <div class="card-icon bg-success">
                 <i class="fas fa-circle"></i>
             </div>
             <div class="card-wrap">
                 <div class="card-header">
-                    <h4>Online Users</h4>
+                    <h4></h4>
                 </div>
                 <div class="card-body">
-                    47
+
                 </div>
             </div>
         </div>
-    </div> -->
-
+    </div>
 </div>
+
+<!-- list kategori -->
+
+
+
+
+
+
+
+<!-- produk -->
+
+
+
+
+
+
+
 
 <!-- report orders -->
 <!-- <div class="row">
@@ -177,6 +192,56 @@
         </div>
     </div>
 </div> -->
+
+<div class="row">
+    <div class="col-lg-4 p-0"></div>
+    <div class="col-lg-4 p-0"></div>
+    <div class="col-lg-4 p-0">
+        <div class="card gradient-bottom">
+            <div class="card-header">
+                <h4>Produk Terbaru</h4>
+            </div>
+            <div class="card-body" id="top-5-scroll">
+                @forelse ($products as $product)
+                <ul class="list-unstyled list-unstyled-border">
+                    <li class="media">
+                        @if ($product->gambarProduk->first())
+                        <img src="{{ asset('storage/'.$product->gambarProduk->first()->path) }}" alt="{{ $product->nama }}" width="55" class="mr-3 rounded">
+                        @else
+                        <img src="{{ asset('themes/sabilafresh/assets/img/product/fashion-colorful/1.jpg') }}" alt="{{ $product->nama }}" width="55" class="mr-3 rounded">
+                        @endif
+
+                        <div class="media-body">
+                            <div class="float-right">
+                                <div class="font-weight-600 text-muted text-small">Rp {{ number_format($product->price_label()) }}</div>
+                            </div>
+                            <div class="media-title">{{ Str::limit($product->nama,15)}}</div>
+                            <div class="mt-1">
+                                <div class="budget-price ">
+                                    <div class="budget-price-label ml-0">kategori</div>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+                @empty
+                Produk Kosong!
+                @endforelse
+            </div>
+            <div class="card-footer d-flex justify-content-center">
+                @role('Admin')
+                <a href="{{ url('admin/products')}}" class="budget-price-label">Lihat semua</a>
+                @endrole
+            </div>
+
+        </div>
+    </div>
+</div>
+
+
+
+
+</div>
 
 
 

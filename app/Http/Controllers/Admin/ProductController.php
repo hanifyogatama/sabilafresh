@@ -3,14 +3,15 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Storage;
 
 use App\Models\Kategori;
 use App\Models\Produk;
-use App\Models\ProductImage;
-use App\Models\Attribute;
-use App\Models\AttributeOption;
-use App\Models\ProductAttributeValue;
-use App\Models\ProductInventory;
+use App\Models\GambarProduk;
+use App\Models\Atribut;
+use App\Models\AtributOpsi;
+use App\Models\InventoriProduk;
+use App\Models\AtributProduk;
 
 use App\Http\Requests\ProductRequest;
 use App\Http\Requests\ProductImageRequest;
@@ -21,6 +22,7 @@ use DB;
 use Session;
 
 use App\Authorizable;
+
 
 class ProductController extends Controller
 {
@@ -65,7 +67,7 @@ class ProductController extends Controller
 
     private function getConfigurableAttributes()
     {
-        return Attribute::where('is_configurable', true)->get();
+        return Atribut::where('is_configurable', true)->get();
     }
 
     private function generateAttributeCombinations($arrays)
@@ -88,9 +90,9 @@ class ProductController extends Controller
     {
         $variantName = '';
 
-        foreach (array_keys($variant) as $key => $code) {
-            $attributeOptionID = $variant[$code];
-            $attributeOption = AttributeOption::find($attributeOptionID);
+        foreach (array_keys($variant) as $key => $kode) {
+            $attributeOptionID = $variant[$kode];
+            $attributeOption = AtributOpsi::find($attributeOptionID);
 
             if ($attributeOption) {
                 $variantName .= ' - ' . $attributeOption->nama;
@@ -136,7 +138,7 @@ class ProductController extends Controller
     private function saveProductAttributeValues($product, $variant)
     {
         foreach (array_values($variant) as $attributeOptionID) {
-            $attributeOption = AttributeOption::find($attributeOptionID);
+            $attributeOption = AtributOpsi::find($attributeOptionID);
 
             $attributeValueParams = [
                 'produk_id' => $product->id,
@@ -144,7 +146,7 @@ class ProductController extends Controller
                 'nama' => $attributeOption->nama,
             ];
 
-            ProductAttributeValue::create($attributeValueParams);
+            AtributProduk::create($attributeValueParams);
         }
     }
 
@@ -173,13 +175,13 @@ class ProductController extends Controller
             return $product;
         });
 
-        if ($product) {
-            Session::flash('success', 'Product has been saved');
-        } else {
-            Session::flash('error', 'Product could not be saved');
-        }
+        // if ($product) {
+        //     Session::flash('success', 'Product has been saved');
+        // } else {
+        //     Session::flash('error', 'Product could not be saved');
+        // }
 
-        return redirect('admin/products/' . $product->id . '/edit/');
+        return redirect('admin/products/' . $product->id . '/edit/')->with('success-add', 'Sukses');
     }
 
     /**
@@ -206,7 +208,7 @@ class ProductController extends Controller
         }
 
         $product = Produk::findOrFail($id);
-        $product->qty = isset($product->productInventory) ? $product->productInventory->qty : null;
+        $product->qty = isset($product->inventoriProduk) ? $product->inventoriProduk->qty : null;
 
         $categories = Kategori::orderBy('nama', 'ASC')->get();
 
@@ -215,7 +217,7 @@ class ProductController extends Controller
         $this->data['productID'] = $product->id;
         $this->data['categoryIDs'] = $product->kategories->pluck('id')->toArray();
 
-        return view('admin.products.form', $this->data);
+        return view('admin.products.form', $this->data)->with('success-edit', 'Sukses');
     }
 
     /**
@@ -241,7 +243,7 @@ class ProductController extends Controller
             if ($product->tipe == 'configurable') {
                 $this->updateProductVariants($params);
             } else {
-                ProductInventory::updateOrCreate(['produk_id' => $product->id], ['qty' => $params['qty']]);
+                InventoriProduk::updateOrCreate(['produk_id' => $product->id], ['qty' => $params['qty']]);
             }
 
             return true;
@@ -267,7 +269,7 @@ class ProductController extends Controller
                 $product->status = $params['status'];
                 $product->save();
 
-                ProductInventory::updateOrCreate(['produk_id' => $product->id], ['qty' => $productParams['qty']]);
+                InventoriProduk::updateOrCreate(['produk_id' => $product->id], ['qty' => $productParams['qty']]);
             }
         }
     }
@@ -282,11 +284,8 @@ class ProductController extends Controller
     {
         $product  = Produk::findOrFail($id);
 
-        if ($product->delete()) {
-            Session::flash('success',  'Data berhasil ditambah');
-        }
-
-        return redirect('admin/products');
+        $product->delete();
+        return redirect('admin/products')->with('success-delete', 'Sukses');
     }
 
     public function images($id)
@@ -298,7 +297,7 @@ class ProductController extends Controller
         $product = Produk::findOrFail($id);
 
         $this->data['productID'] = $product->id;
-        $this->data['productImages'] = $product->productImages;
+        $this->data['productImages'] = $product->gambarProduk;
 
         return view('admin.products.images', $this->data);
     }
@@ -324,9 +323,9 @@ class ProductController extends Controller
         if ($request->has('image')) {
             $image = $request->file('image');
             $name = $product->slug . '_' . time();
-            $fileName = $name . '_' . $image->getClientOriginalExtension();
+            $fileName = $name . '.' . $image->getClientOriginalExtension();
 
-            $folder = '/upload/images';
+            $folder = '/uploads/images';
             $filePath = $image->storeAs($folder, $fileName, 'public');
 
             $params = [
@@ -334,7 +333,7 @@ class ProductController extends Controller
                 'path' => $filePath,
             ];
 
-            if (ProductImage::create($params)) {
+            if (GambarProduk::create($params)) {
                 Session::flash('success', 'Gambar berhasil ditambah');
             } else {
                 Session::flash('error', 'Gambar gagal ditambah');
@@ -346,7 +345,9 @@ class ProductController extends Controller
 
     public function remove_image($id)
     {
-        $image = ProductImage::findOrFail($id);
+        $image = GambarProduk::findOrFail($id);
+
+        Storage::disk('public')->delete($image->path);
 
         if ($image->delete()) {
             Session::flash('success', 'Gambar berhasi dihapus');
@@ -354,6 +355,6 @@ class ProductController extends Controller
             Session::flash('error', 'Gambar gagal dihapus');
         }
 
-        return redirect('admin/products/' . $image->product->id . '/images');
+        return redirect('admin/products/' . $image->produk->id . '/images');
     }
 }

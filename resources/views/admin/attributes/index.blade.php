@@ -2,10 +2,10 @@
 
 @section('content')
 <div class="section-header">
-    <h1>Atribut</h1>
+    <h1>Atribut Produk</h1>
     <div class="section-header-breadcrumb">
         <div class="breadcrumb-item active"><a href="#">Katalog</a></div>
-        <div class="breadcrumb-item"><a href="{{url('admin/attributes')}}">Atribut</a></div>
+        <div class="breadcrumb-item"><a href="{{url('admin/attributes')}}">Atribut Produk</a></div>
         <!-- <div class="breadcrumb-item">Table</div> -->
     </div>
 </div>
@@ -42,19 +42,20 @@
                             <tr>
                                 <th scope="row">{{ $attributes->firstItem() + $key }}</th>
                                 <td>{{ $attribute->kode }}</td>
-                                <td>{{ $attribute->nama }}</td>
+                                <td style="width:23%">{{ $attribute->nama }}</td>
                                 <td>{{ $attribute->tipe }}</td>
 
                                 <td>
-                                    <a href="{{ url('admin/attributes/'. $attribute->id .'/edit') }}" class="btn btn-warning btn-sm">edit</a>
+                                    <a href="{{ url('admin/attributes/'. $attribute->id .'/edit') }}" class="btn btn-warning btn-sm" data-toggle="tooltip" title="Edit">
+                                        <i class="far fa-edit"></i></a>
                                     @if ($attribute->tipe == 'select')
-                                    
-                                    <a href="{{ url('admin/attributes/'. $attribute->id .'/options') }}" class="btn btn-success btn-sm">options</a>
+
+                                    <a href="{{ url('admin/attributes/'. $attribute->id .'/options') }}" class="btn btn-success btn-sm">Options</a>
                                     @endif
 
                                     {!! Form::open(['url' => 'admin/attributes/'. $attribute->id, 'class' => 'delete', 'style' => 'display:inline-block']) !!}
                                     {!! Form::hidden('_method', 'DELETE') !!}
-                                    {!! Form::submit('remove', ['class' => 'btn btn-danger btn-sm']) !!}
+                                    {!! Form::button(' <i class="far fa-trash-alt"></i> ',['type' => 'submit', 'class' => 'btn btn-danger btn-sm', 'data-toggle'=>'tooltip','title'=>'Hapus']) !!}
                                     {!! Form::close() !!}
                                 </td>
                             </tr>
@@ -67,6 +68,7 @@
                             @endforelse
                         </tbody>
                     </table>
+                    <hr />
                     {{ $attributes->links() }}
                 </div>
             </div>

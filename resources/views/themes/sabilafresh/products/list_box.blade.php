@@ -2,8 +2,8 @@
     <div class="product-wrapper mb-30 single-product-list product-list-right-pr mb-60">
         <div class="product-img list-img-width">
             <a href="{{ url('product/'. $product->slug) }}">
-                @if ($product->productImages->first())
-					<img src="{{ asset('storage/'.$product->productImages->first()->path) }}" alt="{{ $product->name }}">
+                @if ($product->gambarProduk->first())
+					<img src="{{ asset('storage/'.$product->gambarProduk->first()->path) }}" alt="{{ $product->name }}">
 				@else
 					<img src="{{ asset('themes/sabilafresh/assets/img/product/fashion-colorful/1.jpg') }}" alt="{{ $product->name }}">
 				@endif

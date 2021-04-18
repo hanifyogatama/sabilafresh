@@ -33,9 +33,9 @@ class Produk extends Model
         return $this->belongsTo('App\Models\User');
     }
 
-    public function productInventory()
+    public function inventoriProduk()
     {
-        return $this->hasOne('App\Models\ProductInventory');
+        return $this->hasOne('App\Models\InventoriProduk');
     }
 
     public function kategories()
@@ -53,14 +53,14 @@ class Produk extends Model
         return $this->belongsTo('App\Models\Produk', 'parent_id');
     }
 
-    public function productAttributesValues()
+    public function atributProduk()
     {
-        return $this->hasMany('App\Models\ProductAttributesValue', 'parent_produk_id');
+        return $this->hasMany('App\Models\AtributProduk', 'parent_produk_id');
     }
 
-    public function productImages()
+    public function gambarProduk()
     {
-        return $this->hasMany('App\Models\ProductImage')->orderBy('id', 'desc');
+        return $this->hasMany('App\Models\GambarProduk')->orderBy('id', 'desc');
     }
 
     public static function statuses()
@@ -93,9 +93,6 @@ class Produk extends Model
         return $query->where('status', 1)
             ->where('parent_id', NULL);
     }
-
-
-
 
 
     function price_label()

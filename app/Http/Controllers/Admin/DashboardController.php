@@ -9,8 +9,10 @@ use App\Models\Produk;
 use App\Models\Role;
 use App\Models\Permission;
 
+
 class DashboardController extends Controller
 {
+
     /**
      * Display a listing of the resource.
      *
@@ -36,10 +38,11 @@ class DashboardController extends Controller
             }
         )->get();
 
-        $products = Produk::all();
 
+        $products = Produk::orderBy('created_at', 'DESC')->paginate(5);
+        $this->data['products'] = $products;
 
-        return view('admin.dashboard.index', compact('admins', 'customers', 'owners','products','users'));
+        return view('admin.dashboard.index', compact('admins', 'customers', 'owners', 'products', 'users'));
     }
 
     /**

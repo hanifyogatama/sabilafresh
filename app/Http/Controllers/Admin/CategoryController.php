@@ -54,7 +54,7 @@ class CategoryController extends Controller
 
         Kategori::create($params);
 
-        return redirect('admin/categories')->with('success-add','Sukses');
+        return redirect('admin/categories')->with('success-add', 'Sukses');
     }
 
     /**
@@ -100,8 +100,7 @@ class CategoryController extends Controller
         $category = Kategori::findOrFail($id);
         $category->update($params);
 
-
-        return redirect('admin/categories')->with('success-edit'.'Sukses');
+        return redirect('admin/categories')->with('success-edit', 'Sukses');
     }
 
     /**
@@ -113,10 +112,8 @@ class CategoryController extends Controller
     public function destroy($id)
     {
         $category = Kategori::findOrFail($id);
-
         $category->delete();
 
-
-        return redirect('admin/categories')->with('success-delete','Sukses');
+        return redirect('admin/categories')->with('success-delete', 'Sukses');
     }
 }

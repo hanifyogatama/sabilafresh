@@ -4,7 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Attribute extends Model
+class Atribut extends Model
 {
     protected $table = "atribut";
 
@@ -22,7 +22,7 @@ class Attribute extends Model
     public static function types()
     {
         return [
-            'text' => 'Text',
+            // 'text' => 'Text',
             // 'textarea' => 'Textarea',
             // 'price' => 'Price',
             // 'boolean' => 'Boolean',
@@ -50,8 +50,8 @@ class Attribute extends Model
         ];
     }
 
-    public function attributeOptions()
+    public function atributOpsis()
     {
-        return $this->hasMany('App\Models\AttributeOption');
+        return $this->hasMany('App\Models\AtributOpsi');
     }
 }

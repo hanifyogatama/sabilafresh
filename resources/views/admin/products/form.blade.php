@@ -11,7 +11,7 @@ $formTitle = !empty($category) ? 'Edit' : 'Tambah'
     <div class="section-header-breadcrumb">
         <div class="breadcrumb-item active"><a href="#">Katalog</a></div>
         <div class="breadcrumb-item"><a href="{{url('admin/products')}}">Produk</a></div>
-       
+
     </div>
 </div>
 
@@ -31,8 +31,7 @@ $formTitle = !empty($category) ? 'Edit' : 'Tambah'
                 @else
                 {!! Form::open(['url' => 'admin/products']) !!}
                 @endif
-                <a href="{{ url('admin/products') }}" class="btn btn-warning btn-m"><i class="fas fa-chevron-left "></i></a>
-                <hr />
+
                 <div class="form-group">
                     {!! Form::label('tipe', 'Tipe Produk') !!}
                     {!! Form::select('tipe', $types , !empty($product) ? $product->type : null, ['class' => 'form-control product-type', 'placeholder' => '-- Pilih Tipe --', 'disabled' => !empty($product)]) !!}
@@ -45,10 +44,10 @@ $formTitle = !empty($category) ? 'Edit' : 'Tambah'
                     {!! Form::label('nama', 'Nama Produk') !!}
                     {!! Form::text('nama', null, ['class' => 'form-control', 'placeholder' => 'nama','autocomplete' => 'off']) !!}
                 </div>
-              
+
                 <div class="form-group">
                     {!! Form::label('category_ids', 'Kategori') !!}
-                    {!! General::selectMultiLevel('category_ids[]', $categories, ['class' => 'form-control', 'multiple' => true, 'selected' => !empty(old('category_ids')) ? old('category_ids') : $categoryIDs, 'placeholder' => '-- Pilih --']) !!}
+                    {!! General::selectMultiLevel('category_ids[]', $categories, ['class' => 'form-control form-control-sm ', 'multiple' => true, 'selected' => !empty(old('category_ids')) ? old('category_ids') : $categoryIDs,'placeholder' => '-- Pilih --']) !!}
                 </div>
 
                 <div class="configurable-attributes">
@@ -58,7 +57,7 @@ $formTitle = !empty($category) ? 'Edit' : 'Tambah'
                     @foreach ($configurableAttributes as $attribute)
                     <div class="form-group">
                         {!! Form::label($attribute->kode, $attribute->nama) !!}
-                        {!! Form::select($attribute->kode. '[]', $attribute->attributeOptions->pluck('nama','id'), null, ['class' => 'form-control', 'multiple' => true]) !!}
+                        {!! Form::select($attribute->kode. '[]', $attribute->AtributOpsis->pluck('nama','id'), null, ['class' => 'form-control', 'multiple' => true]) !!}
                     </div>
                     @endforeach
                     @endif
@@ -70,6 +69,7 @@ $formTitle = !empty($category) ? 'Edit' : 'Tambah'
                 @else
                 @include('admin.products.simple')
                 @endif
+
                 <div class="form-group">
                     {!! Form::label('deskripsi', 'Deskripsi') !!}
                     {!! Form::textarea('deskripsi', null, ['class' => 'form-control', 'placeholder' => 'Deskripsi']) !!}

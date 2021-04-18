@@ -45,7 +45,6 @@
                             <tr>
                                 <th scope="col">No</th>
                                 <th scope="col">Kode</th>
-                                <th scope="col">Tipe</th>
                                 <th scope="col">Nama</th>
                                 <th scope="col">Harga</th>
                                 <th scope="col">Status</th>
@@ -57,7 +56,7 @@
                             <tr>
                                 <th scope="row">{{ $products->firstItem() + $key }}</th>
                                 <td>{{$product->sku}}</td>
-                                <td>{{$product->tipe}}</td>
+                               
                                 <td>{{$product->nama}}</td>
                                 <td>{{ number_format($product->harga) }}</td>
                                 <td>{{ $product->status_label() }}</td>
@@ -73,8 +72,8 @@
                             </tr>
                             @empty
                             <tr>
-                                <td colspan="6" style="text-align: center;">
-                                    <span class="text-dark">Data Kosong</span>
+                                <td colspan="7" style="text-align: center;">
+                                    <span>Data Tidak Tersedia</span>
                                 </td>
                             </tr>
                             @endforelse

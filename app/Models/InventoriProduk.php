@@ -4,16 +4,16 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class ProductImage extends Model
+class InventoriProduk extends Model
 {
-    protected $table = "gambar_produk";
+    protected $table = "inventori_produk";
 
     protected $fillable = [
         'produk_id',
-        'path'
+        'qty',
     ];
 
-    public function product()
+    public function produk()
     {
         return $this->belongsTo('App\Models\Produk');
     }

@@ -4,7 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class ProductAttributeValue extends Model
+class AtributProduk extends Model
 {
     protected $table = "atribut_produk";
 
@@ -25,22 +25,20 @@ class ProductAttributeValue extends Model
         return $this->belongsTo('App\Models\Produk');
     }
 
-    public function attribute()
+    public function atribut()
     {
-        return $this->belongsTo('App\Models\Attribute');
+        return $this->belongsTo('App\Models\Atribut');
     }
 
     public static function getAttributeOptions($product, $attributeCode)
     {
         $productVariantIDs = $product->variants->pluck('id');
-        $attribute = Attribute::where('kode', $attributeCode)->first();
+        $attribute = Atribut::where('kode', $attributeCode)->first();
 
-        $attributeOptions = ProductAttributeValue::where('attribute_id', $attribute->id)
+        $attributeOptions = AtributProduk::where('atribut_id', $attribute->id)
             ->whereIn('produk_id', $productVariantIDs)
             ->get();
 
         return $attributeOptions;
     }
-
-
 }

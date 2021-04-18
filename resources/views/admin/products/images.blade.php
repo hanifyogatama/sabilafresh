@@ -7,7 +7,6 @@
     <div class="section-header-breadcrumb">
         <div class="breadcrumb-item active"><a href="#">Katalog</a></div>
         <div class="breadcrumb-item"><a href="{{url('admin/products')}}">Produk</a></div>
-        <!-- <div class="breadcrumb-item">Table</div> -->
     </div>
 </div>
 
@@ -18,39 +17,37 @@
         </div>
         <div class="col-lg-8">
             <div class="card card-default">
-                
+
                 <div class="card-body">
                     @include('admin.partials.flash')
-                    <table class="table table-bordered table-stripped">
+                    <table class="table ">
                         <thead>
-                            <th>#</th>
-                            <th>Image</th>
-                            <th>Uploaded At</th>
+                            <th>No</th>
+                            <th>Gambar</th>
                             <th>Action</th>
                         </thead>
                         <tbody>
                             @forelse ($productImages as $image)
                             <tr>
-                                <td>{{ $image->id }}</td>
-                                <td><img src="{{ asset('storage/'.$image->path) }}" style="width:150px" /></td>
-                                <td>{{ $image->created_at }}</td>
+                                <th scope="row">{{ $loop->iteration }}</th>
+                                <td><img src="{{ asset("storage/$image->path") }}" style="width:150px" /></td>
                                 <td>
                                     {!! Form::open(['url' => 'admin/products/images/'. $image->id, 'class' => 'delete', 'style' => 'display:inline-block']) !!}
                                     {!! Form::hidden('_method', 'DELETE') !!}
-                                    {!! Form::submit('remove', ['class' => 'btn btn-danger btn-sm']) !!}
+                                    {!! Form::button(' <i class="far fa-trash-alt"></i> ',['type' => 'submit', 'class' => 'btn btn-danger btn-sm', 'data-toggle'=>'tooltip','title'=>'Hapus']) !!}
                                     {!! Form::close() !!}
                                 </td>
                             </tr>
                             @empty
-                            <tr>
-                                <td colspan="4">No records found</td>
+                            <tr style="text-align: center;">
+                                <td colspan="3">Data Tidak Tesedia</td>
                             </tr>
                             @endforelse
                         </tbody>
                     </table>
                 </div>
                 <div class="card-footer text-right">
-                    <a href="{{ url('admin/products/'.$productID.'/add-image') }}" class="btn btn-primary">Add New</a>
+                    <a href="{{ url('admin/products/'.$productID.'/add-image') }}" class="btn btn-primary">Tambah</a>
                 </div>
             </div>
         </div>

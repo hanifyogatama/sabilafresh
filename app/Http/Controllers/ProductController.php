@@ -6,7 +6,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 
 use App\Models\Produk;
-use App\Models\ProductAttributeValue;
+use App\Models\AtributProduk;
 use App\Models\Kategori;
 
 use Str;
@@ -148,8 +148,8 @@ class ProductController extends Controller
         }
 
         if ($product->type == 'configurable') {
-            $this->data['colors'] = ProductAttributeValue::getAttributeOptions($product, 'color')->pluck('text_value', 'text_value');
-            $this->data['sizes'] = ProductAttributeValue::getAttributeOptions($product, 'size')->pluck('text_value', 'text_value');
+            $this->data['colors'] = AtributProduk::getAttributeOptions($product, 'color')->pluck('text_value', 'text_value');
+            $this->data['sizes'] = AtributProduk::getAttributeOptions($product, 'size')->pluck('text_value', 'text_value');
         }
 
         $this->data['product'] = $product;

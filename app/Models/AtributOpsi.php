@@ -4,14 +4,14 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class AttributeOption extends Model
+class AtributOpsi extends Model
 {
     protected $table = "atribut_opsi";
 
     protected $fillable = ['atribut_id', 'nama'];
 
-    public function attribute()
+    public function atribut()
     {
-        return $this->belongsTo('App\Models\Attribute');
+        return $this->belongsTo('App\Models\Atribut');
     }
 }

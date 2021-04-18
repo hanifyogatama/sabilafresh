@@ -85,8 +85,8 @@ $disableInput = !empty($attribute) ? true : false;
                     </div>
                 </fieldset>
                 <div class="form-footer pt-5 border-top">
-                    <button type="submit" class="btn btn-primary btn-default">Save</button>
-                    <a href="{{ url('admin/attributes') }}" class="btn btn-secondary btn-default">Back</a>
+                    <button type="submit" class="btn btn-primary btn-default">Simpan</button>
+                    <a href="{{ url('admin/attributes') }}" class="btn btn-secondary btn-default">Kembali</a>
                 </div>
                 {!! Form::close() !!}
             </div>

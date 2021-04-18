@@ -84,7 +84,8 @@
             position: 'topRight',
         });
     </script>
-    @elseif(Session::has('success-edit'))
+    @endif
+    @if(Session::has('success-edit'))
     <script>
         iziToast.success({
             title: 'Sukses',
@@ -92,7 +93,9 @@
             position: 'topRight',
         });
     </script>
-    @elseif(Session::has('success-delete'))
+    @endif
+
+    @if(Session::has('success-delete'))
     <script>
         iziToast.success({
             title: 'Sukses',
@@ -101,7 +104,6 @@
         });
     </script>
     @endif
-
 
     @if(Session::has('login-success'))
     <script>
