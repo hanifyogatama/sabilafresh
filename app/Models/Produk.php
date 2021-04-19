@@ -100,5 +100,18 @@ class Produk extends Model
         return ($this->variants->count() > 0) ? $this->variants->first()->harga : $this->harga;
     }
 
+
+    public function configurable()
+    {
+        return $this->tipe == 'configurable';
+    }
+
+    
+    public function simple()
+    {
+        return $this->tipe == 'simple';
+    }
+
+
     protected $guarded = [];
 }

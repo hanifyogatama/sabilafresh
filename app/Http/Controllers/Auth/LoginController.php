@@ -8,6 +8,7 @@ use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Http\Request;
 use App\Models\User;
 use Auth;
+use PhpParser\Node\Expr\FuncCall;
 
 class LoginController extends Controller
 {
@@ -50,10 +51,18 @@ class LoginController extends Controller
         $this->middleware('guest')->except('logout');
     }
 
-
     public function logout(Request $request)
     {
         Auth::logout();
         return redirect('/login');
+    }
+
+    public function showLoginForm()
+    {
+        if (view()->exists('auth.authenticate')) {
+            return view('auth.authenticate');
+        }
+
+        return $this->load_theme('auth.login');
     }
 }

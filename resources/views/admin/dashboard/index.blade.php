@@ -90,20 +90,7 @@
 
 <!-- list kategori -->
 
-
-
-
-
-
-
 <!-- produk -->
-
-
-
-
-
-
-
 
 <!-- report orders -->
 <!-- <div class="row">
@@ -182,24 +169,26 @@
 <!-- chart -->
 <!-- <div class="row">
     <div class="col-lg-8">
-        <div class="card">
+
+    </div>
+</div> -->
+
+<div class="row">
+    <div class="col-lg-8 ml-0 ">
+        <div class="card mb-2">
             <div class="card-header">
-                <h4>Budget vs Sales</h4>
+                <h4 style="color: #03AC0E;">Budget vs Sales</h4>
             </div>
             <div class="card-body">
                 <canvas id="myChart" height="158"></canvas>
             </div>
         </div>
     </div>
-</div> -->
 
-<div class="row">
-    <div class="col-lg-4 p-0"></div>
-    <div class="col-lg-4 p-0"></div>
-    <div class="col-lg-4 p-0">
+    <div class="col-lg-4">
         <div class="card gradient-bottom">
             <div class="card-header">
-                <h4>Produk Terbaru</h4>
+                <h4 style="color: #03AC0E;">Produk Terbaru</h4>
             </div>
             <div class="card-body" id="top-5-scroll">
                 @forelse ($products as $product)
@@ -213,9 +202,9 @@
 
                         <div class="media-body">
                             <div class="float-right">
-                                <div class="font-weight-600 text-muted text-small">Rp {{ number_format($product->price_label()) }}</div>
+                                <div class="font-weight-600 text-small" style="color: #03AC0E;">Rp {{ number_format($product->price_label()) }}</div>
                             </div>
-                            <div class="media-title">{{ Str::limit($product->nama,15)}}</div>
+                            <div class="media-title">{{ Str::limit($product->nama,12)}}</div>
                             <div class="mt-1">
                                 <div class="budget-price ">
                                     <div class="budget-price-label ml-0">kategori</div>

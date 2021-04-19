@@ -70,23 +70,25 @@
 						<span>{{ number_format($product->price_label()) }}</span>
 					</div>
 					<p>{{ $product->deskripsi }}</p>
+
 					{!! Form::open(['url' => 'carts']) !!}
-					@if ($product->type == 'configurable')
+					{{ Form::hidden('produk_id', $product->id) }}
+					@if ($product->tipe == 'configurable')
 					<div class="quick-view-select">
 						<div class="select-option-part">
 							<label>Size*</label>
-							{!! Form::select('size', $sizes , null, ['class' => 'select', 'placeholder' => '- Please Select -']) !!}
+							{!! Form::select('size', $sizes , null, ['class' => 'select', 'placeholder' => '- Please Select -', 'required' => true]) !!}
 						</div>
 						<div class="select-option-part">
 							<label>Color*</label>
-							{!! Form::select('color', $colors , null, ['class' => 'select', 'placeholder' => '- Please Select -']) !!}
+							{!! Form::select('color', $colors , null, ['class' => 'select', 'placeholder' => '- Please Select -', 'required' => true]) !!}
 						</div>
 					</div>
 					@endif
 
 					<div class="quickview-plus-minus">
 						<div class="cart-plus-minus">
-							{!! Form::text('qty', 1, ['class' => 'cart-plus-minus-box', 'placeholder' => 'qty']) !!}
+							{!! Form::number('qty', 1, ['class' => 'cart-plus-minus-box', 'placeholder' => 'qty', 'min' => 1]) !!}
 						</div>
 						<div class="quickview-btn-cart">
 							<button type="submit" class="submit contact-btn btn-hover">add to cart</button>
@@ -96,6 +98,7 @@
 						</div>
 					</div>
 					{!! Form::close() !!}
+
 					<div class="product-details-cati-tag mt-35">
 						<ul>
 							<li class="categories-title">Kategori :</li>
