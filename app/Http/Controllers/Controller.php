@@ -6,28 +6,36 @@ use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Foundation\Bus\DispatchesJobs;
 use Illuminate\Foundation\Validation\ValidatesRequests;
 use Illuminate\Routing\Controller as BaseController;
+use Config;
 
 class Controller extends BaseController
 {
     use AuthorizesRequests, DispatchesJobs, ValidatesRequests;
 
     protected $data = [];
+    protected $uploadsFolder = 'upload/';
 
-    protected $uploadsFolder = 'uploads/';
 
-    protected $rajaOngkirApiKey = null;
-    protected $rajaOngkirBaseUrl = null;
+
+    // RAJAONGKIR_API_KEY='25753f778695f7c5483330b410dbdda0'
+    // RAJAONGKIR_BASE_URL=https://api.rajaongkir.com/starter/
+    // RAJAONGKIR_ORIGIN=501
+
+    protected $rajaOngkirApiKey = '8cab1afa109d36967b1a0eac46be00d4';
+    protected $rajaOngkirBaseUrl = 'https://api.rajaongkir.com/starter/';
     protected $rajaOngkirOrigin = null;
     protected $couriers = [
         'jne' => 'JNE',
         'pos' => 'POS Indonesia',
-        'tiki' => 'Titipan Kilat'
+        'tiki' => 'Titipan Kilat',
     ];
 
     protected $provinces = [];
 
-    public function __construct()
+    public function __constuct()
     {
+        parent::__construct();
+
         $this->rajaOngkirApiKey = env('RAJAONGKIR_API_KEY');
         $this->rajaOngkirBaseUrl = env('RAJAONGKIR_BASE_URL');
         $this->rajaOngkirOrigin = env('RAJAONGKIR_ORIGIN');
