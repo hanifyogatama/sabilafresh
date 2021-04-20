@@ -1,68 +1,94 @@
+<?php
+
+use Symfony\Component\VarDumper\Cloner\Data;
+?>
 <!-- footer area start -->
 <footer class="footer-area">
-    <div class="footer-top-area pt-70 pb-35 wrapper-padding-5">
+    <div class="footer-top-area pt-60 pb-35 wrapper-padding-5 border-top">
         <div class="container-fluid">
             <div class="widget-wrapper">
-                <div class="footer-widget mb-30">
-                    <a href="#"><img src="{{ asset('themes/sabilafresh/assets/img/logo/2.png') }}" alt=""></a>
+
+                <div class="footer-widget mb-20">
                     <div class="footer-about-2">
-                        <p>There are many variations of passages of Lorem Ipsum <br>the majority have suffered alteration in some form, by <br> injected humour</p>
-                    </div>
-                </div>
-                <div class="footer-widget mb-30">
-                    <h3 class="footer-widget-title-5">Contact Info</h3>
-                    <div class="footer-info-wrapper-3">
-                        <div class="footer-address-furniture">
-                            <div class="footer-info-icon3">
-                                <span>Address: </span>
-                            </div>
-                            <div class="footer-info-content3">
-                                <p>66 Sipu road Rampura Banasree <br>USA- 10800</p>
-                            </div>
-                        </div>
-                        <div class="footer-address-furniture">
-                            <div class="footer-info-icon3">
-                                <span>Phone: </span>
-                            </div>
-                            <div class="footer-info-content3">
-                                <p>+8801 (33) 515609735 <br>+8801 (66) 223352333</p>
-                            </div>
-                        </div>
-                        <div class="footer-address-furniture">
-                            <div class="footer-info-icon3">
-                                <span>E-mail: </span>
-                            </div>
-                            <div class="footer-info-content3">
-                                <p><a href="#"> email@domain.com</a> <br><a href="#"> domain@mail.info</a></p>
-                            </div>
+                        <h6 style="font-weight: 600;">Sabilafresh</h6>
+                        <div class="sidebar">
+                            <ul>
+                                <li><a class="list-category" href="https://www.sabilafarm.com/" target="_blank">UD. Sabila Farm</a></li>
+                            </ul>
                         </div>
                     </div>
                 </div>
-                <div class="footer-widget mb-30">
-                    <h3 class="footer-widget-title-5">Newsletter</h3>
-                    <div class="footer-newsletter-2">
-                        <p>Send us your mail or next updates</p>
-                        <div id="mc_embed_signup" class="subscribe-form-5">
-                            <form action="http://devitems.us11.list-manage.com/subscribe/post?u=6bbb9b6f5827bd842d9640c82&amp;id=05d85f18ef" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate" target="_blank" novalidate>
-                                <div id="mc_embed_signup_scroll" class="mc-form">
-                                    <input type="email" value="" name="EMAIL" class="email" placeholder="Enter mail address" required>
-                                    <!-- real people should not fill this in and expect good things - do not remove this or risk form bot signups-->
-                                    <div class="mc-news" aria-hidden="true"><input type="text" name="b_6bbb9b6f5827bd842d9640c82_05d85f18ef" tabindex="-1" value=""></div>
-                                    <div class="clear"><input type="submit" value="Subscribe" name="subscribe" id="mc-embedded-subscribe" class="button"></div>
-                                </div>
-                            </form>
+
+                <div class="footer-widget mb-20">
+                    <div class="footer-about-2">
+                        <h6 style="font-weight: 600;">Layanan</h6>
+                        <div class="sidebar">
+                            <ul>
+                                <li><a class="list-category" href="https://www.sabilafarm.com/produk-kami/produksi-buah" target="_blank">Produksi Buah</a></li>
+                                <li><a class="list-category" href="https://www.sabilafarm.com/produk-kami/wisata-kebun" target="_blank">Kebun Edukasi</a></li>
+                                <li><a class="list-category" href="https://www.sabilafarm.com/produk-kami/wisata-kebun" target="_blank">Wisata Kebun</a></li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="footer-about-2 mt-4">
+                        <h6 style="font-weight: 600;">Kualitas</h6>
+                        <div class="row">
+                            <img class="ml-3" src="{{ asset('themes/sabilafresh/assets/img/front/organic.svg') }}" alt="" width="60px">
                         </div>
                     </div>
                 </div>
-            </div>
-        </div>
-    </div>
-    <div class="footer-bottom ptb-20 gray-bg-8">
-        <div class="container">
-            <div class="row">
-                <div class="col-12 text-center">
-                    <div class="copyright-furniture">
-                        <p>Copyright © <a href="https://hastech.company/">HasTech</a> 2018 . All Right Reserved.</p>
+                <div class="footer-widget mb-20">
+                    <div class="footer-about-2">
+                        <h6 style="font-weight: 600;">Bantuan</h6>
+                        <div class="sidebar">
+                            <ul>
+                                <li><a class="list-category" href="{{ url('/') }}">Kontak</a></li>
+                                <li><a class="list-category" href="{{ url('/') }}">Syarat dan Ketentuan</a></li>
+                                <li><a class="list-category" href="{{ url('/') }}">Kebijakan Privasi</a></li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="footer-about-2 mt-4">
+                        <h6 style="font-weight: 600;">Ikuti Kami</h6>
+                        <div class="product-share">
+                            <ul>
+                                <li>
+                                    <a href="https://web.facebook.com/SabilaFarm/?_rdc=1&_rdr" target="_blank" class="facebook">
+                                        <i class="icofont icofont-social-facebook"></i>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="https://twitter.com/sabilafarm?lang=id" target="_blank" class="twitter">
+                                        <i class="icofont icofont-social-twitter"></i>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="https://www.instagram.com/sabilafarm/?hl=id" target="_blank" class="instagram">
+                                        <i class="icofont icofont-social-instagram"></i>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="https://www.youtube.com/watch?v=ARxtOC_3w9A" target="_blank">
+                                        <i class="icofont icofont-social-youtube"></i>
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="footer-widget mb-40">
+                    <div class="row ml-5">
+                        <img class="mx-auto " src="{{ asset('themes/sabilafresh/assets/img/front/login.svg') }}" alt="" width="310px">
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12 text-center mt-3 ml-5 ">
+                            <div class="copyright-furniture">
+                                <p>© 2021-<?= Date('Y'); ?>, Sabilafresh.</p>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>

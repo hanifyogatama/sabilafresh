@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Kategori;
+use App\Models\Produk;
 use Illuminate\Http\Request;
 
 class HomeController extends Controller
@@ -24,6 +26,17 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return $this->load_theme('home');
+
+        // $products = Produk::popular()->get();
+        // $this->data['products'] = $products;
+
+        // $slides = Slide::active()->orderBy('position', 'ASC')->get();
+        // $this->data['slides'] = $slides;
+
+        $this->data['categories'] = Kategori::parentCategories()
+            ->orderBy('id', 'asc')
+            ->get();
+
+        return $this->load_theme('home',$this->data);
     }
 }

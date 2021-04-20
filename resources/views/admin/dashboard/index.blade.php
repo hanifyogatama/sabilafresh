@@ -81,7 +81,6 @@
                     <h4></h4>
                 </div>
                 <div class="card-body">
-
                 </div>
             </div>
         </div>
@@ -176,12 +175,12 @@
 <div class="row">
     <div class="col-lg-8 ml-0 ">
         <div class="card mb-2">
-            <div class="card-header">
+            <!-- <div class="card-header">
                 <h4 style="color: #03AC0E;">Budget vs Sales</h4>
             </div>
             <div class="card-body">
                 <canvas id="myChart" height="158"></canvas>
-            </div>
+            </div> -->
         </div>
     </div>
 
@@ -226,12 +225,5 @@
         </div>
     </div>
 </div>
-
-
-
-
 </div>
-
-
-
 @stop
