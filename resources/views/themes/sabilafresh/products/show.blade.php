@@ -6,7 +6,7 @@
         <div class="ml-4 pl-1 breadcrumb-content">
             <ul>
                 <li><a href="/">home</a></li>
-                <li><a href="{{url('products')}}">products</a> </li>
+                <li><a href="{{url('products')}}">produk</a> </li>
                 <li style="color: #3e3e3e; font-size: 12px;">{{Str::limit($product->nama,20)}}</li>
             </ul>
         </div>

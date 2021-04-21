@@ -20,17 +20,18 @@
 
                 <div class="card-body">
                     @include('admin.partials.flash')
-                    <table class="table ">
+                    <table class="table">
                         <thead>
                             <th>No</th>
                             <th>Gambar</th>
                             <th>Action</th>
                         </thead>
                         <tbody>
+
                             @forelse ($productImages as $image)
                             <tr>
                                 <th scope="row">{{ $loop->iteration }}</th>
-                                 <td><img src="{{ asset('storage/'.$image->gambar_medium) }}" style="width:100px" /></td>
+                                <td><img src="{{ asset('storage/'.$image->gambar_medium) }}" style="width: 54px; border-radius: 6px;" /></td>
                                 <td>
                                     {!! Form::open(['url' => 'admin/products/images/'. $image->id, 'class' => 'delete', 'style' => 'display:inline-block']) !!}
                                     {!! Form::hidden('_method', 'DELETE') !!}

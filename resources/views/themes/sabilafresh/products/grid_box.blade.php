@@ -1,5 +1,5 @@
-<div class="col-md-6 col-xl-4">
-    <div class="shadow product-wrapper mb-30 rounded-lg">
+<div class="col-md-3">
+    <div class="shadow product-wrapper mb-15 rounded-lg">
         <div class="product-img">
             <a href="{{ url('product/'. $product->slug) }}">
                 @if ($product->gambarProduk->first())
@@ -9,31 +9,32 @@
                 @endif
             </a>
 
-            <div class="product-action">
-                <a class="animate-top add-to-fav" title="Favorite" product-slug="{{ $product->slug }}" href="">
-                    <i class="pe-7s-like"></i>
-                </a>
-                <!-- <a class="animate-top add-to-card" title="Add To Cart" href="" product-id="{{ $product->id }}" product-type="{{ $product->type }}" product-slug="{{ $product->slug }}">
-                    <i class="pe-7s-cart"></i>
-                </a> -->
-                <!-- <a class="animate-right quick-view" title="Quick View" product-slug="{{ $product->slug }}" href="">
-                    <i class="pe-7s-look"></i>
-                </a> -->
+            <!-- src="{{ asset('themes/sabilafresh/assets/img/front/empty-cart.svg') }}" -->
+
+            <!-- <div class="product-action">
+                    <a class="animate-top add-to-fav" title="Favorite" product-slug="{{ $product->slug }}" href="">
+                        <i class="pe-7s-like"></i>
+                    </a>
+                </div> -->
+
+            <div class="card-body pt-1 px-2">
+                <div class="card-text">
+                    <span style="color: rgba(49, 53, 59, 0.96) !important; text-transform: capitalize;" class="card-title"><a href="{{ url('product/'. $product->slug) }}">{{Str::limit($product->nama,43) }}</a></span>
+                </div>
+
+
+                <div class="badge badge-danger my-0 py-1 mt-2">
+                    @foreach ($product->kategories->take(1) as $category)
+                    <a style="color: white; font-weight: 500;" href=" {{ url('products/category/'. $category->slug ) }}">{{ $category->nama }}</a></li>
+                    @endforeach
+                </div>
+
+                <p class="card-text pt-1" style="font-weight:700; color: black; font-size: 14px !important;">Rp {{ number_format($product->price_label()) }}</p>
+
+
+
+
             </div>
         </div>
-
-
-        <div class="card-body">
-            <span class="badge badge-danger">
-                @foreach ($product->kategories->take(1) as $category)
-                <li><a style="color: white;" href=" {{ url('products/category/'. $category->slug ) }}">{{ $category->nama }}</a></li>
-                @endforeach
-            </span>
-
-            <h5 class="card-title"><a href="{{ url('product/'. $product->slug) }}">{{ $product->nama }}</a></h5>
-            <p class="card-text" style="font-weight: bold;">Rp {{ number_format($product->price_label()) }}</p>
-
-        </div>
-
     </div>
 </div>

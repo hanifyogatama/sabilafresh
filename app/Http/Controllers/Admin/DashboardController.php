@@ -42,7 +42,11 @@ class DashboardController extends Controller
         $products = Produk::orderBy('created_at', 'DESC')->paginate(5);
         $this->data['products'] = $products;
 
-        return view('admin.dashboard.index', compact('admins', 'customers', 'owners', 'products', 'users'));
+
+        $product = Produk::orderBy('created_at', 'DESC');
+        $this->data['product'] = $product;
+
+        return view('admin.dashboard.index', compact('admins', 'customers', 'product', 'owners', 'products', 'users'));
     }
 
     /**

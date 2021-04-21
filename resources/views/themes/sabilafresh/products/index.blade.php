@@ -14,7 +14,7 @@
                         <div style="margin-top: 35px;">
                             <hr />
                         </div>
-                        <div class="row mt-4 mb-2">
+                        <div class="row mt-4 mb-3">
                             <div class="col-lg-7">
                                 <p style="font-size: 13px; color: #03AC0E;">Menampilkan {{ count($products) }} produk dari total {{ $products->total() }} produk</p>
                             </div>

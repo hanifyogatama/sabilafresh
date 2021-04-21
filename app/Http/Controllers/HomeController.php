@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Kategori;
+use App\Models\GambarSlide;
 use App\Models\Produk;
 use Illuminate\Http\Request;
 
@@ -30,8 +31,8 @@ class HomeController extends Controller
         // $products = Produk::popular()->get();
         // $this->data['products'] = $products;
 
-        // $slides = Slide::active()->orderBy('position', 'ASC')->get();
-        // $this->data['slides'] = $slides;
+        $slides = GambarSlide::active()->orderBy('id', 'ASC')->get();
+        $this->data['slides'] = $slides;
 
         $this->data['categories'] = Kategori::parentCategories()
             ->orderBy('id', 'asc')

@@ -22,7 +22,6 @@ use DB;
 use Session;
 use App\Authorizable;
 
-
 class ProductController extends Controller
 {
     use Authorizable;
@@ -40,11 +39,10 @@ class ProductController extends Controller
      */
     public function index()
     {
-        $this->data['products'] = Produk::orderBy('nama', 'DESC')->paginate(10);
+        $this->data['products'] = Produk::orderBy('id', 'DESC')->paginate(10);
 
         return view('admin.products.index', $this->data);
     }
-
 
     /**
      * Show the form for creating a new resource.
@@ -250,13 +248,13 @@ class ProductController extends Controller
             return true;
         });
 
-        if ($saved) {
-            Session::flash('success', 'Product has been saved');
-        } else {
-            Session::flash('error', 'Product could not be saved');
-        }
+        // if ($saved) {
+        //     Session::flash('success', 'Product has been saved');
+        // } else {
+        //     Session::flash('error', 'Product could not be saved');
+        // }
 
-        return redirect('admin/products');
+        return redirect('admin/products')->with('success-add','success');
     }
 
 

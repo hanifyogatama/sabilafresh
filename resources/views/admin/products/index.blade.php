@@ -55,11 +55,31 @@
                             @forelse($products as $key => $product)
                             <tr>
                                 <th scope="row">{{ $products->firstItem() + $key }}</th>
-                                <td>{{$product->sku}}</td>
-                               
-                                <td>{{$product->nama}}</td>
-                                <td>{{ number_format($product->harga) }}</td>
-                                <td>{{ $product->status_label() }}</td>
+                                <td style="width: 20%;">{{ Str::limit($product->sku,16)}}</td>
+
+                                <td style="width: 32%;">{{ Str::limit($product->nama,32) }}</td>
+                                <td>Rp {{ number_format($product->harga) }}</td>
+
+                                @if($product->status_label() == 'active')
+                                <td>
+                                    <div class="badge badge-info">
+                                        {{ $product->status_label() }}
+                                    </div>
+                                </td>
+                                @elseif($product->status_label() == 'draft')
+                                <td>
+                                    <div class="badge badge-success">
+                                        {{ $product->status_label() }}
+                                    </div>
+                                </td>
+                                @else
+                                <td>
+                                    <div class="badge badge-danger">
+                                        {{ $product->status_label() }}
+                                    </div>
+                                </td>
+                                @endif
+
                                 <td>
                                     <a href="{{ url('admin/products/'.$product->id.'/edit') }}" class="btn btn-warning btn-sm" data-toggle="tooltip" title="Edit"><i class="far fa-edit"></i></a>
                                     @can('delete_products')

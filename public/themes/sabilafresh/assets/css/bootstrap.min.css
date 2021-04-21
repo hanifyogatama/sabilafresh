@@ -8135,7 +8135,7 @@ button.bg-dark:hover {
 
 .shadow {
     /* box-shadow: 0 .5rem 1rem rgba(0, 0, 0, .15) !important; */
-    box-shadow: 0 0 10px 0 rgb(0 0 0 / 10%) !important;
+    box-shadow: 0 0 8px 0 rgb(0 0 0 / 8%) !important;
 }
 
 .shadow-lg {

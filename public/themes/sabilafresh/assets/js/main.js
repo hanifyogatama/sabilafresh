@@ -35,6 +35,7 @@
     };
     sidebarMainmenu();
     
+    // slider
     
     /* slider active */
     $('.slider-active').owlCarousel({
@@ -42,8 +43,8 @@
         nav: false,
         autoplay: true,
         autoplayTimeout: 5000,
-        animateOut: 'fadeOut',
-        animateIn: 'fadeIn',
+        animateOut: '',
+        animateIn: '',
         item: 1,
         responsive: {
             0: {

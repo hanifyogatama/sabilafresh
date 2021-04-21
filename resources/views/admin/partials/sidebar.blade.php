@@ -61,7 +61,7 @@
             <li class="nav-item dropdown">
                 <a href="#" class="nav-link has-dropdown"><i class="fas fa-cogs"></i> <span>Setting</span></a>
                 <ul class="dropdown-menu">
-                    <li><a href="utilities-contact.html">Slides</a></li>
+                    <li><a href="{{ url('admin/slides') }}">Slide Gambar</a></li>
                 </ul>
             </li>
             @endrole

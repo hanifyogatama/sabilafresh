@@ -65,7 +65,7 @@
                     <h4>Produk</h4>
                 </div>
                 <div class="card-body">
-                    {{ $products->count() }}
+                    {{ $product->count() }}
                 </div>
             </div>
         </div>

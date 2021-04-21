@@ -32,6 +32,10 @@ Route::get('orders/complete', 'OrderController@complete');
 Route::get('orders/invoice', 'OrderController@invoice');
 Route::get('orders/cities', 'OrderController@cities');
 
+Route::resource('favorites', 'FavoriteController');
+Route::get('profile', 'Auth\ProfileController@index');
+Route::post('profile', 'Auth\ProfileController@update');
+
 Route::get('logout', '\App\Http\Controllers\Auth\LoginController@logout');
 
 Route::group(
@@ -56,6 +60,11 @@ Route::group(
 
         Route::resource('roles', 'RoleController');
         Route::resource('users', 'UserController');
+
+
+        Route::resource('slides', 'SlideImageController');
+        Route::get('slides/{slideID}/up', 'SlideImageController@moveUp');
+        Route::get('slides/{slideID}/down', 'SlideImageController@moveDown');
     }
 );
 

@@ -29,7 +29,7 @@
                     <table class="table ">
                         <thead>
                             <th>No</th>
-                            <th>Name</th>
+                            <th>Nama</th>
                             <th>Email</th>
                             <th>Role</th>
                             <th>Terdaftar</th>
