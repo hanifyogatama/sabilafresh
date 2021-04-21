@@ -8,10 +8,21 @@ class GambarProduk extends Model
 {
     protected $table = "gambar_produk";
 
-    protected $fillable = [
-        'produk_id',
-        'path'
+    public const UPLOAD_DIR = 'uploads';
+
+    protected $guarded = [
+        'id',
+        'created_at',
+        'updated_at',
     ];
+
+    // size images
+    public const SMALL = '40x40';
+    public const MEDIUM = '240x240';
+    public const LARGE = '600x656';
+    public const X_LARGE = '1125x1200';
+
+
 
     public function produk()
     {

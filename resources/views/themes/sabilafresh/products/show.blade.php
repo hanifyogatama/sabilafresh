@@ -1,137 +1,171 @@
 @extends('themes.sabilafresh.layout')
 
 @section('content')
-<div class="breadcrumb-area pt-205 pb-210" style="background-image: url({{ asset('themes/sabilafresh/assets/img/bg/breadcrumb.jpg') }})">
-	<div class="container">
-		<div class="breadcrumb-content text-center">
-			<h2>product details</h2>
-			<ul>
-				<li><a href="/">home</a></li>
-				<li> product details </li>
-			</ul>
-		</div>
-	</div>
+<div class="pt-120 ml-130 mr-130">
+    <div class="container">
+        <div class="ml-4 pl-1 breadcrumb-content">
+            <ul>
+                <li><a href="/">home</a></li>
+                <li><a href="{{url('products')}}">products</a> </li>
+                <li style="color: #3e3e3e; font-size: 12px;">{{Str::limit($product->nama,20)}}</li>
+            </ul>
+        </div>
+    </div>
 </div>
-<div class="product-details ptb-100 pb-90">
-	<div class="container">
-		<div class="row">
-			<div class="col-md-12 col-lg-7 col-12">
-				<div class="product-details-img-content">
-					<div class="product-details-tab mr-70">
-						<div class="product-details-large tab-content">
-							@php
-							$i = 1
-							@endphp
-							@forelse ($product->gambarProduk as $image)
-							<div class="tab-pane fade {{ ($i == 1) ? 'active show' : '' }}" id="pro-details{{ $i}}" role="tabpanel">
-								<img src="{{ asset('storage/'.$image->path) }}" alt="{{ $product->name }}">
-							</div>
-							@php
-							$i++
-							@endphp
-							@empty
-							No image found!
-							@endforelse
-						</div>
-						<div class="product-details-small nav mt-12" role=tablist>
-							@php
-							$i = 1
-							@endphp
-							@forelse ($product->gambarProduk as $image)
-							<a class="{{ ($i == 1) ? 'active' : '' }} mr-12" href="#pro-details{{ $i }}" data-toggle="tab" role="tab" aria-selected="true">
-								<img src="{{ asset('themes/sabilafresh/assets/img/product-details/s1.jpg') }}" alt="">
-							</a>
-							@php
-							$i++
-							@endphp
-							@empty
-							No image found!
-							@endforelse
-						</div>
-					</div>
-				</div>
-			</div>
-			<div class="col-md-12 col-lg-5 col-12">
-				<div class="product-details-content">
-					<h3>{{ $product->nama }}</h3>
-					<div class="rating-number">
-						<div class="quick-view-rating">
-							<i class="pe-7s-star red-star"></i>
-							<i class="pe-7s-star red-star"></i>
-							<i class="pe-7s-star"></i>
-							<i class="pe-7s-star"></i>
-							<i class="pe-7s-star"></i>
-						</div>
-						<div class="quick-view-number">
-							<span>2 Ratting (S)</span>
-						</div>
-					</div>
-					<div class="details-price">
-						<span>{{ number_format($product->price_label()) }}</span>
-					</div>
-					<p>{{ $product->deskripsi }}</p>
 
-					{!! Form::open(['url' => 'carts']) !!}
-					{{ Form::hidden('produk_id', $product->id) }}
-					@if ($product->tipe == 'configurable')
-					<div class="quick-view-select">
-						<div class="select-option-part">
-							<label>Size*</label>
-							{!! Form::select('size', $sizes , null, ['class' => 'select', 'placeholder' => '- Please Select -', 'required' => true]) !!}
-						</div>
-						<div class="select-option-part">
-							<label>Color*</label>
-							{!! Form::select('color', $colors , null, ['class' => 'select', 'placeholder' => '- Please Select -', 'required' => true]) !!}
-						</div>
-					</div>
-					@endif
+<div class="product-details pt-20 ml-130 mr-130 ">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-4 fixed-column">
+                <!-- gambar -->
+                <div class="product-details-img-content">
+                    <div class="product-details-tab mr-70">
+                        <div class="product-details-large tab-content">
+                            @php
+                            $i = 1
+                            @endphp
+                            @forelse ($product->gambarProduk as $image)
+                            <div class="tab-pane fade {{ ($i == 1) ? 'active show' : '' }}" id="pro-details{{ $i}}" role="tabpanel">
+                                <div class="easyzoom easyzoom--overlay">
+                                    @if ($image->gambar_medium && $image->gambar_xbesar)
+                                    <a href="{{ asset('storage/'.$image->gambar_xbesar) }}">
+                                        <img src="{{ asset('storage/'.$image->gambar_medium) }}" alt="{{ $product->nama }}" style="border-radius: 3%;">
+                                    </a>
+                                    @else
+                                    <a href=" {{ asset('themes/sabilafresh/assets/img/product-details/bl1.jpg') }}">
+                                        <img src="{{ asset('themes/sabilafresh/assets/img/product-details/l1.jpg') }}" alt="{{ $product->nama }}">
+                                    </a>
+                                    @endif
+                                </div>
+                            </div>
+                            @php
+                            $i++
+                            @endphp
+                            @empty
+                            No image found!
+                            @endforelse
+                        </div>
 
-					<div class="quickview-plus-minus">
-						<div class="cart-plus-minus">
-							{!! Form::number('qty', 1, ['class' => 'cart-plus-minus-box', 'placeholder' => 'qty', 'min' => 1]) !!}
-						</div>
-						<div class="quickview-btn-cart">
-							<button type="submit" class="submit contact-btn btn-hover">add to cart</button>
-						</div>
-						<div class="quickview-btn-wishlist">
-							<a class="btn-hover" href="#"><i class="pe-7s-like"></i></a>
-						</div>
-					</div>
-					{!! Form::close() !!}
+                        <div class="product-details-small nav mt-12" role=tablist>
+                            @php
+                            $i = 1
+                            @endphp
+                            @forelse ($product->gambarProduk as $image)
+                            <a class="{{ ($i == 1) ? 'active' : '' }} mr-12" href="#pro-details{{ $i }}" data-toggle="tab" role="tab" aria-selected="true">
+                                @if ($image->gambar_medium)
+                                <img src="{{ asset('storage/'.$image->gambar_medium) }}" alt="{{ $product->nama }}" style="border-radius: 16%; width:40px">
+                                @else
+                                <img src="{{ asset('themes/sabilafresh/assets/img/product-details/s1.jpg') }}" alt="{{ $product->nama }}">
+                                @endif
+                            </a>
+                            @php
+                            $i++
+                            @endphp
+                            @empty
+                            No image found!
+                            @endforelse
+                        </div>
+                    </div>
+                </div>
+            </div>
 
-					<div class="product-details-cati-tag mt-35">
-						<ul>
-							<li class="categories-title">Kategori :</li>
-							@foreach ($product->kategories as $category)
-							<li><a href="{{ url('products?category='. $category->slug) }}">{{ $category->nama }}</a></li>
-							@endforeach
-						</ul>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
+            <div class="col-4 fixed-col">
+                <!-- code in here -->
+                <h6 style="font-weight: 600;">{{ $product->nama }}</h6>
+
+                <h4 class="mt-3" style="font-weight: 600;">Rp {{ number_format($product->price_label()) }}</h4>
+                <div class="mt-3">
+                    <hr />
+                </div>
+
+                <div class="ml-0 mb-2">
+                    <ul>
+                        <li>Berat : {{ $product->berat }} Gram</li>
+                        <li>Kategori :
+                            @foreach ($product->kategories as $category)
+                            <a style="color: #03AC0E; display: inline-block;  font-weight: 600;" href="{{ url('products?category/'. $category->slug ) }}">{{ $category->nama }}</a>
+                        </li>
+                        @endforeach
+                    </ul>
+                </div>
+
+                <p>{{ $product->deskripsi }}</p>
+
+                <p>
+                    {{ Str::limit($product->detail_deskripsi, 135,'') }}
+
+                    @if (strlen($product->detail_deskripsi) > 135)
+                    <span id="dots">...</span>
+                    <span id="more">{{ substr($product->detail_deskripsi,135) }}</span>
+
+                    <button style="background-color: transparent; border: 2px;color: #03AC0E; display: inline-block; font-size: 12px; font-weight:600; cursor: pointer; " onclick="myFunction()" id="myBtn">Lihat Selengkapnya</button>
+                    @endif
+
+
+                </p>
+            </div>
+
+            <div class="col-md-4 fixed-column">
+                <div class="shadow product-details-content rounded-lg p-2 ">
+                    <h6 class="pl-2 pt-2" style="font-weight: 600;">Atur jumlah barang</h6>
+                    {!! Form::open(['url' => 'carts']) !!}
+                    {{ Form::hidden('produk_id', $product->id) }}
+                    @if ($product->type == 'configurable')
+
+                    <div class="quick-view-select">
+                        <div class="select-option-part">
+                            <label>Size*</label>
+                            {!! Form::select('size', $sizes , null, ['class' => 'select', 'placeholder' => '- Please Select -', 'required' => true]) !!}
+                        </div>
+                        <div class="select-option-part">
+                            <label>Color*</label>
+                            {!! Form::select('color', $colors , null, ['class' => 'select', 'placeholder' => '- Please Select -', 'required' => true]) !!}
+                        </div>
+                    </div>
+                    @endif
+
+
+
+                    <div class="quickview-plus-minus">
+                        <div class="cart-plus-minus">
+                            {!! Form::number('qty', 1, ['class' => 'cart-plus-minus-box', 'readonly','placeholder' => 'qty', 'min' => 1]) !!}
+                        </div>
+                    </div>
+
+                    <div class="row px-2 mt-4 mb-2">
+                        <div class="col">
+                            <a class="btn btn-outline-light-green bg-white btn-block add-to-fav" href="" product-slug="{{ $product->slug }}"><i class="pe-7s-like"></i>wishlist</a>
+                        </div>
+                        <div class="col">
+                            <button type="submit" class="btn btn-light-green ">+ Keranjang</button>
+                        </div>
+                    </div>
+                    {!! Form::close() !!}
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 <div class="product-description-review-area pb-90">
-	<div class="container">
-		<div class="product-description-review text-center">
-			<div class="description-review-title nav" role=tablist>
-				<a class="active" href="#pro-dec" data-toggle="tab" role="tab" aria-selected="true">
-					Description
-				</a>
-				<a href="#pro-review" data-toggle="tab" role="tab" aria-selected="false">
-					Reviews (0)
-				</a>
-			</div>
-			<div class="description-review-text tab-content">
-				<div class="tab-pane active show fade" id="pro-dec" role="tabpanel">
-					<p>{{ $product->detail_deskripsi }} </p>
-				</div>
-				<div class="tab-pane fade" id="pro-review" role="tabpanel">
-					<a href="#">Be the first to write your review!</a>
-				</div>
-			</div>
-		</div>
-	</div>
+    <div class="container">
+        <div class="product-description-review text-center">
+            <div class="description-review-title nav" role=tablist>
+                <a class="active" href="#pro-dec" data-toggle="tab" role="tab" aria-selected="true">
+                    Description
+                </a>
+                <a href="#pro-review" data-toggle="tab" role="tab" aria-selected="false">
+                    Reviews (0)
+                </a>
+            </div>
+            <div class="description-review-text tab-content">
+                <div class="tab-pane active show fade" id="pro-dec" role="tabpanel">
+                    <!-- <p>{{ $product->description }} </p> -->
+                </div>
+                <div class="tab-pane fade" id="pro-review" role="tabpanel">
+                    <a href="#">Be the first to write your review!</a>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 @endsection

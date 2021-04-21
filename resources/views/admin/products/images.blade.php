@@ -30,7 +30,7 @@
                             @forelse ($productImages as $image)
                             <tr>
                                 <th scope="row">{{ $loop->iteration }}</th>
-                                <td><img src="{{ asset("storage/$image->path") }}" style="width:150px" /></td>
+                                 <td><img src="{{ asset('storage/'.$image->gambar_medium) }}" style="width:100px" /></td>
                                 <td>
                                     {!! Form::open(['url' => 'admin/products/images/'. $image->id, 'class' => 'delete', 'style' => 'display:inline-block']) !!}
                                     {!! Form::hidden('_method', 'DELETE') !!}

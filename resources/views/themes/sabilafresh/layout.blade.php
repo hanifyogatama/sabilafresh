@@ -20,6 +20,7 @@
     <link rel="stylesheet" href="{{ asset('themes/sabilafresh/assets/css/pe-icon-7-stroke.css') }}">
     <link rel="stylesheet" href="{{ asset('themes/sabilafresh/assets/css/icofont.css') }}">
     <link rel="stylesheet" href="{{ asset('themes/sabilafresh/assets/css/meanmenu.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('themes/sabilafresh/assets/css/easyzoom.css') }}">
     <link rel="stylesheet" href="{{ asset('themes/sabilafresh/assets/css/bundle.css') }}">
     <link rel="stylesheet" href="{{ asset('themes/sabilafresh/assets/css/style.css') }}">
     <link rel="stylesheet" href="{{ asset('themes/sabilafresh/assets/css/responsive.css') }}">
@@ -33,10 +34,7 @@
         <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
         <![endif]-->
     @include('themes.sabilafresh.partials.header')
-
     @yield('content')
-
-
     @include('themes.sabilafresh.partials.footer')
     @include('themes.sabilafresh.partials.modals')
 

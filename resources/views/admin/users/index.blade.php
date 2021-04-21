@@ -52,7 +52,7 @@
                                     @endif
 
                                 </td>
-                                <td>{{ $user->created_at->format('m-d-Y') }}</td>
+                                <td>{{ $user->created_at->format('d-m-Y') }}</td>
                                 <td>
 
                                     @role('Owner')

@@ -20,7 +20,6 @@ use Str;
 use Auth;
 use DB;
 use Session;
-
 use App\Authorizable;
 
 
@@ -46,6 +45,7 @@ class ProductController extends Controller
         return view('admin.products.index', $this->data);
     }
 
+
     /**
      * Show the form for creating a new resource.
      *
@@ -69,6 +69,7 @@ class ProductController extends Controller
     {
         return Atribut::where('is_configurable', true)->get();
     }
+
 
     private function generateAttributeCombinations($arrays)
     {
@@ -181,7 +182,7 @@ class ProductController extends Controller
         //     Session::flash('error', 'Product could not be saved');
         // }
 
-        return redirect('admin/products/' . $product->id . '/edit/')->with('success-add', 'Sukses');
+        return redirect('admin/products/' . $product->id . '/edit/');
     }
 
     /**
@@ -288,6 +289,7 @@ class ProductController extends Controller
         return redirect('admin/products')->with('success-delete', 'Sukses');
     }
 
+
     public function images($id)
     {
         if (empty($id)) {
@@ -301,6 +303,7 @@ class ProductController extends Controller
 
         return view('admin.products.images', $this->data);
     }
+
 
     public function add_image($id)
     {
@@ -325,13 +328,20 @@ class ProductController extends Controller
             $name = $product->slug . '_' . time();
             $fileName = $name . '.' . $image->getClientOriginalExtension();
 
-            $folder = '/uploads/images';
-            $filePath = $image->storeAs($folder, $fileName, 'public');
+            $folder = GambarProduk::UPLOAD_DIR . '/images';
 
-            $params = [
-                'produk_id' => $product->id,
-                'path' => $filePath,
-            ];
+            $filePath = $image->storeAs($folder . '/original', $fileName, 'public');
+
+            $resizedImage = $this->_resizeImage($image, $fileName, $folder);
+
+            $params = array_merge(
+                [
+                    'produk_id' => $product->id,
+                    'path' => $filePath,
+                ],
+
+                $resizedImage
+            );
 
             if (GambarProduk::create($params)) {
                 Session::flash('success', 'Gambar berhasil ditambah');
@@ -343,11 +353,59 @@ class ProductController extends Controller
         }
     }
 
+
+    public function _resizeImage($image, $fileName, $folder)
+    {
+        $resizedImage = [];
+
+        $smallImageFilePath = $folder . '/small/' . $fileName;
+        $size = explode('x', GambarProduk::SMALL);
+        list($width, $height) = $size;
+
+        $smallImageFile = \Image::make($image)->fit($width, $height)->stream();
+        if (\Storage::put('public/' . $smallImageFilePath, $smallImageFile)) {
+            $resizedImage['gambar_kecil'] = $smallImageFilePath;
+        }
+
+        $mediumImageFilePath = $folder . '/medium/' . $fileName;
+        $size = explode('x', GambarProduk::MEDIUM);
+        list($width, $height) = $size;
+
+        $mediumImageFile = \Image::make($image)->fit($width, $height)->stream();
+        if (\Storage::put('public/' . $mediumImageFilePath, $mediumImageFile)) {
+            $resizedImage['gambar_medium'] = $mediumImageFilePath;
+        }
+
+        $largeImageFilePath = $folder . '/large/' . $fileName;
+        $size = explode('x', GambarProduk::LARGE);
+        list($width, $height) = $size;
+
+        $largeImageFile = \Image::make($image)->fit($width, $height)->stream();
+        if (\Storage::put('public/' . $largeImageFilePath, $largeImageFile)) {
+            $resizedImage['gambar_besar'] = $largeImageFilePath;
+        }
+
+        $xlargeImageFilePath = $folder . '/xlarge/' . $fileName;
+        $size = explode('x', GambarProduk::X_LARGE);
+        list($width, $height) = $size;
+
+        $xlargeImageFile = \Image::make($image)->fit($width, $height)->stream();
+        if (\Storage::put('public/' . $xlargeImageFilePath, $xlargeImageFile)) {
+            $resizedImage['gambar_xbesar'] = $xlargeImageFilePath;
+        }
+
+        return $resizedImage;
+    }
+
     public function remove_image($id)
     {
         $image = GambarProduk::findOrFail($id);
 
         Storage::disk('public')->delete($image->path);
+        Storage::disk('public')->delete($image->gambar_xbesar);
+        Storage::disk('public')->delete($image->gambar_besar);
+        Storage::disk('public')->delete($image->gambar_medium);
+        Storage::disk('public')->delete($image->gambar_kecil);
 
         if ($image->delete()) {
             Session::flash('success', 'Gambar berhasi dihapus');
