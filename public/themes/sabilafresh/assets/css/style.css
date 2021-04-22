@@ -3090,7 +3090,7 @@ a.banner-book-style-btn:hover {
     position: absolute;
     text-align: left;
     top: 110%;
-    width: 260px;
+    width: 350px;
     z-index: 9999;
     border-radius: 3px 3px 10px 10px;
     box-shadow: 0 3px 10px rgba(0, 0, 0, 0.2);
@@ -3124,7 +3124,7 @@ a.banner-book-style-btn:hover {
     color: #00000061;
     display: block;
     font-size: 13px;
-    font-weight: 400;
+    font-weight: 300;
     text-transform: capitalize;
     padding: 5px 3px;
     line-height: inherit;

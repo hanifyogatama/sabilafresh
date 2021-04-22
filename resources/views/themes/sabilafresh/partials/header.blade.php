@@ -36,37 +36,47 @@
                         <li><a class="btn btn-outline-success btn-sm bg-white m-1 mb-1" href="{{ url('login') }}" style="color: #03AC0E;">Masuk</a></li>
                         <li><a class="btn btn-light-green btn-sm mb-1 mt-1" style="color: white;" href="{{ url('register') }}">Daftar</a></li>
                         @else
-
-
-
                         <div class="menu-style furniture-menu menu-hover">
                             <nav>
                                 <ul>
                                     <li>
                                         <img class="rounded-circle " src=" {{ asset('themes/sabilafresh/assets/img/front/icon-user.jpg') }}" alt="" width="25px">
 
-                                        <a class="ml-1" style="color: #00000061; font-weight: 400;" href="#">{{ Auth::user()->nama_depan }}</a>
+                                        <a class="ml-1 text-capitalize" style="color: #00000061; font-weight: 400;" href="#">{{ Auth::user()->nama_depan }}</a>
                                         <ul class="single-dropdown">
-                                            <li><a href="{{ url('profile') }}">Ubah Profil</a></li>
-                                            <li><a href="{{ url('orders') }}">Riwayat Pembelian</a></li>
-                                            <li><a href="{{ url('favorites') }}">Wishlist</a></li>
-                                            <li><a href="{{ route('logout') }}" onclick="event.preventDefault();
+
+                                            <div class="shadow bg-white rounded-lg py-2 p-2 mb-2">
+                                                <div class="row">
+                                                    <div class="col-md-2">
+                                                        <img class="shadow rounded-circle my-0" src=" {{ asset('themes/sabilafresh/assets/img/front/icon-user.jpg') }}" alt="" width="40px">
+                                                    </div>
+                                                    <div class="col-md-10">
+                                                        <span class="text-dark font-weight-bold text-capitalize">{{ Auth::User()->nama_depan }} {{ Auth::User()->nama_belakang }} </span>
+                                                        <div><i class="fa fa-certificate"></i> Member</div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="row">
+                                                <div class="col-md-6 pr-0">
+                                                    <li class="pb-0"><a href="{{ url('profile') }}">Ubah Profil</a></li>
+                                                    <hr />
+                                                    <li class="pb-0"><a href="{{ url('orders') }}">Riwayat Pembelian</a></li>
+                                                    <hr />
+                                                    <li class="pb-0"><a href="{{ url('favorites') }}">Wishlist</a></li>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <li><a style="color: red;" href="{{ route('logout') }}" onclick="event.preventDefault();
 											document.getElementById('logout-form').submit();">
-                                                    {{ __('Logout') }}
-                                                    <i class="fa fa-sign-out ml-1"></i></a></li>
+                                                            {{ __('Logout') }}
+                                                            <i class="fa fa-sign-out ml-1"></i></a></li>
+                                                </div>
+                                            </div>
                                         </ul>
                                     </li>
                                 </ul>
-
                             </nav>
                         </div>
-
-
-
-                        <!-- <li>Hello: <a href="{{ url('profile') }}">{{ Auth::user()->first_name }}</a></li> -->
-
-
-
                         <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
                             @csrf
                         </form>

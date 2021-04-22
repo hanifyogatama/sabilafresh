@@ -15,6 +15,10 @@
 //     return view('welcome');
 // });
 
+use Illuminate\Support\Facades\Route;
+
+// use Illuminate\Routing\Route;
+
 Route::get('/', 'HomeController@index');
 Route::get('/products', 'ProductController@index');
 Route::get('/product/{slug}', 'ProductController@show');
@@ -26,10 +30,10 @@ Route::post('/carts/update', 'CartController@update');
 
 Route::get('orders/checkout', 'OrderController@checkout');
 Route::post('orders/checkout', 'OrderController@doCheckout');
+
 Route::post('orders/shipping-cost', 'OrderController@shippingCost');
 Route::post('orders/set-shipping', 'OrderController@setShipping');
-Route::get('orders/complete', 'OrderController@complete');
-Route::get('orders/invoice', 'OrderController@invoice');
+Route::get('orders/received/{orderID}', 'OrderController@received');
 Route::get('orders/cities', 'OrderController@cities');
 
 Route::resource('favorites', 'FavoriteController');
@@ -60,7 +64,7 @@ Route::group(
 
         Route::resource('roles', 'RoleController');
         Route::resource('users', 'UserController');
-
+        Route::resource('profile', 'ProfileController');
 
         Route::resource('slides', 'SlideImageController');
         Route::get('slides/{slideID}/up', 'SlideImageController@moveUp');
