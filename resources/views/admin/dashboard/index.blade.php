@@ -20,71 +20,122 @@
 
 <!-- admin  -->
 <div class="row">
-    <div class="col-lg-3 col-md-6 col-sm-6 col-12">
-        <div class="card card-statistic-1">
-            <div class="card-icon bg-primary">
-                <i class="fas fa-user"></i>
-            </div>
-            <div class="card-wrap">
-                <div class="card-header">
-                    <h4>User</h4>
+    <div class="col my-auto">
+        <div class="card card-hero">
+            <div class=" card-header">
+                <div class="card-icon">
+                    <img class="mx-auto " src="{{ asset('themes/sabilafresh/assets/img/front/bag-fruits.svg') }}" alt="" width="180px">
                 </div>
-                <div class="card-body">
-                    <div class="mt-1" style="font-size: 12px;">
-                        <span>Admin : {{ $admins->count() }}</span>
-                        <span>Owner : {{ $owners->count() }}</span>
+                <div class="card-description font-weight-bold">Selamat Datang {{ \Auth::user()->nama_depan }}</div>
+                <div class="text">
+                    @php
+                    date_default_timezone_set('Asia/Jakarta');
+                    $Hour = date('G');
+                    @endphp
+                    @if($Hour >= 5 && $Hour <= 11) <div>
+                        <h5>Selamat Pagi</h5>
+                        <i class="pl-5 pt-3 fa fa-cloud-sun fa-4x"></i>
+                </div>
+                @elseif($Hour >= 12 && $Hour <= 18) <div>
+                    <h5>Selamat Siang</h5>
+                    <i class="pl-5 pt-3 fa fa-sun fa-4x"></i>
+            </div>
+            @elseif($Hour >= 19 || $Hour <= 4) <div>
+                <h5>Selamat Malam</h5>
+                <i class="pl-5 pt-3 fa fa-cloud-moon fa-4x"></i>
+        </div>
+        @endif
+    </div>
+</div>
+</div>
+</div>
+
+<div class="col">
+    <div class="row">
+        <div class="col">
+            <div class="card card-statistic-1">
+                <div class="card-icon bg-primary">
+                    <i class="fas fa-user"></i>
+                </div>
+                <div class="card-wrap">
+                    <div class="card-header">
+                        <h4>User</h4>
+                    </div>
+                    <div class="card-body">
+                        <div class="mt-1" style="font-size: 12px;">
+                            <span>Admin : {{ $admins->count() }}</span>
+                            <span>Owner : {{ $owners->count() }}</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col">
+            <div class="card card-statistic-1">
+                <div class="card-icon bg-danger">
+                    <i class="fas fa-users"></i>
+                </div>
+                <div class="card-wrap">
+                    <div class="card-header">
+                        <h4>Pelanggan</h4>
+                    </div>
+                    <div class="card-body">
+                        {{ $customers->count() }}
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <div class="row">
+        <div class="col">
+            <div class="card card-statistic-1">
+                <div class="card-icon bg-warning">
+                    <i class="fas fa-box"></i>
+                </div>
+                <div class="card-wrap">
+                    <div class="card-header">
+                        <h4>Produk</h4>
+                    </div>
+                    <div class="card-body">
+                        {{ $product->count() }}
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col">
+            <div class="card card-statistic-1">
+                <div class="card-icon bg-success">
+                    <i class="fas fa-circle"></i>
+                </div>
+                <div class="card-wrap">
+                    <div class="card-header">
+                        <h4>User Aktif</h4>
+                    </div>
+                    <div class="card-body">
+                        @php
+                        $userTotal = 0;
+                        @endphp
+                        @foreach($users as $user)
+                        @php
+                        if($user->isOnline()){
+                        $userTotal = $userTotal +1;
+                        }
+                        @endphp
+                        @endforeach
+                        {{ ($userTotal) }}
+
                     </div>
                 </div>
             </div>
         </div>
     </div>
+</div>
 
-    <div class="col-lg-3 col-md-6 col-sm-6 col-12">
-        <div class="card card-statistic-1">
-            <div class="card-icon bg-danger">
-                <i class="fas fa-users"></i>
-            </div>
-            <div class="card-wrap">
-                <div class="card-header">
-                    <h4>Pelanggan</h4>
-                </div>
-                <div class="card-body">
-                    {{ $customers->count() }}
-                </div>
-            </div>
-        </div>
-    </div>
 
-    <div class="col-lg-3 col-md-6 col-sm-6 col-12">
-        <div class="card card-statistic-1">
-            <div class="card-icon bg-warning">
-                <i class="fas fa-box"></i>
-            </div>
-            <div class="card-wrap">
-                <div class="card-header">
-                    <h4>Produk</h4>
-                </div>
-                <div class="card-body">
-                    {{ $product->count() }}
-                </div>
-            </div>
-        </div>
-    </div>
 
-    <div class="col-lg-3 col-md-6 col-sm-6 col-12">
-        <div class="card card-statistic-1">
-            <div class="card-icon bg-success">
-                <i class="fas fa-circle"></i>
-            </div>
-            <div class="card-wrap">
-                <div class="card-header">
-                    <h4></h4>
-                </div>
-                <div class="card-body">
-                </div>
-            </div>
-        </div>
-    </div>
 </div>
 
 <!-- list kategori -->
@@ -173,21 +224,71 @@
 </div> -->
 
 <div class="row">
-    <div class="col-lg-8 ml-0 ">
+    <!-- <div class="col-lg-8 ml-0 ">
         <div class="card mb-2">
-            <!-- <div class="card-header">
+            <div class="card-header">
                 <h4 style="color: #03AC0E;">Budget vs Sales</h4>
             </div>
             <div class="card-body">
                 <canvas id="myChart" height="158"></canvas>
-            </div> -->
+            </div>
+        </div>
+    </div> -->
+
+    <div class="col-md-4">
+
+    </div>
+
+
+    <div class="col-lg-4">
+        <div class="card">
+            <div class="card-header">
+                <h4 class="d-inline">User Aktif</h4>
+                <div class="card-header-action">
+                    <a href="{{ url('admin/users') }}" class="btn btn-primary">Lihat Semua</a>
+                </div>
+            </div>
+            <div class="card-body">
+                @forelse($users as $user)
+                @if($user->isOnline())
+                <div class="media mb-3">
+                    <img alt="image" src="{{ URL::asset('admin/assets/img/avatar/avatar-1.png') }}" class="mr-3 rounded-circle" width="50">
+                    <div class="media-body">
+                        <h6 class="media-title text-capitalize"><a href="#">{{ $user->nama_depan }}</a></h6>
+                        <div class="text-small text-muted">
+                            @if ($user->roles->contains('name', 'Admin'))
+                            <span class="text-dark">{{ $user->roles->implode('name', ', ') }}</span>
+                            @elseif ($user->roles->contains('name', 'Owner'))
+                            <span class="text-dark">{{ $user->roles->implode('name', ', ') }}</span>
+                            @else
+                            <span class="text-dark">Pelanggan</span>
+                            @endif
+
+                            <div class="bullet"></div>
+                            @if($user->isOnline())
+                            <span class="text-primary">Online</span>
+                            @endif
+                            <!-- <div class="text-primary">Login : 13 menit yang lalu</div> -->
+                        </div>
+                    </div>
+                </div>
+                @endif
+                @empty
+                Data tidak tersedia
+                @endforelse
+            </div>
         </div>
     </div>
 
     <div class="col-lg-4">
         <div class="card gradient-bottom">
             <div class="card-header">
-                <h4 style="color: #03AC0E;">Produk Terbaru</h4>
+                <h4 class="d-inline">Produk Terbaru</h4>
+                <div class="card-header-action">
+                    @role('Admin')
+                    <a href="{{ url('admin/products')}}" class="btn btn-primary">Lihat Semua</a>
+                    @endrole
+                </div>
             </div>
             <div class="card-body" id="top-5-scroll">
                 @forelse ($products as $product)
@@ -206,7 +307,7 @@
                             <div class="media-title">{{ Str::limit($product->nama,12)}}</div>
                             <div class="mt-1">
                                 <div class="budget-price ">
-                                    <div class="budget-price-label ml-0">kategori</div>
+                                    <div class="budget-price-label ml-0">{{ $product->getTimeAgo($product->created_at) }}</div>
                                 </div>
                             </div>
                         </div>
@@ -217,11 +318,7 @@
                 @endforelse
             </div>
             <div class="card-footer d-flex justify-content-center">
-                @role('Admin')
-                <a href="{{ url('admin/products')}}" class="budget-price-label">Lihat semua</a>
-                @endrole
             </div>
-
         </div>
     </div>
 </div>

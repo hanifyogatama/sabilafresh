@@ -22,7 +22,7 @@ class FavoriteController extends Controller
     public function index()
     {
         $favorites = Favorit::where('user_id', \Auth::user()->id)
-            ->orderBy('created_by', 'desc')->paginate(10);
+            ->orderBy('created_at', 'desc')->paginate(10);
 
         $this->data['favorites'] = $favorites;
 
@@ -38,26 +38,29 @@ class FavoriteController extends Controller
      */
     public function store(Request $request)
     {
-        $request->validate([
-            'produk_slug' => 'required',
-        ]);
+        $request->validate(
+            [
+                'product_slug' => 'required',
+            ]
+        );
 
-        $product = Produk::where('slug', $request->get('produk_slug'))->firstOrFail();
+        $product = Produk::where('slug', $request->get('product_slug'))->firstOrFail();
 
         $favorite = Favorit::where('user_id', \Auth::user()->id)
             ->where('produk_id', $product->id)
             ->first();
-
         if ($favorite) {
-            return response('success-added', 'success');
+            return response('You sudah menambahkan barang ini sebelumnya', 422);
         }
 
-        Favorit::create([
-            'user_id' => \Auth::uaser()->id,
-            'produk_id' => $product->id,
-        ]);
+        Favorit::create(
+            [
+                'user_id' => \Auth::user()->id,
+                'produk_id' => $product->id,
+            ]
+        );
 
-        return response('success-add', 'success');
+        return response('The product has been added to your favorite', 200);
     }
 
 

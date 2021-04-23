@@ -8,6 +8,7 @@ use Illuminate\Notifications\Notifiable;
 
 use Spatie\Permission\Traits\HasRoles;
 use App\Models\Role;
+use Cache;
 
 class User extends Authenticatable
 {
@@ -59,5 +60,15 @@ class User extends Authenticatable
     {
         $countCustomers = User::where();
         return  $countCustomers;
+    }
+
+    public function favorits()
+    {
+        return $this->hasMany('App\Models\Favorit');
+    }
+
+    public function isOnline()
+    {
+        return Cache::has('user-is-online-' . $this->id);
     }
 }

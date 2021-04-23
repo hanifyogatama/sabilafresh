@@ -9,7 +9,7 @@ $formTitle = !empty($category) ? 'Edit' : 'Tambah'
 <div class="section-header">
     <h1>Produk</h1>
     <div class="section-header-breadcrumb">
-        <div class="breadcrumb-item active"><a href="#">Katalog</a></div>
+        <div class="breadcrumb-item active"> <a href=""><i class="fas fa-box-open"></i> Katalog</a> </div>
         <div class="breadcrumb-item"><a href="{{url('admin/products')}}">Produk</a></div>
 
     </div>
@@ -47,7 +47,7 @@ $formTitle = !empty($category) ? 'Edit' : 'Tambah'
 
                 <div class="form-group">
                     {!! Form::label('category_ids', 'Kategori') !!}
-                    {!! General::selectMultiLevel('category_ids[]', $categories, ['class' => 'form-control form-control-sm ', 'multiple' => true, 'selected' => !empty(old('category_ids')) ? old('category_ids') : $categoryIDs,'placeholder' => '-- Pilih --']) !!}
+                    {!! General::selectMultiLevel('category_ids[]', $categories, ['class' => 'form-control form-control-sm ', 'multiple' => true, 'selected' => !empty(old('category_ids')) ? old('category_ids') : $categoryIDs]) !!}
                 </div>
 
                 <div class="configurable-attributes">

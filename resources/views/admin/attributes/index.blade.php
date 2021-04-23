@@ -4,7 +4,7 @@
 <div class="section-header">
     <h1>Atribut Produk</h1>
     <div class="section-header-breadcrumb">
-        <div class="breadcrumb-item active"><a href="#">Katalog</a></div>
+        <div class="breadcrumb-item active"> <a href=""><i class="fas fa-box-open"></i> Katalog</a> </div>
         <div class="breadcrumb-item"><a href="{{url('admin/attributes')}}">Atribut Produk</a></div>
         <!-- <div class="breadcrumb-item">Table</div> -->
     </div>

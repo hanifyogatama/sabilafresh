@@ -106,10 +106,19 @@ class Produk extends Model
         return $this->tipe == 'configurable';
     }
 
-    
+
     public function simple()
     {
         return $this->tipe == 'simple';
+    }
+
+    public function getTimeAgo($carbonObject)
+    {
+        return str_ireplace(
+            [' seconds', ' second', ' minutes', ' minute', ' hours', ' hour', ' days', ' day', ' weeks', ' week'],
+            [' detik', ' detik', ' menit', ' menit', ' jam', ' jam', ' hari', ' hari', ' minggu', ' minggu'],
+            $carbonObject->diffForHumans(null, true).' yang lalu'
+        );
     }
 
 

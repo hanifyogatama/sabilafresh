@@ -21,6 +21,7 @@ class CartController extends Controller
      */
     public function index()
     {
+
         $items = \Cart::getContent();
         $this->data['items'] = $items;
 
@@ -70,6 +71,7 @@ class CartController extends Controller
         //     $attributes['size'] = $params['size'];
         //     $attributes['color'] = $params['color'];
         // }
+
 
         $item = [
             'id' => md5($product->id),

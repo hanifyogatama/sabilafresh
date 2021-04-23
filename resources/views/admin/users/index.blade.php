@@ -5,7 +5,7 @@
 <div class="section-header">
     <h1>User</h1>
     <div class="section-header-breadcrumb">
-        <div class="breadcrumb-item active"><a href="#">User & Role</a></div>
+        <div class="breadcrumb-item active"> <a href=""><i class="fas fa-users"></i></i> User & Role</a> </div>
         <div class="breadcrumb-item"><a href="{{url('admin/users')}}">User</a></div>
         <!-- <div class="breadcrumb-item">Table</div> -->
     </div>
@@ -30,6 +30,7 @@
                         <thead>
                             <th>No</th>
                             <th>Nama</th>
+                            <th>Status</th>
                             <th>Email</th>
                             <th>Role</th>
                             <th>Terdaftar</th>
@@ -37,10 +38,22 @@
                         </thead>
                         <tbody>
                             @forelse ($users as $key => $user)
+
                             <tr>
+
                                 <th scope="row">{{ $users->firstItem() + $key }}</th>
                                 <td>{{Str::limit($user->nama_depan, '15') }}</td>
+                                <td>
+                                    @if($user->isOnline())
+                                    <label class="py-2 px-3 badge btn-success">Online</label>
+                                    @else
+                                    <label class="py-2 px-3 badge btn-danger">Offline</label>
+                                    @endif
+                                </td>
+
+
                                 <td>{{Str::limit($user->email, '23') }}</td>
+
                                 <td>
 
                                     @if ($user->roles->contains('name', 'Admin'))

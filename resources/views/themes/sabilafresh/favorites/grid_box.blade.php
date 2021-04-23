@@ -2,7 +2,8 @@
     <div class="shadow product-wrapper mb-30 rounded-lg">
         <div class="product-img">
             <a href="{{ url('product/'. $product->slug) }}">
-                <a href="{{ url('product/'. $product->slug) }}"><img src="{{ $image }}" alt="{{ $product->name }}"></a>
+                <a href="{{ url('product/'. $product->slug) }}">
+                    <img src="{{ $image }}" alt="{{ $product->nama }}"></a>
             </a>
             <span>
                 <td class="product-remove">
@@ -12,27 +13,21 @@
                     {!! Form::close() !!}
                 </td>
             </span>
+
+            <div class="card-body pt-1 px-2">
+                <div class="card-text">
+                    <span style="color: rgba(49, 53, 59, 0.96) !important; text-transform: capitalize;" class="card-title"><a href="{{ url('product/'. $product->slug) }}">{{Str::limit($product->nama,43) }}</a></span>
+                </div>
+
+                <div class="badge badge-danger my-0 py-1 mt-2">
+                    @foreach ($product->kategories->take(1) as $category)
+                    <a style="color: white; font-weight: 500;" href=" {{ url('products/category/'. $category->slug ) }}">{{ $category->nama }}</a></li>
+                    @endforeach
+                </div>
+
+                <p class="card-text pt-1" style="font-weight:700; color: black; font-size: 14px !important;">Rp {{ number_format($product->price_label()) }}</p>
+                <!-- <a type="button"   class="btn btn-outline-danger-fix btn-sm btn-block">Beli</a> -->
+            </div>
         </div>
-        <!-- <div class="product-content">
-            <li class="categories-title">Categories :</li>
-            @foreach ($product->categories as $category)
-            <li><a href="{{ url('products/category/'. $category->slug ) }}">{{ $category->name }}</a></li>
-            @endforeach
-            <h6><a href="{{ url('product/'. $product->slug) }}">{{ $product->name }}</a></h6>
-            <p class="mb-6 text-bold">Rp {{ number_format($product->price_label()) }}</p>
-        </div> -->
-        <div class="card-body">
-            <span class="badge badge-danger">
-                @foreach ($product->categories as $category)
-                <li><a style="color: white;" href=" {{ url('products/category/'. $category->slug ) }}">{{ $category->name }}</a></li>
-                @endforeach
-            </span>
-
-            <h5 class="card-title"><a href="{{ url('product/'. $product->slug) }}">{{ $product->name }}</a></h5>
-            <p class="card-text" style="font-weight: bold;">Rp {{ number_format($product->price_label()) }}</p>
-            <a type="button" class="btn btn-outline-danger-fix btn-sm btn-block">Beli</a>
-        </div>
-
-
     </div>
 </div>

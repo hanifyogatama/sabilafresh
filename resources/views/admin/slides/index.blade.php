@@ -5,7 +5,7 @@
 <div class="section-header">
     <h1>Slide Gambar</h1>
     <div class="section-header-breadcrumb">
-        <div class="breadcrumb-item active"><a href="#">Setting</a></div>
+        <div class="breadcrumb-item active"> <a href=""><i class="fas fa-cogs"></i> Setting</a> </div>
         <div class="breadcrumb-item"><a href="{{url('admin/slides')}}">Slide gambar</a></div>
         <!-- <div class="breadcrumb-item">Table</div> -->
     </div>
@@ -38,7 +38,7 @@
                             @forelse ($slides as $key => $slide)
                             <tr>
                                 <th>{{ $slides->firstItem() + $key }}</th>
-                                <td><img src="{{ asset('storage/'. $slide->gambar_kecil) }}" style="width: 90px; border-radius: 6px;"/></td>
+                                <td><img src="{{ asset('storage/'. $slide->gambar_kecil) }}" style="width: 90px; border-radius: 6px;" /></td>
 
                                 @if($slide->status == 'Aktif')
                                 <td>

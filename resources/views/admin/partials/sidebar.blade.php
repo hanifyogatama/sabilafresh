@@ -59,12 +59,13 @@
 
             @role('Admin')
             <li class="nav-item dropdown">
-                <a href="#" class="nav-link has-dropdown"><i class="fas fa-cogs"></i> <span>Setting</span></a>
+                <a href="#" class="nav-link has-dropdown"><i class="fas fa-cogs"></i><span>Setting</span></a>
                 <ul class="dropdown-menu">
                     <li><a href="{{ url('admin/slides') }}">Slide Gambar</a></li>
                 </ul>
             </li>
             @endrole
+            <li><a class="nav-link" href="{{ url('admin/guides') }}"><i class="fas fa-pencil-ruler"></i> <span>Panduan</span></a></li>
         </ul>
 
         <!-- <div class="mt-4 mb-4 p-3 hide-sidebar-mini">

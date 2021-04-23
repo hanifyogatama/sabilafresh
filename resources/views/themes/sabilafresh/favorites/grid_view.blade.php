@@ -1,9 +1,9 @@
 <div class="row">
     @forelse ($favorites as $favorite)
     @php
-    $product = $favorite->product;
+    $product = $favorite->produk;
     $product = isset($product->parent) ?: $product;
-    $image = !empty($product->productImages->first()) ? asset('storage/'.$product->productImages->first()->medium) : asset('themes/sabilafresh/assets/img/cart/3.jpg')
+    $image = !empty($product->gambarProduk->first()) ? asset('storage/'.$product->gambarProduk->first()->gambar_medium) : asset('themes/sabilafresh/assets/img/cart/3.jpg')
     @endphp
     @include('themes.sabilafresh.favorites.grid_box')
     @empty

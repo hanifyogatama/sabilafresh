@@ -9,7 +9,7 @@ $formTitle = !empty($category) ? 'Edit' : 'Tambah'
 <div class="section-header">
     <h1>{{$formTitle}} Kategori</h1>
     <div class="section-header-breadcrumb">
-        <div class="breadcrumb-item active"><a href="#">Katalog</a></div>
+        <div class="breadcrumb-item active"> <a href=""><i class="fas fa-box-open"></i> Katalog</a> </div>
         <div class="breadcrumb-item"><a href="{{url('admin/categories')}}">Kategori</a></div>
         <!-- <div class="breadcrumb-item">Table</div> -->
     </div>

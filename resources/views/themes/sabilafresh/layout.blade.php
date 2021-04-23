@@ -11,7 +11,8 @@
     <link rel="shortcut icon" type="image/x-icon" href="{{ asset('themes/sabilafresh/assets/img/favicon.png') }}">
 
     <!-- all css here -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="{{ URL::asset('admin/assets/modules/fontawesome/css/all.css') }}">
+    <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"> -->
     <link rel="stylesheet" href="{{ asset('themes/sabilafresh/assets/css/bootstrap.min.css') }}">
     <link rel="stylesheet" href="{{ asset('themes/sabilafresh/assets/css/magnific-popup.css') }}">
     <link rel="stylesheet" href="{{ asset('themes/sabilafresh/assets/css/animate.css') }}">
@@ -39,7 +40,9 @@
     @include('themes.sabilafresh.partials.modals')
 
     <!-- all js here -->
+    
     <script src="{{ asset('themes/sabilafresh/assets/js/vendor/jquery-1.12.0.min.js') }}"></script>
+    <script src="{{ asset('themes/sabilafresh/assets/js/app.js') }}"></script>
     <script src="{{ asset('themes/sabilafresh/assets/js/popper.js') }}"></script>
     <script src="{{ asset('themes/sabilafresh/assets/js/bootstrap.min.js') }}"></script>
     <script src="{{ asset('themes/sabilafresh/assets/js/jquery.magnific-popup.min.js') }}"></script>
@@ -51,7 +54,7 @@
     <script src="{{ asset('themes/sabilafresh/assets/js/owl.carousel.min.js') }}"></script>
     <script src="{{ asset('themes/sabilafresh/assets/js/plugins.js') }}"></script>
     <script src="{{ asset('themes/sabilafresh/assets/js/main.js') }}"></script>
-    <script src="{{ asset('themes/sabilafresh/assets/js/app.js') }}"></script>
+    
 </body>
 
 </html>

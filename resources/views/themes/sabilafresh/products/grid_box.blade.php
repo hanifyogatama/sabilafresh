@@ -9,13 +9,11 @@
                 @endif
             </a>
 
-            <!-- src="{{ asset('themes/sabilafresh/assets/img/front/empty-cart.svg') }}" -->
-
-            <!-- <div class="product-action">
-                    <a class="animate-top add-to-fav" title="Favorite" product-slug="{{ $product->slug }}" href="">
-                        <i class="pe-7s-like"></i>
-                    </a>
-                </div> -->
+            <div class="product-action">
+                <a class="animate-top add-to-fav" title="Favorite" product-slug="{{ $product->slug }}" href="">
+                    <i class="pe-7s-like"></i>
+                </a>
+            </div>
 
             <div class="card-body pt-1 px-2">
                 <div class="card-text">
@@ -38,3 +36,4 @@
         </div>
     </div>
 </div>
+

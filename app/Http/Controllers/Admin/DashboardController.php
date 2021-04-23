@@ -20,10 +20,10 @@ class DashboardController extends Controller
      */
     public function index()
     {
-        $users = User::all()->take(1);
+
+        $users = User::all();
 
         $customers = User::where('is_admin', '==', 0)->get();
-
         $admins = User::whereHas(
             'roles',
             function ($q) {

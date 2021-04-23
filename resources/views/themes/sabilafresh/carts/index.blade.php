@@ -78,6 +78,7 @@
                 <h6 class="pl-4 mt-3 mb-3" style="font-weight: 600;">Ringkasan belanja</h6>
 
                 <div class="px-4 row">
+                
                     <div class="col-lg-8" style="font-weight: 500;">Total Harga ({{\Cart::getTotalQuantity()}} barang)</div>
                     <div class="col-lg-4"><span>Rp {{ number_format(\Cart::getSubTotal()) }}</span></div>
                 </div>

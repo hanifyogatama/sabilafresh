@@ -69,6 +69,12 @@ Route::group(
         Route::resource('slides', 'SlideImageController');
         Route::get('slides/{slideID}/up', 'SlideImageController@moveUp');
         Route::get('slides/{slideID}/down', 'SlideImageController@moveDown');
+
+        // Route::get('guides', 'GuidesController@index');
+
+        Route::get('guides', function () {
+            return view('admin.guides.index');
+        });
     }
 );
 

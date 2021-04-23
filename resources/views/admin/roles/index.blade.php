@@ -35,7 +35,8 @@
 <div class="section-header">
     <h1>Role</h1>
     <div class="section-header-breadcrumb">
-        <div class="breadcrumb-item active"><a href="#">User & Role</a></div>
+        <div class="breadcrumb-item active"> <a href=""><i class="fas fa-users"></i></i> User & Role</a> </div>
+
         <div class="breadcrumb-item"><a href="{{url('admin/roles')}}">Role</a></div>
         <!-- <div class="breadcrumb-item">Table</div> -->
     </div>
@@ -65,9 +66,9 @@
                     </div>
                 </div>
                 @can('add_roles')
-                <div class="card-footer text-right">
+                <!-- <div class="card-footer text-right">
                     <a href="#" class="btn btn-success pull-right" data-toggle="modal" data-target="#roleModal"> <i class="glyphicon glyphicon-plus"></i> New Role</a>
-                </div>
+                </div> -->
                 @endcan
             </div>
         </div>

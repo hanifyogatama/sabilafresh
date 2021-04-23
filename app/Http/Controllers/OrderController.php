@@ -339,10 +339,19 @@ class OrderController extends Controller
 
         if ($order) {
             \Cart::clear();
+            $this->_sendEmailOrderReceived($order);
 
             \Session::flash('success', 'Thank you. Your order has been received!');
             return redirect('orders/received/' . $order->id);
         }
+    }
+
+    private function _sendEmailOrderReceived($order)
+    {
+        // $message = new \App\Mail\OrderReceived($order);
+        // \Mail::to(\Auth::user()->email)->send($message);
+
+        \App\Jobs\SendMailOrderReceived::dispatch($order, \Auth::user());
     }
 
     public function received($orderId)
@@ -350,6 +359,9 @@ class OrderController extends Controller
         $this->data['order'] = Pemesanan::where('id', $orderId)
             ->where('user_id', \Auth::user()->id)
             ->firstOrFail();
+
+
+
 
         return $this->load_theme('orders/received', $this->data);
     }
