@@ -231,107 +231,9 @@ class OrderController extends Controller
         $params = $request->except('_token');
         $order = \DB::transaction(
             function () use ($params) {
-
-
-                $destination = isset($params['ship_to']) ? $params['kota_id_pengiriman'] : $params['kota_id'];
-                $selectedShipping = $this->_getSelectedShipping($destination, $this->getTotalWeight(), $params['layanan_kurir']);
-
-                $baseTotalPrice = \Cart::getSubTotal();  // total awal
-                $taxAmount = \Cart::getCondition('TAX 0%')->getCalculatedValue(\Cart::getSubTotal());
-                $taxPercent = (float)\Cart::getCondition('TAX 0%')->getValue();
-                $shippingCost = $selectedShipping['cost'];
-                $grandTotal = ($baseTotalPrice + $taxAmount + $shippingCost);
-
-                $orderDate = date('Y-m-d H:i:s');
-                $paymentDue = (new \DateTime($orderDate))->modify('+1 day')->format('Y-m-d H:i:s');
-
-                $orderParams = [
-                    'user_id'                  => \Auth::user()->id,
-                    'kode'                     => Pemesanan::generateCode(),
-                    'status'                   => Pemesanan::CREATED,
-                    'tanggal_pemesanan'        => $orderDate,
-                    'batas_pemesanan'          => $paymentDue,
-                    'status_pemesanan'         => Pemesanan::UNPAID,
-                    'total_awal'               => $baseTotalPrice,
-                    'jumlah_pajak'             => $taxAmount,
-                    'persen_pajak'             => $taxPercent,
-                    'biaya_pengiriman'         => $shippingCost,
-                    'total_akhir'              => $grandTotal,
-                    'catatan'                  => $params['catatan'],
-                    'nama_depan_konsumen'      => $params['nama_depan'],
-                    'nama_belakang_konsumen'   => $params['nama_belakang'],
-                    'alamat_konsumen'          => $params['alamat'],
-                    'no_hp_konsumen'           => $params['no_hp'],
-                    'email_konsumen'           => $params['email'],
-                    'kota_konsumen'            => $params['kota_id'],
-                    'provinsi_konsumen'        => $params['provinsi_id'],
-                    'kodepos_konsumen'        => $params['kode_pos'],
-                    'nama_kurir'               => $selectedShipping['courier'],
-                    'layanan_kurir'            => $selectedShipping['service'],
-                ];
-
-                $order = Pemesanan::create($orderParams);
-                $cartItems = \Cart::getContent();
-
-                if ($order && $cartItems) {
-                    foreach ($cartItems as $item) {
-                        $itemTaxAmount = 0;
-                        $itemTaxPercent = 0;
-                        $itemBaseTotal = $item->quantity * $item->price;
-                        $itemSubTotal = $itemBaseTotal + $itemTaxAmount;
-
-                        $product = isset($item->associatedModel->parent) ? $item->associatedModel->parent : $item->associatedModel;
-
-                        $orderItemParams = [
-                            'pemesanan_id'      => $order->id,
-                            'produk_id'         => $item->associatedModel->id,
-                            'qty'               => $item->quantity,
-                            'harga'             => $item->price,
-                            'total_harga'       => $itemBaseTotal,
-                            'jumlah_pajak'      => $itemTaxAmount,
-                            'persen_pajak'      => $itemTaxPercent,
-                            'sub_total'         => $itemSubTotal,
-                            'sku'               => $item->associatedModel->sku,
-                            'tipe'              => $product->tipe,
-                            'nama_produk'       => $item->name,
-                            'berat'             => $item->associatedModel->berat,
-                            'atribut'           => json_encode($item->attributes),
-                        ];
-
-                        $orderItem = ItemPemesanan::create($orderItemParams);
-
-                        if ($orderItem) {
-                            InventoriProduk::reduceStock($orderItem->produk_id, $orderItem->qty);
-                        }
-                    }
-                }
-
-                $shippingFirstName  = isset($params['ship_to']) ? $params['nama_depan_pengiriman'] : $params['nama_depan'];
-                $shippingLastName   = isset($params['ship_to']) ? $params['nama_belakang_pengiriman'] : $params['nama_belakang'];
-                $shippingAddress    = isset($params['ship_to']) ? $params['alamat_pengiriman'] : $params['alamat'];
-                $shippingPhone      = isset($params['ship_to']) ? $params['no_hp_pengiriman'] : $params['no_hp'];
-                $shippingEmail      = isset($params['ship_to']) ? $params['email_pengiriman'] : $params['email'];
-                $shippingCityId     = isset($params['ship_to']) ? $params['kota_id_pengiriman'] : $params['kota_id'];
-                $shippingProvinceId = isset($params['ship_to']) ? $params['provinsi_id_pengiriman'] : $params['provinsi_id'];
-                $shippingPostcode   = isset($params['ship_to']) ? $params['kode_pos_pengiriman'] : $params['kode_pos'];
-
-                $shipmentParams = [
-                    'user_id' => \Auth::user()->id,
-                    'pemesanan_id' => $order->id,
-                    'status' => Pengiriman::PENDING,
-                    'total_qty' => \Cart::getTotalQuantity(),
-                    'total_berat' => $this->_getTotalWeight(),
-                    'nama_depan' => $shippingFirstName,
-                    'nama_belakang' => $shippingLastName,
-                    'alamat' => $shippingAddress,
-                    'no_hp' => $shippingPhone,
-                    'email' => $shippingEmail,
-                    'kota_id' => $shippingCityId,
-                    'provinsi_id' => $shippingProvinceId,
-                    'kodepos' => $shippingPostcode,
-                ];
-
-                Pengiriman::create($shipmentParams);
+                $order = $this->_saveOrder($params);
+                $this->_saveOrderItems($order);
+                $this->_saveOrderShipments($order, $params);
 
                 return $order;
             }
@@ -344,6 +246,119 @@ class OrderController extends Controller
             \Session::flash('success', 'Thank you. Your order has been received!');
             return redirect('orders/received/' . $order->id);
         }
+
+        return redirect('orders/checkout');
+    }
+
+    private function _saveOrder($params)
+    {
+        $destination = isset($params['ship_to']) ? $params['kota_id_pengiriman'] : $params['kota_id'];
+        $selectedShipping = $this->_getSelectedShipping($destination, $this->getTotalWeight(), $params['layanan_kurir']);
+
+        $baseTotalPrice = \Cart::getSubTotal();  // total awal
+        $taxAmount = \Cart::getCondition('TAX 0%')->getCalculatedValue(\Cart::getSubTotal());
+        $taxPercent = (float)\Cart::getCondition('TAX 0%')->getValue();
+        $shippingCost = $selectedShipping['cost'];
+        $grandTotal = ($baseTotalPrice + $taxAmount + $shippingCost);
+
+        $orderDate = date('Y-m-d H:i:s');
+        $paymentDue = (new \DateTime($orderDate))->modify('+1 day')->format('Y-m-d H:i:s');
+
+        $orderParams = [
+            'user_id'                  => \Auth::user()->id,
+            'kode'                     => Pemesanan::generateCode(),
+            'status'                   => Pemesanan::CREATED,
+            'tanggal_pemesanan'        => $orderDate,
+            'batas_pemesanan'          => $paymentDue,
+            'status_pemesanan'         => Pemesanan::UNPAID,
+            'total_awal'               => $baseTotalPrice,
+            'jumlah_pajak'             => $taxAmount,
+            'persen_pajak'             => $taxPercent,
+            'biaya_pengiriman'         => $shippingCost,
+            'total_akhir'              => $grandTotal,
+            'catatan'                  => $params['catatan'],
+            'nama_depan_konsumen'      => $params['nama_depan'],
+            'nama_belakang_konsumen'   => $params['nama_belakang'],
+            'alamat_konsumen'          => $params['alamat'],
+            'no_hp_konsumen'           => $params['no_hp'],
+            'email_konsumen'           => $params['email'],
+            'kota_konsumen'            => $params['kota_id'],
+            'provinsi_konsumen'        => $params['provinsi_id'],
+            'kodepos_konsumen'        => $params['kode_pos'],
+            'nama_kurir'               => $selectedShipping['courier'],
+            'layanan_kurir'            => $selectedShipping['service'],
+        ];
+
+        return Pemesanan::create($orderParams);
+    }
+
+
+    private function _saveOrderItems($order)
+    {
+        $cartItems = \Cart::getContent();
+
+        if ($order && $cartItems) {
+            foreach ($cartItems as $item) {
+                $itemTaxAmount = 0;
+                $itemTaxPercent = 0;
+                $itemBaseTotal = $item->quantity * $item->price;
+                $itemSubTotal = $itemBaseTotal + $itemTaxAmount;
+
+                $product = isset($item->associatedModel->parent) ? $item->associatedModel->parent : $item->associatedModel;
+
+                $orderItemParams = [
+                    'pemesanan_id'      => $order->id,
+                    'produk_id'         => $item->associatedModel->id,
+                    'qty'               => $item->quantity,
+                    'harga'             => $item->price,
+                    'total_harga'       => $itemBaseTotal,
+                    'jumlah_pajak'      => $itemTaxAmount,
+                    'persen_pajak'      => $itemTaxPercent,
+                    'sub_total'         => $itemSubTotal,
+                    'sku'               => $item->associatedModel->sku,
+                    'tipe'              => $product->tipe,
+                    'nama_produk'       => $item->name,
+                    'berat'             => $item->associatedModel->berat,
+                    'atribut'           => json_encode($item->attributes),
+                ];
+
+                $orderItem = ItemPemesanan::create($orderItemParams);
+
+                if ($orderItem) {
+                    InventoriProduk::reduceStock($orderItem->produk_id, $orderItem->qty);
+                }
+            }
+        }
+    }
+
+    private function _saveOrderShipments($order, $params)
+    {
+        $shippingFirstName  = isset($params['ship_to']) ? $params['nama_depan_pengiriman'] : $params['nama_depan'];
+        $shippingLastName   = isset($params['ship_to']) ? $params['nama_belakang_pengiriman'] : $params['nama_belakang'];
+        $shippingAddress    = isset($params['ship_to']) ? $params['alamat_pengiriman'] : $params['alamat'];
+        $shippingPhone      = isset($params['ship_to']) ? $params['no_hp_pengiriman'] : $params['no_hp'];
+        $shippingEmail      = isset($params['ship_to']) ? $params['email_pengiriman'] : $params['email'];
+        $shippingCityId     = isset($params['ship_to']) ? $params['kota_id_pengiriman'] : $params['kota_id'];
+        $shippingProvinceId = isset($params['ship_to']) ? $params['provinsi_id_pengiriman'] : $params['provinsi_id'];
+        $shippingPostcode   = isset($params['ship_to']) ? $params['kode_pos_pengiriman'] : $params['kode_pos'];
+
+        $shipmentParams = [
+            'user_id' => \Auth::user()->id,
+            'pemesanan_id' => $order->id,
+            'status' => Pengiriman::PENDING,
+            'total_qty' => \Cart::getTotalQuantity(),
+            'total_berat' => $this->_getTotalWeight(),
+            'nama_depan' => $shippingFirstName,
+            'nama_belakang' => $shippingLastName,
+            'alamat' => $shippingAddress,
+            'no_hp' => $shippingPhone,
+            'email' => $shippingEmail,
+            'kota_id' => $shippingCityId,
+            'provinsi_id' => $shippingProvinceId,
+            'kodepos' => $shippingPostcode,
+        ];
+
+        Pengiriman::create($shipmentParams);
     }
 
     private function _sendEmailOrderReceived($order)
