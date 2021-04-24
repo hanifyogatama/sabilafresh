@@ -48,7 +48,7 @@ class ProductController extends Controller
     public function index(Request $request)
     {
 
-        $products = Produk::active();
+        $products = Produk::active()->orderBy('created_at','desc');
 
         $products = $this->searchProducts($products, $request);
         $products = $this->filterProductByPriceRange($products, $request);

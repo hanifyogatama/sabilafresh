@@ -11,7 +11,7 @@ class Pembayaran extends Model
     protected $fillable = [
         'pemesanan_id',
         'no_pembayaran',
-        'transaksi_id',
+
         'jumlah',
         'metode',
         'status',
@@ -28,8 +28,8 @@ class Pembayaran extends Model
         'bca_va', 'bni_va', 'bri_va', 'other_va', 'gopay', 'indomaret'
     ];
 
-    public const EXPIRY_DURATION    = 2;
-    public const EXPIRY_UNIT        = 'days';
+    public const EXPIRY_DURATION    = 1;
+    public const EXPIRY_UNIT        = 'day';
 
     public const CHALLENGE          = 'challenge';
     public const SUCCESS            = 'success';
@@ -69,6 +69,6 @@ class Pembayaran extends Model
 
     private static function _isOrderCodeExists($orderCode)
     {
-        return self::where('number', '=', $orderCode)->exists();
+        return self::where('no_pembayaran', '=', $orderCode)->exists();
     }
 }

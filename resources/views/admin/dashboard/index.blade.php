@@ -271,14 +271,14 @@
 
 <div class="row">
     <div class="col-lg-8 ">
-        <div class="card">
+        <!-- <div class="card">
             <div class="card-header">
                 <h4 style="color: #03AC0E;">Budget vs Sales</h4>
             </div>
             <div class="card-body">
                 <canvas id="myChart" height="158"></canvas>
             </div>
-        </div>
+        </div> -->
     </div>
 
     <div class="col-lg-4">
@@ -331,20 +331,18 @@
         <div class="card ">
             <div class="row pt-2">
                 <div class="col-sm-10">
-                    <h6 class="text-dark pl-4 pb-3">Kategori Produk <span class="py-1 badge badge-danger">{{$categories->count()}}</span></h6>
+                    <h6 class="text-dark pl-4 pb-3">Kategori Produk <span class="py-1 badge badge-primary">{{$categories->count()}}</span></h6>
                 </div>
                 @if($categories->count() >= 6)
                 <div class="col"><a href="{{ url('admin/categories') }}" class="btn btn-round btn-primary px-3 py-0">Lihat Semua</a></div>
                 @endif
             </div>
             <div class="card-body d-flex justify-content-start mt-0 pt-0">
-
                 @forelse($categories as $category)
-
                 <div class="media mr-3 p-2  shadow-sm btn-round">
                     <div class="row">
                         <div class="col-sm-3 pt-1">
-                            <div class="btn btn-outline-secondary shadow-sm border btn-custom" style="border-radius: 50%;">{{ $category->produks->count() }}</div>
+                            <div class="btn btn-outline-primary shadow-sm border btn-custom" style="border-radius: 50%;">{{ $category->produks->count() }}</div>
                         </div>
                         <div class="col">
                             <div class="media-body pt-2 pl-2">
@@ -353,7 +351,6 @@
                         </div>
                     </div>
                 </div>
-
                 @empty
                 Data tidak tersedia
                 @endforelse
@@ -443,3 +440,4 @@
 
 </div>
 @stop
+

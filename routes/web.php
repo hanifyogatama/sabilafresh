@@ -19,7 +19,7 @@ use Illuminate\Support\Facades\Route;
 
 // use Illuminate\Routing\Route;
 
-Route::get('/', 'HomeController@index');
+Route::get('/', 'HomeController@index')->middleware('preventBackHistory');
 Route::get('/products', 'ProductController@index');
 Route::get('/product/{slug}', 'ProductController@show');
 
@@ -50,7 +50,7 @@ Route::post('profile', 'Auth\ProfileController@update');
 Route::get('logout', '\App\Http\Controllers\Auth\LoginController@logout');
 
 Route::group(
-    ['namespace' => 'Admin', 'prefix' => 'admin', 'middleware' => ['auth']],
+    ['namespace' => 'Admin', 'prefix' => 'admin', 'middleware' => ['auth', 'preventBackHistory']],
     function () {
         Route::get('dashboard', 'DashboardController@index');
         Route::resource('categories', 'CategoryController');

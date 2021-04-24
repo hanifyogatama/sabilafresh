@@ -28,7 +28,7 @@
             <p class="row ml-1" style="font-weight: 500; margin-bottom: 0px;">Kategori</p>
 
             @foreach ($categories as $category)
-            <p class="ml-2" style="margin-bottom: 1px; margin-top: 2px;"><a class="list-category" href="{{ url('products?category='. $category->slug) }}">{{ $category->nama }}</a></p>
+            <p class="ml-2 text-capitalize" style="margin-bottom: 1px; margin-top: 2px;"><a class="list-category" href="{{ url('products?category='. $category->slug) }}">{{ $category->nama }}</a></p>
             @endforeach
 
         </div>

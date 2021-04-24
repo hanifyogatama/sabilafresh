@@ -71,17 +71,17 @@
 
             <div class="col-4 fixed-col">
                 <!-- code in here -->
-                <h6 style="font-weight: 600;">{{ $product->nama }}</h6>
+                <h6 class="text-capitalize" style="font-weight: 600;">{{ $product->nama }}</h6>
 
                 <h4 class="mt-3" style="font-weight: 600;">Rp {{ number_format($product->price_label()) }}</h4>
                 <div class="mt-3">
                     <hr />
                 </div>
 
-                <div class="ml-0 mb-2">
+                <div class="ml-0 mb-2 mt-3">
                     <ul>
-                        <li>Berat : {{ $product->berat }} Gram</li>
-                        <li>Kategori :
+                        <li><span class="font-weight-light">Berat :</span> {{ $product->berat }} Gram</li>
+                        <li><span class="font-weight-light">Kategori :</span>
                             @foreach ($product->kategories as $category)
                             <a style="color: #03AC0E; display: inline-block;  font-weight: 600;" href="{{ url('products?category/'. $category->slug ) }}">{{ $category->nama }}</a>
                         </li>
@@ -93,16 +93,21 @@
 
                 <p>
                     {{ Str::limit($product->detail_deskripsi, 135,'') }}
-
                     @if (strlen($product->detail_deskripsi) > 135)
                     <span id="dots">...</span>
                     <span id="more">{{ substr($product->detail_deskripsi,135) }}</span>
 
                     <button style="background-color: transparent; border: 2px;color: #03AC0E; display: inline-block; font-size: 12px; font-weight:600; cursor: pointer; " onclick="myFunction()" id="myBtn">Lihat Selengkapnya</button>
                     @endif
-
-
                 </p>
+                <div class="mt-2">
+                    <hr />
+                </div>
+                <p class="text-capitalize m-0" style="font-weight: 600;">Pengiriman</p>
+                <div class=""><i class="fas fa-map-marker-alt"></i> Kertodadi, Jln. Kaliurang KM.19, Sleman Yogyakarta</div>
+                <div class="mt-2">
+                    <hr />
+                </div>
             </div>
 
             <div class="col-md-4 fixed-column">
@@ -125,8 +130,7 @@
                     @endif
 
 
-
-                    <div class="quickview-plus-minus">
+                    <div class="pl-2 quickview-plus-minus">
                         <div class="cart-plus-minus">
                             {!! Form::number('qty', 1, ['class' => 'cart-plus-minus-box', 'readonly','placeholder' => 'qty', 'min' => 1]) !!}
                         </div>
@@ -134,7 +138,7 @@
 
                     <div class="row px-2 mt-4 mb-2">
                         <div class="col">
-                            <a class="btn btn-outline-light-green bg-white btn-block add-to-fav" href="" product-slug="{{ $product->slug }}"><i class="pe-7s-like"></i>wishlist</a>
+                            <a class="btn btn-outline-light-green bg-white btn-block add-to-fav" href="" product-slug="{{ $product->slug }}"><i class="fa fa-heart"></i> Wishlist</a>
                         </div>
                         <div class="col">
                             <button type="submit" class="btn btn-light-green ">+ Keranjang</button>

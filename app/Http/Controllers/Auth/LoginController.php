@@ -53,8 +53,12 @@ class LoginController extends Controller
 
     public function logout(Request $request)
     {
-        Auth::logout();
-        return redirect('/login');
+        // Auth::logout();
+        // return redirect('/login');
+
+        $this->guard()->logout();
+        $request->session()->invalidate();
+        return $this->loggedOut($request) ?: redirect()->back();
     }
 
     public function showLoginForm()
