@@ -19,6 +19,7 @@ class CreatePembayaranTable extends Migration
             $table->string('no_pembayaran')->unique();
             $table->decimal('jumlah', 16, 2)->default(0);
             $table->string('metode');
+            $table->string('status')->nullable();
             $table->string('token')->nullable();
             $table->json('payload')->nullable();
             $table->string('tipe_pembayaran')->nullable();

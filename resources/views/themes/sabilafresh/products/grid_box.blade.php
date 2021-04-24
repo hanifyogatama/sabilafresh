@@ -29,9 +29,6 @@
 
                 <p class="card-text pt-1" style="font-weight:700; color: black; font-size: 14px !important;">Rp {{ number_format($product->price_label()) }}</p>
 
-
-
-
             </div>
         </div>
     </div>

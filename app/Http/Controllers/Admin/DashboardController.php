@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\User;
 use App\Models\Produk;
+use App\Models\Kategori;
 use App\Models\Role;
 use App\Models\Permission;
 
@@ -38,6 +39,7 @@ class DashboardController extends Controller
             }
         )->get();
 
+        $categories = Kategori::orderBy('id', 'DESC')->paginate(7);
 
         $products = Produk::orderBy('created_at', 'DESC')->paginate(5);
         $this->data['products'] = $products;
@@ -46,7 +48,7 @@ class DashboardController extends Controller
         $product = Produk::orderBy('created_at', 'DESC');
         $this->data['product'] = $product;
 
-        return view('admin.dashboard.index', compact('admins', 'customers', 'product', 'owners', 'products', 'users'));
+        return view('admin.dashboard.index', compact('admins', 'categories', 'customers', 'product', 'owners', 'products', 'users'));
     }
 
     /**

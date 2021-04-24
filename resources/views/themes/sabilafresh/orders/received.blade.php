@@ -89,7 +89,9 @@
                                         <span>{{ \General::priceFormat($order->total_akhir) }}</span>
                                     </li>
                                 </ul>
-                                <a href="#">Proceed to payment</a>
+                                @if(!$order->isPaid())
+                                <a href="{{ $order->url_pembayaran }}">Proceed to payment</a>
+                                @endif
                             </div>
                         </div>
                     </div>

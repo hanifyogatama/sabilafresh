@@ -27,7 +27,7 @@ class CreatePengirimanTable extends Migration
            
             $table->string('no_hp')->nullable();
             $table->string('email')->nullable();
-            $table->string('koata')->nullable();
+            $table->string('kota')->nullable();
             $table->string('provinsi')->nullable();
             $table->integer('kodepos')->nullable();
             $table->unsignedBigInteger('shipped_by')->nullable();

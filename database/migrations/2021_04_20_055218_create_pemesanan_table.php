@@ -19,8 +19,10 @@ class CreatePemesananTable extends Migration
             $table->string('kode')->unique();
             $table->string('status');
             $table->datetime('tanggal_pemesanan');
-            $table->datetime('batas_pemesanan');
-            $table->string('status_pemesanan');
+            $table->datetime('batas_pembayaran');
+            $table->string('status_pembayaran');
+            $table->string('url_pembayaran')->nullable();
+            $table->string('token_pembayaran')->nullable();
             $table->decimal('total_awal', 16, 2)->default(0);
             $table->decimal('jumlah_pajak', 16, 2)->default(0);
             $table->decimal('persen_pajak', 16, 2)->default(0);
@@ -50,6 +52,7 @@ class CreatePemesananTable extends Migration
             $table->foreign('approved_by')->references('id')->on('users');
             $table->foreign('cancelled_by')->references('id')->on('users');
             $table->index('kode');
+            $table->index('token_pembayaran');
             $table->index(['kode', 'tanggal_pemesanan']);
         });
     }

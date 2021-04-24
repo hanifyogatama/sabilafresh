@@ -18,7 +18,7 @@ class CreateGambarSlideTable extends Migration
             $table->unsignedBigInteger('user_id');
             $table->string('gambar_besar')->nullable();
             $table->string('gambar_kecil')->nullable();
-            $table->integer('posisi')->default(0);
+          
             $table->string('status');
             $table->timestamps();
 

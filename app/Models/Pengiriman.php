@@ -23,7 +23,7 @@ class Pengiriman extends Model
         'alamat',
         'no_hp',
         'email',
-        'koata',
+        'kota',
         'provinsi',
         'kodepos',
         'shipped_by',

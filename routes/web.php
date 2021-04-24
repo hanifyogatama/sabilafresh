@@ -36,6 +36,13 @@ Route::post('orders/set-shipping', 'OrderController@setShipping');
 Route::get('orders/received/{orderID}', 'OrderController@received');
 Route::get('orders/cities', 'OrderController@cities');
 
+Route::post('payments/notification', 'PaymentController@notification');
+Route::get('payments/completed', 'PaymentController@completed');
+Route::get('payments/failed', 'PaymentController@failed');
+Route::get('payments/unfinish', 'PaymentController@unfinish');
+
+
+
 Route::resource('favorites', 'FavoriteController');
 Route::get('profile', 'Auth\ProfileController@index');
 Route::post('profile', 'Auth\ProfileController@update');

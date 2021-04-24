@@ -233,6 +233,7 @@ class OrderController extends Controller
             function () use ($params) {
                 $order = $this->_saveOrder($params);
                 $this->_saveOrderItems($order);
+                $this->_generatePaymentToken($order);
                 $this->_saveOrderShipments($order, $params);
 
                 return $order;
@@ -249,6 +250,42 @@ class OrderController extends Controller
 
         return redirect('orders/checkout');
     }
+
+
+    private function _generatePaymentToken($order)
+    {
+        $this->initPaymentGateway();
+
+        $customerdetails = [
+            'first_name'    => $order->nama_depan_konsumen,
+            'last_name'     => $order->nama_belakang_konsumen,
+            'email'         => $order->email_konsumen,
+            'phone'         => $order->no_hp_konsumen,
+        ];
+
+        $params = [
+            'enable_payments'     => \App\Models\Pembayaran::PAYMENT_CHANNELS,
+            'transaction_details' => [
+                'order_id'      => $order->kode,
+                'gross_amount'  => $order->total_akhir,
+            ],
+            'customer_details'  => $customerdetails,
+            'expiry' => [
+                'start_time'    => date('Y-m-d H:i:s T'),
+                'unit'          => \App\Models\Pembayaran::EXPIRY_UNIT,
+                'duration'      => \App\Models\Pembayaran::EXPIRY_DURATION,
+            ],
+        ];
+
+        $snap = \Midtrans\Snap::createTransaction($params);
+
+        if ($snap->token) {
+            $order->token_pembayaran = $snap->token;
+            $order->url_pembayaran = $snap->redirect_url;
+            $order->save();
+        }
+    }
+
 
     private function _saveOrder($params)
     {
@@ -269,8 +306,8 @@ class OrderController extends Controller
             'kode'                     => Pemesanan::generateCode(),
             'status'                   => Pemesanan::CREATED,
             'tanggal_pemesanan'        => $orderDate,
-            'batas_pemesanan'          => $paymentDue,
-            'status_pemesanan'         => Pemesanan::UNPAID,
+            'batas_pembayaran'          => $paymentDue,
+            'status_pembayaran'         => Pemesanan::UNPAID,
             'total_awal'               => $baseTotalPrice,
             'jumlah_pajak'             => $taxAmount,
             'persen_pajak'             => $taxPercent,

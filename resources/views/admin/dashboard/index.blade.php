@@ -7,7 +7,6 @@
         <h1>Dashboard</h1>
     </div>
     <div class="col-lg-2 ml-5">
-
         @role('Admin')
         <span class="badge badge-info">Admin</span>
         @endrole
@@ -126,17 +125,64 @@
                         @endphp
                         @endforeach
                         {{ ($userTotal) }}
-
                     </div>
                 </div>
             </div>
         </div>
     </div>
 </div>
-
-
-
 </div>
+
+<!-- list user active -->
+<div class="row ">
+    <div class="col">
+        <div class="card ">
+            <div class="row pt-2">
+                <div class="col-sm-10">
+                    <h6 class="text-dark pl-4">User Aktif</h6>
+                </div>
+                @if($users->count() >= 5)
+                <div class="col"><a href="{{ url('admin/users') }}" class="btn btn-round btn-primary px-3 py-0">Lihat Semua</a></div>
+                @endif
+            </div>
+            <div class="card-body d-flex justify-content-start mt-0 pt-0">
+
+
+
+                @forelse($users->take(5) as $user)
+                @if($user->isOnline())
+                <div class="media  mr-3 p-2 rounded shadow-sm">
+                    <img alt="image" src="{{ URL::asset('admin/assets/img/avatar/avatar-1.png') }}" class="mr-3 rounded-circle" width="50">
+                    <div class="media-body">
+                        <h6 class="media-title text-capitalize"><span>{{ Str::limit($user->nama_depan,13) }}</span></h6>
+                        <div class="text-small text-muted">
+                            @if ($user->roles->contains('name', 'Admin'))
+                            <span class="text-dark">{{ $user->roles->implode('name', ', ') }}</span>
+                            @elseif ($user->roles->contains('name', 'Owner'))
+                            <span class="text-dark">{{ $user->roles->implode('name', ', ') }}</span>
+                            @else
+                            <span class="text-dark">Pelanggan</span>
+                            @endif
+
+                            <div class="bullet"></div>
+                            @if($user->isOnline())
+                            <span class="text-primary font-weight-bold">Online</span>
+                            @endif
+                            <!-- <div class="text-primary">Login : 13 menit yang lalu</div> -->
+                        </div>
+                    </div>
+                </div>
+                @endif
+                @empty
+                Data tidak tersedia
+                @endforelse
+            </div>
+        </div>
+    </div>
+</div>
+<!-- end list user active -->
+
+
 
 <!-- list kategori -->
 
@@ -224,8 +270,8 @@
 </div> -->
 
 <div class="row">
-    <!-- <div class="col-lg-8 ml-0 ">
-        <div class="card mb-2">
+    <div class="col-lg-8 ">
+        <div class="card">
             <div class="card-header">
                 <h4 style="color: #03AC0E;">Budget vs Sales</h4>
             </div>
@@ -233,60 +279,15 @@
                 <canvas id="myChart" height="158"></canvas>
             </div>
         </div>
-    </div> -->
-
-    <div class="col-md-4">
-
-    </div>
-
-
-    <div class="col-lg-4">
-        <div class="card">
-            <div class="card-header">
-                <h4 class="d-inline">User Aktif</h4>
-                <div class="card-header-action">
-                    <a href="{{ url('admin/users') }}" class="btn btn-primary">Lihat Semua</a>
-                </div>
-            </div>
-            <div class="card-body">
-                @forelse($users as $user)
-                @if($user->isOnline())
-                <div class="media mb-3">
-                    <img alt="image" src="{{ URL::asset('admin/assets/img/avatar/avatar-1.png') }}" class="mr-3 rounded-circle" width="50">
-                    <div class="media-body">
-                        <h6 class="media-title text-capitalize"><a href="#">{{ $user->nama_depan }}</a></h6>
-                        <div class="text-small text-muted">
-                            @if ($user->roles->contains('name', 'Admin'))
-                            <span class="text-dark">{{ $user->roles->implode('name', ', ') }}</span>
-                            @elseif ($user->roles->contains('name', 'Owner'))
-                            <span class="text-dark">{{ $user->roles->implode('name', ', ') }}</span>
-                            @else
-                            <span class="text-dark">Pelanggan</span>
-                            @endif
-
-                            <div class="bullet"></div>
-                            @if($user->isOnline())
-                            <span class="text-primary">Online</span>
-                            @endif
-                            <!-- <div class="text-primary">Login : 13 menit yang lalu</div> -->
-                        </div>
-                    </div>
-                </div>
-                @endif
-                @empty
-                Data tidak tersedia
-                @endforelse
-            </div>
-        </div>
     </div>
 
     <div class="col-lg-4">
         <div class="card gradient-bottom">
             <div class="card-header">
-                <h4 class="d-inline">Produk Terbaru</h4>
+                <h4 class="d-inline text-dark">Produk Terbaru</h4>
                 <div class="card-header-action">
                     @role('Admin')
-                    <a href="{{ url('admin/products')}}" class="btn btn-primary">Lihat Semua</a>
+                    <a href="{{ url('admin/products')}}" class="btn btn-primary py-0">Lihat Semua</a>
                     @endrole
                 </div>
             </div>
@@ -304,7 +305,7 @@
                             <div class="float-right">
                                 <div class="font-weight-600 text-small" style="color: #03AC0E;">Rp {{ number_format($product->price_label()) }}</div>
                             </div>
-                            <div class="media-title">{{ Str::limit($product->nama,12)}}</div>
+                            <div class="media-title text-capitalize">{{ Str::limit($product->nama,12)}}</div>
                             <div class="mt-1">
                                 <div class="budget-price ">
                                     <div class="budget-price-label ml-0">{{ $product->getTimeAgo($product->created_at) }}</div>
@@ -322,5 +323,123 @@
         </div>
     </div>
 </div>
+
+<!-- category list -->
+
+<div class="row">
+    <div class="col">
+        <div class="card ">
+            <div class="row pt-2">
+                <div class="col-sm-10">
+                    <h6 class="text-dark pl-4 pb-3">Kategori Produk <span class="py-1 badge badge-danger">{{$categories->count()}}</span></h6>
+                </div>
+                @if($categories->count() >= 6)
+                <div class="col"><a href="{{ url('admin/categories') }}" class="btn btn-round btn-primary px-3 py-0">Lihat Semua</a></div>
+                @endif
+            </div>
+            <div class="card-body d-flex justify-content-start mt-0 pt-0">
+
+                @forelse($categories as $category)
+
+                <div class="media mr-3 p-2  shadow-sm btn-round">
+                    <div class="row">
+                        <div class="col-sm-3 pt-1">
+                            <div class="btn btn-outline-secondary shadow-sm border btn-custom" style="border-radius: 50%;">{{ $category->produks->count() }}</div>
+                        </div>
+                        <div class="col">
+                            <div class="media-body pt-2 pl-2">
+                                <h6 class="text-muted text-capitalize text-small"><span>{{ Str::limit($category->nama,14)}}</span></h6>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                @empty
+                Data tidak tersedia
+                @endforelse
+            </div>
+        </div>
+    </div>
+</div>
+<!-- end category list -->
+
+
+<div class="row">
+    <div class="col">
+        <div class="card">
+            <div class="card-header">
+                <h4>Best Products</h4>
+            </div>
+            <div class="card-body">
+                <div class="owl-carousel owl-theme" id="products-carousel">
+                    <div>
+                        <div class="product-item pb-3">
+                            <div class="product-image">
+                                <img alt="image" src="https://i.pinimg.com/originals/20/c9/e0/20c9e0a5110642b2c3bb88d7546c13f3.png" class="img-fluid">
+                            </div>
+                            <div class="product-details">
+                                <div class="product-name">iBook Pro 2018</div>
+                                <div class="product-review">
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                </div>
+                                <div class="text-muted text-small">67 Sales</div>
+                                <div class="product-cta">
+                                    <a href="#" class="btn btn-primary">Detail</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="product-item">
+                            <div class="product-image">
+                                <img alt="image" src="https://i.pinimg.com/originals/20/c9/e0/20c9e0a5110642b2c3bb88d7546c13f3.png" class="img-fluid">
+                            </div>
+                            <div class="product-details">
+                                <div class="product-name">oPhone S9 Limited</div>
+                                <div class="product-review">
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star-half"></i>
+                                </div>
+                                <div class="text-muted text-small">86 Sales</div>
+                                <div class="product-cta">
+                                    <a href="#" class="btn btn-primary">Detail</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="product-item">
+                            <div class="product-image">
+                                <img alt="image" src="https://i.pinimg.com/originals/20/c9/e0/20c9e0a5110642b2c3bb88d7546c13f3.png" class="img-fluid">
+                            </div>
+                            <div class="product-details">
+                                <div class="product-name">Headphone Blitz</div>
+                                <div class="product-review">
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="far fa-star"></i>
+                                </div>
+                                <div class="text-muted text-small">63 Sales</div>
+                                <div class="product-cta">
+                                    <a href="#" class="btn btn-primary">Detail</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
 </div>
 @stop

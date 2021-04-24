@@ -17,6 +17,7 @@ class CreateAtributOpsiTable extends Migration
             $table->bigIncrements('id');
             $table->unsignedBigInteger('atribut_id');
             $table->string('nama');
+            $table->string('nilai')->nullable();
             $table->timestamps();
 
             $table->foreign('atribut_id')->references('id')->on('atribut')->onDelete('cascade');

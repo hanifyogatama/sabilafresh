@@ -13,8 +13,8 @@ class Pemesanan extends Model
         'kode',
         'status',
         'tanggal_pemesanan',
-        'batas_pemesanan',
-        'status_pemesanan',
+        'batas_pembayaran',
+        'status_pembayaran',
         'total_awal',
         'jumlah_pajak',
         'persen_pajak',
@@ -58,14 +58,14 @@ class Pemesanan extends Model
         self::COMPLETED => 'Completed',
         self::CANCELLED => 'Cancelled',
     ];
-  
+
 
     public function pengiriman()
     {
         return $this->hasOne('App\Models\Pengiriman');
     }
 
- 
+
     public function itemPemesanan()
     {
         return $this->hasMany('App\Models\ItemPemesanan');
@@ -109,5 +109,10 @@ class Pemesanan extends Model
     private static function _isOrderCodeExists($orderCode)
     {
         return Pemesanan::where('kode', '=', $orderCode)->exists();
+    }
+
+    public function isPaid()
+    {
+        return $this->status_pembayaran == self::PAID;
     }
 }

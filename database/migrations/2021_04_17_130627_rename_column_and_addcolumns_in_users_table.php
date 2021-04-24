@@ -18,6 +18,7 @@ class RenameColumnAndAddcolumnsInUsersTable extends Migration
             $table->renameColumn('name', 'nama_depan');
             $table->string('nama_belakang')->nullable()->after('name');
             $table->string('no_hp')->nullable()->after('email');
+            $table->string('gambar')->nullable()->after('no_hp');
             $table->text('alamat')->nullable()->after('remember_token');
             $table->integer('provinsi_id')->nullable()->after('alamat');
             $table->integer('kota_id')->nullable()->after('provinsi_id');
@@ -37,6 +38,7 @@ class RenameColumnAndAddcolumnsInUsersTable extends Migration
             $table->renameColumn('nama_depan', 'name');
             $table->dropColumn('nama_belakang');
             $table->dropColumn('no_hp');
+            $table->dropColumn('gambar');
             $table->dropColumn('alamat');
             $table->dropColumn('provinsi_id');
             $table->dropColumn('kota_id');

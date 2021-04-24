@@ -29,7 +29,7 @@ class SlideImageController extends Controller
 
     public function index()
     {
-        $this->data['slides'] = GambarSlide::orderBy('posisi', 'ASC')->paginate(10);
+        $this->data['slides'] = GambarSlide::orderBy('id', 'ASC')->paginate(10);
 
         return view('admin.slides.index', $this->data);
     }

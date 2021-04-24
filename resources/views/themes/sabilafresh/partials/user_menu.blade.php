@@ -4,7 +4,7 @@
             <img class="rounded-circle " src=" {{ asset('themes/sabilafresh/assets/img/front/icon-user.jpg') }}" alt="" width="50px">
         </div>
         <div class="col-lg-9 mt-3">
-            <p class="text-left pl-2" style="color: #03AC0E; font-weight: 600;">{{ Auth::user()->nama_depan }}</p>
+            <p class="text-left pl-2 text-capitalize" style="color: #03AC0E; font-weight: 600;">{{ Auth::user()->nama_depan }}</p>
         </div>
     </div>
     <div class="mt-3">
