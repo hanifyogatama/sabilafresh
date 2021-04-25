@@ -73,6 +73,17 @@ Route::group(
         Route::resource('users', 'UserController');
         Route::resource('profile', 'ProfileController');
 
+        // Route::get('orders/trashed', 'OrderController@trashed');
+        // Route::get('orders/restore/{orderID}', 'OrderController@restore');
+
+
+        Route::resource('orders', 'OrderController');
+        Route::get('orders/{orderID}/cancel', 'OrderController@cancel');
+        Route::put('orders/cancel/{orderID}', 'OrderController@doCancel');
+        Route::post('orders/complete/{orderID}', 'OrderController@doComplete');
+
+        Route::resource('shipments', 'ShipmentController');
+
         Route::resource('slides', 'SlideImageController');
         Route::get('slides/{slideID}/up', 'SlideImageController@moveUp');
         Route::get('slides/{slideID}/down', 'SlideImageController@moveDown');

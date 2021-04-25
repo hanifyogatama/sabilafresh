@@ -1,6 +1,6 @@
 @extends('admin.layout')
 
-@section('title', 'Edit User ' . $user->first_name)
+@section('title', 'Edit User ' . $user->nama_depan)
 
 @section('content')
 <div class="content">
@@ -8,7 +8,7 @@
         <div class="col-lg-12">
             <div class="card card-default">
                 <div class="card-header card-header-border-bottom">
-                        <h2>Edit -  {{ $user->name }}</h2>
+                        <h2>Edit -  {{ $user->nama_depan }}</h2>
                 </div>
                 <div class="card-body">
                     {!! Form::model($user, ['method' => 'PUT', 'route' => ['users.update',  $user->id ] ]) !!}

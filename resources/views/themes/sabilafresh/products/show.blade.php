@@ -80,7 +80,7 @@
 
                 <div class="ml-0 mb-2 mt-3">
                     <ul>
-                        <li><span class="font-weight-light">Berat :</span> {{ $product->berat }} Gram</li>
+                        <li><span class="font-weight-light">Berat :</span> {{ number_format( $product->berat, 0, ',', '') }} Gram</li>
                         <li><span class="font-weight-light">Kategori :</span>
                             @foreach ($product->kategories as $category)
                             <a style="color: #03AC0E; display: inline-block;  font-weight: 600;" href="{{ url('products?category/'. $category->slug ) }}">{{ $category->nama }}</a>

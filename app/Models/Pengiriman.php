@@ -29,4 +29,9 @@ class Pengiriman extends Model
         'shipped_by',
         'shipped_at',
     ];
+
+    public function pemesanan()
+    {
+        return $this->belongsTo(\App\Models\Pemesanan::class);
+    }
 }

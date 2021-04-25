@@ -25,10 +25,15 @@ class UserController extends Controller
     public function index()
     {
 
-        $this->data['roles'] = Role::all();
-        $this->data['users'] = User::orderBy('id','asc')->paginate(10);
+        $roles = Role::all();
 
-        return view('admin.users.index', $this->data);
+        // $this->data['users'] = User::first()->paginate(10);
+        $userAdmins = User::orderBy('id', 'asc')->get();
+        $userCustomers = User::where('is_admin', '0')
+            ->orderBy('created_at', 'desc')
+            ->paginate(10);
+
+        return view('admin.users.index', compact('roles' ,'userAdmins', 'userCustomers'));
     }
 
     /**
@@ -38,6 +43,7 @@ class UserController extends Controller
      */
     public function create()
     {
+        
         $this->data['roles'] = Role::pluck('name', 'id');
 
         return view('admin.users.create', $this->data);
@@ -124,7 +130,7 @@ class UserController extends Controller
     {
         $this->data['user'] = User::find($id);
         $this->data['roles'] = Role::pluck('name', 'id');
-        $this->data['permissions'] = Permission::all('name', 'id');
+        $this->data['permissions'] = Role::all('name', 'id');
 
         return view('admin.users.edit', $this->data);
     }
@@ -138,11 +144,20 @@ class UserController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $this->validate($request, [
-            'nama_depan' => 'bail|required|min:2',
-            'email' => 'required|email|unique:users,email,' . $id,
-            'roles' => 'required|min:1'
-        ]);
+
+        if (\Auth::user()->is_admin == false) {
+            $this->validate($request, [
+                'nama_depan' => 'bail|required|min:2',
+                'email' => 'required|email|unique:users,email,' . $id,
+
+            ]);
+        } else {
+            $this->validate($request, [
+                'nama_depan' => 'bail|required|min:2',
+                'email' => 'required|email|unique:users,email,' . $id,
+                'roles' => 'required|min:1'
+            ]);
+        }
 
         // Get the user
         $user = User::findOrFail($id);

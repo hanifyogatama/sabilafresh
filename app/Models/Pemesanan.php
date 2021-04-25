@@ -3,10 +3,12 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Pemesanan extends Model
 {
 
+    use SoftDeletes;
     protected $table = "pemesanan";
     protected $fillable = [
         'user_id',
@@ -115,4 +117,36 @@ class Pemesanan extends Model
     {
         return $this->status_pembayaran == self::PAID;
     }
+
+    
+
+	public function isCreated()
+	{
+		return $this->status == self::CREATED;
+	}
+
+	public function isConfirmed()
+	{
+		return $this->status == self::CONFIRMED;
+	}
+
+	public function isDelivered()
+	{
+		return $this->status == self::DELIVERED;
+	}
+
+	public function isCompleted()
+	{
+		return $this->status == self::COMPLETED;
+	}
+
+	public function isCancelled()
+	{
+		return $this->status == self::CANCELLED;
+	}
+
+	public function getCustomerFullNameAttribute()
+	{
+		return "{$this->nama_depan_konsumen} {$this->nama_belakang_konsumen }";
+	}
 }

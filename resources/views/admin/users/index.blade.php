@@ -30,42 +30,46 @@
                         <thead>
                             <th>No</th>
                             <th>Nama</th>
-                            <th>Status</th>
                             <th>Email</th>
                             <th>Role</th>
                             <th>Terdaftar</th>
+                            <th>Status</th>
                             <th>Action</th>
                         </thead>
                         <tbody>
-                            @forelse ($users as $key => $user)
-
+                            @forelse ($userAdmins as $userAdmin)
+                            @if ($userAdmin->is_admin == 1)
                             <tr>
 
-                                <th scope="row">{{ $users->firstItem() + $key }}</th>
-                                <td>{{Str::limit($user->nama_depan, '15') }}</td>
-                                <td>
-                                    @if($user->isOnline())
-                                    <label class="py-2 px-3 badge btn-success">Online</label>
-                                    @else
-                                    <label class="py-2 px-3 badge btn-danger">Offline</label>
-                                    @endif
-                                </td>
+                                <th scope="row">{{$loop->iteration}}</th>
+                                <td class="text-capitalize">{{Str::limit($userAdmin->nama_depan, '15') }}</td>
 
 
-                                <td>{{Str::limit($user->email, '23') }}</td>
+
+                                <td>{{Str::limit($userAdmin->email, '23') }}</td>
 
                                 <td>
 
-                                    @if ($user->roles->contains('name', 'Admin'))
-                                    <span class="badge badge-primary">{{ $user->roles->implode('name', ', ') }}</span>
-                                    @elseif ($user->roles->contains('name', 'Owner'))
-                                    <span class="badge badge-info">{{ $user->roles->implode('name', ', ') }}</span>
+                                    @if ($userAdmin->roles->contains('name', 'Admin'))
+                                    <span class="badge badge-primary">{{ $userAdmin->roles->implode('name', ', ') }}</span>
+                                    @elseif ($userAdmin->roles->contains('name', 'Owner'))
+                                    <span class="badge badge-info">{{ $userAdmin->roles->implode('name', ', ') }}</span>
                                     @else
                                     <span class="badge badge-success">Pelanggan</span>
                                     @endif
 
                                 </td>
-                                <td>{{ $user->created_at->format('d-m-Y') }}</td>
+
+                                <td>{{ $userAdmin->created_at->format('d-F-Y') }}</td>
+
+
+                                <td>
+                                    @if($userAdmin->isOnline())
+                                    <label class="py-2 px-3 badge btn-success">Online</label>
+                                    @else
+                                    <label class="py-2 px-3 badge btn-danger">Offline</label>
+                                    @endif
+                                </td>
                                 <td>
 
                                     @role('Owner')
@@ -73,12 +77,12 @@
                                     @endrole
 
                                     @can('add_users')
-                                    <a href="{{ url('admin/users/'. $user->id .'/edit') }}" class="btn btn-warning btn-sm" data-toggle="tooltip" title="Edit"><i class="far fa-edit"></i></a>
+                                    <a href="{{ url('admin/users/'. $userAdmin->id .'/edit') }}" class="btn btn-warning btn-sm" data-toggle="tooltip" title="Edit"><i class="far fa-edit"></i></a>
                                     @endcan
 
-                                    @if (!$user->hasRole('Admin'))
+                                    @if (!$userAdmin->hasRole('Admin'))
                                     @can('add_users')
-                                    {!! Form::open(['url' => 'admin/users/'. $user->id, 'class' => 'delete', 'style' => 'display:inline-block']) !!}
+                                    {!! Form::open(['url' => 'admin/users/'. $userAdmin->id, 'class' => 'delete', 'style' => 'display:inline-block']) !!}
                                     {!! Form::hidden('_method', 'DELETE') !!}
                                     {!! Form::button('<i class="far fa-trash-alt"></i> ', ['type' => 'submit','class' => 'btn btn-danger btn-sm', 'data-toggle'=>'tooltip','title'=>'Hapus']) !!}
                                     {!! Form::close() !!}
@@ -86,6 +90,7 @@
                                     @endif
                                 </td>
                             </tr>
+                            @endif
                             @empty
                             <tr>
                                 <td colspan="6">No records found</td>
@@ -93,7 +98,92 @@
                             @endforelse
                         </tbody>
                     </table>
-                    {{ $users->links() }}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- list for customer only -->
+
+<div class="section-body">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="card">
+                <div class="card-body">
+                    <table class="table ">
+                        <thead>
+                            <th>No</th>
+                            <th>Nama</th>
+                            <th>Email</th>
+                            <th>Role</th>
+                            <th>Terdaftar</th>
+                            <th>Status</th>
+                            <th>Action</th>
+                        </thead>
+                        <tbody>
+                            @forelse ($userCustomers as $key => $userCustomer)
+                            @if ($userCustomer->is_admin == 0)
+                            <tr>
+
+                                <th scope="row">{{ $userCustomers->firstItem() + $key }}</th>
+                                <td class="text-capitalize">{{Str::limit($userCustomer->nama_depan, '10') }}</td>
+
+
+
+                                <td>{{Str::limit($userCustomer->email, '23') }}</td>
+
+                                <td>
+
+                                    @if ($userCustomer->roles->contains('name', 'Admin'))
+                                    <span class="badge badge-primary">{{ $userCustomer->roles->implode('name', ', ') }}</span>
+                                    @elseif ($userCustomer->roles->contains('name', 'Owner'))
+                                    <span class="badge badge-info">{{ $userCustomer->roles->implode('name', ', ') }}</span>
+                                    @else
+                                    <span class="badge badge-success">Pelanggan</span>
+                                    @endif
+
+                                </td>
+
+                                <td>{{ $userCustomer->created_at->format('d-F-Y') }}</td>
+
+
+                                <td>
+                                    @if($userCustomer->isOnline())
+                                    <label class="py-2 px-3 badge btn-success">Online</label>
+                                    @else
+                                    <label class="py-2 px-3 badge btn-danger">Offline</label>
+                                    @endif
+                                </td>
+                                <td>
+
+                                    @role('Owner')
+                                    <span class="badge badge-danger"><i class="fas fa-exclamation-triangle"></i> Admin</span>
+                                    @endrole
+
+                                    @can('add_users')
+                                    <a href="{{ url('admin/users/'. $userCustomer->id .'/edit') }}" class="btn btn-warning btn-sm" data-toggle="tooltip" title="Edit"><i class="far fa-edit"></i></a>
+                                    @endcan
+
+                                    @if (!$userCustomer->hasRole('Admin'))
+                                    @can('add_users')
+                                    {!! Form::open(['url' => 'admin/users/'. $userCustomer->id, 'class' => 'delete', 'style' => 'display:inline-block']) !!}
+                                    {!! Form::hidden('_method', 'DELETE') !!}
+                                    {!! Form::button('<i class="far fa-trash-alt"></i> ', ['type' => 'submit','class' => 'btn btn-danger btn-sm', 'data-toggle'=>'tooltip','title'=>'Hapus']) !!}
+                                    {!! Form::close() !!}
+                                    @endcan
+                                    @endif
+                                </td>
+                            </tr>
+                            @endif
+                            @empty
+                            <tr>
+                                <td colspan="6">No records found</td>
+                            </tr>
+                            @endforelse
+                        </tbody>
+                    </table>
+                    {{ $userCustomers->links() }}
                 </div>
             </div>
         </div>

@@ -40,9 +40,9 @@
             <li class="nav-item dropdown">
                 <a href="#" class="nav-link has-dropdown"><i class="fas fa-shopping-cart"></i> <span>Cek Pemesanan</span></a>
                 <ul class="dropdown-menu">
-                    <li><a href="auth-forgot-password.html">Pemesanan</a></li>
+                    <li><a href="{{ url('admin/orders')}}">Pemesanan</a></li>
                     <li><a href="auth-login.html">Pengiriman</a></li>
-                    <li><a href="auth-login.html">Sampah</a></li>
+
                 </ul>
             </li>
             @endrole
@@ -51,8 +51,8 @@
                 <a href="#" class="nav-link has-dropdown"><i class="fas fa-chart-bar"></i> <span>Laporan</span></a>
                 <ul class="dropdown-menu">
                     <li><a href="auth-forgot-password.html">Produk</a></li>
-                    <li><a href="auth-forgot-password.html">Pendapatan</a></li>
-                    <li><a href="auth-login.html">Pembayaran</a></li>
+                    <!-- <li><a href="auth-forgot-password.html">Pendapatan</a></li>
+                    <li><a href="auth-login.html">Pembayaran</a></li> -->
                     <li><a href="auth-forgot-password.html">Produk Inventori</a></li>
                 </ul>
             </li>
