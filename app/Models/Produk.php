@@ -66,9 +66,9 @@ class Produk extends Model
     public static function statuses()
     {
         return [
-            0 => 'draft',
-            1 => 'active',
-            2 => 'inactive',
+            0 => 'draf',
+            1 => 'aktif',
+            2 => 'tidak aktif',
         ];
     }
 

@@ -60,13 +60,13 @@
                                 <td style="width: 32%;">{{ Str::limit($product->nama,32) }}</td>
                                 <td>Rp {{ number_format($product->harga) }}</td>
 
-                                @if($product->status_label() == 'active')
+                                @if($product->status_label() == 'aktif')
                                 <td>
                                     <div class="badge badge-info">
                                         {{ $product->status_label() }}
                                     </div>
                                 </td>
-                                @elseif($product->status_label() == 'draft')
+                                @elseif($product->status_label() == 'draf')
                                 <td>
                                     <div class="badge badge-success">
                                         {{ $product->status_label() }}

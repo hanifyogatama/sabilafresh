@@ -25,7 +25,12 @@ class ShipmentController extends Controller
      */
     public function index()
     {
-        //
+        $shipments = Pengiriman::join('pemesanan', 'pengiriman.pemesanan_id', '=', 'pemesanan.id')
+            ->whereRaw('pemesanan.deleted_at IS NULL')
+            ->orderBy('pengiriman.created_at', 'DESC')->paginate(10);
+        $this->data['shipments'] = $shipments;
+
+        return view('admin.shipments.index', $this->data);
     }
 
     /**
@@ -58,6 +63,7 @@ class ShipmentController extends Controller
         $this->data['provinces'] = $this->getProvinces();
         $this->data['cities'] = isset($shipment->provinsi) ? $this->getCities($shipment->provinsi) : [];
 
+        
         return view('admin.shipments.edit', $this->data);
     }
 
@@ -99,5 +105,4 @@ class ShipmentController extends Controller
     {
         \App\Jobs\SendMailOrderShipped::dispatch($order);
     }
-    
 }

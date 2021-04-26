@@ -48,6 +48,7 @@
                     </table>
                 </div>
                 <div class="card-footer text-right">
+                    <a href="{{ url('admin/products') }}" class="btn btn-secondary btn-default">Kembali</a>
                     <a href="{{ url('admin/products/'.$productID.'/add-image') }}" class="btn btn-primary">Tambah</a>
                 </div>
             </div>

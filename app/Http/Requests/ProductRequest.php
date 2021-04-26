@@ -55,4 +55,19 @@ class ProductRequest extends FormRequest
             'berat' => $berat,
         ];
     }
+
+    // message
+    public function messages()
+    {
+        return [
+            'sku.required'          => 'kode produk belum diisi',
+            'tipe.required'         => 'tipe produk belum dipilih',
+            'nama.required'         => 'nama produk belum diisi',
+            'nama.unique'           => 'nama produk sudah ada',
+            'harga.required'        => 'harga belum diisi',
+            'berat.required'        => 'berat belum diisi',
+            'status.required'       => 'status belum dipilih',
+            'qty.required'          => 'qty belum diisi',
+        ];
+    }
 }

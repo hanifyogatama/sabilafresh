@@ -254,7 +254,7 @@ class ProductController extends Controller
         //     Session::flash('error', 'Product could not be saved');
         // }
 
-        return redirect('admin/products')->with('success-add','success');
+        return redirect('admin/products')->with('success-add', 'success');
     }
 
 

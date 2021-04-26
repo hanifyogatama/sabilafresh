@@ -35,14 +35,25 @@ $formTitle = !empty($category) ? 'Edit' : 'Tambah'
                 <div class="form-group">
                     {!! Form::label('tipe', 'Tipe Produk') !!}
                     {!! Form::select('tipe', $types , !empty($product) ? $product->type : null, ['class' => 'form-control product-type', 'placeholder' => '-- Pilih Tipe --', 'disabled' => !empty($product)]) !!}
+                    @error('tipe')
+                    <small style="font-weight: 600;" class="text-danger">{{ $message }}</small>
+                    @enderror
                 </div>
+
                 <div class="form-group">
                     {!! Form::label('sku', 'Kode Produk') !!}
-                    {!! Form::text('sku', null, ['class' => 'form-control', 'placeholder' => 'sku','autocomplete' => 'off']) !!}
+                    {!! Form::text('sku', null, ['class' => 'form-control', 'placeholder' => 'kode produk','autocomplete' => 'off']) !!}
+                    @error('sku')
+                    <small style="font-weight: 600;" class="text-danger">{{ $message }}</small>
+                    @enderror
                 </div>
+
                 <div class="form-group">
                     {!! Form::label('nama', 'Nama Produk') !!}
                     {!! Form::text('nama', null, ['class' => 'form-control', 'placeholder' => 'nama','autocomplete' => 'off']) !!}
+                    @error('nama')
+                    <small style="font-weight: 600;" class="text-danger">{{ $message }}</small>
+                    @enderror
                 </div>
 
                 <div class="form-group">
@@ -57,7 +68,7 @@ $formTitle = !empty($category) ? 'Edit' : 'Tambah'
                     @foreach ($configurableAttributes as $attribute)
                     <div class="form-group">
                         {!! Form::label($attribute->kode, $attribute->nama) !!}
-                        {!! Form::select($attribute->kode. '[]', $attribute->AtributOpsis->pluck('nama','id'), null, ['class' => 'form-control', 'multiple' => true]) !!}
+                        {!! Form::select($attribute->kode. '[]', $attribute->AtributOpsis->pluck('nama','id'), null, ['class' => 'form-control form-control-sm', 'multiple' => true]) !!}
                     </div>
                     @endforeach
                     @endif
@@ -83,11 +94,14 @@ $formTitle = !empty($category) ? 'Edit' : 'Tambah'
                 <div class="form-group">
                     {!! Form::label('status', 'Status') !!}
                     {!! Form::select('status', $statuses , null, ['class' => 'form-control', 'placeholder' => '-- Pilih --']) !!}
+                    @error('status')
+                    <small style="font-weight: 600;" class="text-danger">{{ $message }}</small>
+                    @enderror
                 </div>
                 @endif
                 <div class="form-footer pt-5 border-top float-right">
+                    <a href="{{ url('admin/products') }}" class="btn btn-secondary btn-default">Kembali</a>
                     <button type="submit" class="btn btn-primary">Simpan</button>
-
                 </div>
                 {!! Form::close() !!}
             </div>

@@ -1,4 +1,4 @@
-<p class="text-primary mt-4">Product Variants</p>
+<p class="text-primary mt-4">Produk Varian</p>
 <hr />
 @foreach ($product->variants as $variant)
 {!! Form::hidden('variants['. $variant->id .'][id]', $variant->id) !!}
@@ -23,7 +23,7 @@
     </div>
     <div class="col-md-2">
         <div class="form-group">
-            {!! Form::label('qty', 'Stock') !!}
+            {!! Form::label('qty', 'Stok') !!}
             {!! Form::text('variants['. $variant->id .'][qty]', ($variant->productInventory) ? $variant->productInventory->qty : null, ['class' => 'form-control', 'required' => true]) !!}
         </div>
     </div>

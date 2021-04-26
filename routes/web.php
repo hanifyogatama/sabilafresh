@@ -76,7 +76,7 @@ Route::group(
         // Route::get('orders/trashed', 'OrderController@trashed');
         // Route::get('orders/restore/{orderID}', 'OrderController@restore');
 
-
+        
         Route::resource('orders', 'OrderController');
         Route::get('orders/{orderID}/cancel', 'OrderController@cancel');
         Route::put('orders/cancel/{orderID}', 'OrderController@doCancel');

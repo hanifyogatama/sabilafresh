@@ -1,31 +1,30 @@
 <!-- Name Form Input -->
 <div class="form-group @if ($errors->has('name')) has-error @endif">
     {!! Form::label('nama_depan', 'Nama') !!}
-    {!! Form::text('nama_depan', null, ['class' => 'form-control', 'placeholder' => 'Name']) !!}
-    @if ($errors->has('nama_depan')) <p class="help-block">{{ $errors->first('nama_depan') }}</p> @endif
+    {!! Form::text('nama_depan', null, ['class' => 'form-control', 'placeholder' => 'Nama', 'autocomplete'=>'off']) !!}
+    @error('nama_depan')
+    <small style="font-weight: 600;" class="text-danger">{{ $message }}</small>
+    @enderror
 </div>
 
 <!-- email Form Input -->
 <div class="form-group @if ($errors->has('email')) has-error @endif">
     {!! Form::label('email', 'Email') !!}
-    {!! Form::text('email', null, ['class' => 'form-control', 'placeholder' => 'Email']) !!}
-    @if ($errors->has('email')) <p class="help-block">{{ $errors->first('email') }}</p> @endif
+    {!! Form::text('email', null, ['class' => 'form-control', 'placeholder' => 'Email','autocomplete'=>'off']) !!}
+    @error('email')
+    <small style="font-weight: 600;" class="text-danger">{{ $message }}</small>
+    @enderror
 </div>
 
 <!-- password Form Input -->
 <div class="form-group @if ($errors->has('password')) has-error @endif">
     {!! Form::label('password', 'Password') !!}
     {!! Form::password('password', ['class' => 'form-control', 'placeholder' => 'Password']) !!}
-    @if ($errors->has('password')) <p class="help-block">{{ $errors->first('password') }}</p> @endif
+    @error('password')
+    <small style="font-weight: 600;" class="text-danger">{{ $message }}</small>
+    @enderror
 </div>
 
 <!-- Roles Form Input -->
 
 
-@if(\Auth::user()->is_admin == true)
-<div class="form-group @if ($errors->has('roles')) has-error @endif">
-    {!! Form::label('roles[]', 'Roles') !!}
-    {!! Form::select('roles[]', $roles, isset($user) ? $user->roles->pluck('id')->toArray() : null, ['class' => 'form-control', 'multiple']) !!}
-    @if ($errors->has('roles')) <p class="help-block">{{ $errors->first('roles') }}</p> @endif
-</div>
-@endif

@@ -7,7 +7,7 @@
     <div class="section-header-breadcrumb">
         <div class="breadcrumb-item active"> <a href=""><i class="fas fa-users"></i></i> User & Role</a> </div>
         <div class="breadcrumb-item"><a href="{{url('admin/users')}}">User</a></div>
-        <!-- <div class="breadcrumb-item">Table</div> -->
+
     </div>
 </div>
 
@@ -37,11 +37,15 @@
                             <th>Action</th>
                         </thead>
                         <tbody>
+                            @php
+                            $no = 1;
+                            @endphp
+
                             @forelse ($userAdmins as $userAdmin)
                             @if ($userAdmin->is_admin == 1)
                             <tr>
 
-                                <th scope="row">{{$loop->iteration}}</th>
+                                <th scope="row">{{$no}}</th>
                                 <td class="text-capitalize">{{Str::limit($userAdmin->nama_depan, '15') }}</td>
 
 
@@ -90,6 +94,7 @@
                                     @endif
                                 </td>
                             </tr>
+                            @php $no++; @endphp
                             @endif
                             @empty
                             <tr>
@@ -127,7 +132,7 @@
                             <tr>
 
                                 <th scope="row">{{ $userCustomers->firstItem() + $key }}</th>
-                                <td class="text-capitalize">{{Str::limit($userCustomer->nama_depan, '10') }}</td>
+                                <td class="text-capitalize">{{Str::limit($userCustomer->nama_depan, '7') }}</td>
 
 
 
@@ -142,12 +147,8 @@
                                     @else
                                     <span class="badge badge-success">Pelanggan</span>
                                     @endif
-
                                 </td>
-
                                 <td>{{ $userCustomer->created_at->format('d-F-Y') }}</td>
-
-
                                 <td>
                                     @if($userCustomer->isOnline())
                                     <label class="py-2 px-3 badge btn-success">Online</label>

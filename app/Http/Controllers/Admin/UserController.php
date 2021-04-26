@@ -33,7 +33,7 @@ class UserController extends Controller
             ->orderBy('created_at', 'desc')
             ->paginate(10);
 
-        return view('admin.users.index', compact('roles' ,'userAdmins', 'userCustomers'));
+        return view('admin.users.index', compact('roles', 'userAdmins', 'userCustomers'));
     }
 
     /**
@@ -43,7 +43,7 @@ class UserController extends Controller
      */
     public function create()
     {
-        
+
         $this->data['roles'] = Role::pluck('name', 'id');
 
         return view('admin.users.create', $this->data);
@@ -57,12 +57,25 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
-        $this->validate($request, [
-            'nama_depan' => 'bail|required|min:2',
-            'email' => 'required|email|unique:users',
-            'password' => 'required|min:8',
-            'roles' => 'required|min:1'
-        ]);
+        $this->validate(
+            $request,
+            [
+                'nama_depan' => 'bail|required|min:2',
+                'email' => 'required|email|unique:users',
+                'password' => 'required|min:8',
+                'roles' => 'required|min:1'
+            ],
+
+            [
+                'nama_depan.required' => 'nama harus diisi',
+                'email.required' => 'email harus diisi',
+                'email.email' => 'cek kembali format email cth. example@example.com',
+                'email.unique:users' => 'email sudah terdaftar',
+                'password.required' => 'password harus diisi',
+                'password.min' => 'password min 8 karakter',
+                'roles.required' => 'role belum dipilih',
+            ]
+        );
 
         $request->merge(['password' => bcrypt($request->get('password'))]);
 
@@ -70,13 +83,13 @@ class UserController extends Controller
             if ($user = User::create($request->except('roles', 'permissions'))) {
                 $this->syncPermissions($request, $user);
 
-                Session::flash('success', 'User berhasil dibuat');
+                // Session::flash('success', 'User berhasil dibuat');
             } else {
                 Session::flash('error', 'User gagal dibuat');
             }
         });
 
-        return redirect('admin/users');
+        return redirect('admin/users')->with('success-add', 'success');
     }
 
     /**
@@ -145,19 +158,22 @@ class UserController extends Controller
     public function update(Request $request, $id)
     {
 
-        if (\Auth::user()->is_admin == false) {
-            $this->validate($request, [
+        $this->validate(
+            $request,
+            [
                 'nama_depan' => 'bail|required|min:2',
                 'email' => 'required|email|unique:users,email,' . $id,
+            ],
 
-            ]);
-        } else {
-            $this->validate($request, [
-                'nama_depan' => 'bail|required|min:2',
-                'email' => 'required|email|unique:users,email,' . $id,
-                'roles' => 'required|min:1'
-            ]);
-        }
+            [
+                'nama_depan.required' => 'nama harus diisi',
+                'email.required' => 'email harus diisi',
+                'email.email' => 'cek kembali format email cth. example@example.com',
+                'email.unique:users' => 'email sudah terdaftar',
+                'password.min' => 'password min 8 karakter',
+            ]
+        );
+
 
         // Get the user
         $user = User::findOrFail($id);
@@ -175,10 +191,10 @@ class UserController extends Controller
 
             $user->save();
 
-            Session::flash('success', 'User has been saved');
+            // Session::flash('success', 'User has been saved');
         });
 
-        return redirect('admin/users');
+        return redirect('admin/users')->with('success-edit', 'success');;
     }
 
     /**
@@ -196,9 +212,8 @@ class UserController extends Controller
             return redirect('admin/users');
         }
 
-        if ($user->delete()) {
-            Session::flash('success', 'User has been deleted');
-        }
-        return redirect('admin/users');
+        $user->delete();
+        // Session::flash('success', 'User has been deleted');
+        return redirect('admin/users')->with('success-delete', 'success');
     }
 }
