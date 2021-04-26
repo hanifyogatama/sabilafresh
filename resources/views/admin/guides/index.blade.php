@@ -95,24 +95,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col">
-                                    <div class="border alert text-dark alert-has-icon p-4 mt-3">
-                                        <div class="alert-icon"><i class="far fa-lightbulb"></i></div>
-                                        <div class="alert-body">
-                                            <div class="alert-title">Menu pengiriman</div>
-                                            <p>Pada bagian menu ini dapat di akses oleh <span class="text-primary">Admin </span>dan <span class="text-primary">Owner</span></p>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col">
-                                    <div class="border alert text-dark alert-has-icon p-4 mt-3">
-                                        <div class="alert-icon"><i class="far fa-lightbulb"></i></div>
-                                        <div class="alert-body">
-                                            <div class="alert-title">Menu sampah</div>
-                                            <p>Pada bagian menu ini dapat di akses oleh <span class="text-primary">Admin </span>dan <span class="text-primary">Owner</span></p>
-                                        </div>
-                                    </div>
-                                </div>
+
                             </div>
                         </div>
                         <div class="tab-pane fade" id="laporan" role="tabpanel" aria-labelledby="contact-tab">
@@ -130,32 +113,13 @@
                                     <div class="border alert text-dark alert-has-icon p-4 mt-3">
                                         <div class="alert-icon"><i class="far fa-lightbulb"></i></div>
                                         <div class="alert-body">
-                                            <div class="alert-title">Menu laporan pendapatan</div>
+                                            <div class="alert-title">Menu laporan </div>
                                             <p>Pada bagian menu ini dapat di akses oleh <span class="text-primary">Admin </span>dan <span class="text-primary">Owner</span></p>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                            <div class="row">
-                                <div class="col">
-                                    <div class="border alert text-dark alert-has-icon p-4 mt-3">
-                                        <div class="alert-icon"><i class="far fa-lightbulb"></i></div>
-                                        <div class="alert-body">
-                                            <div class="alert-title">Menu laporan pembayaran</div>
-                                            <p>Pada bagian menu ini dapat di akses oleh <span class="text-primary">Admin </span>dan <span class="text-primary">Owner</span>. </p>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col">
-                                    <div class="border alert text-dark alert-has-icon p-4 mt-3">
-                                        <div class="alert-icon"><i class="far fa-lightbulb"></i></div>
-                                        <div class="alert-body">
-                                            <div class="alert-title">Menu laporan produk inventori</div>
-                                            <p>Pada bagian menu ini dapat di akses oleh <span class="text-primary">Admin </span>dan <span class="text-primary">Owner</span></p>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
+
                         </div>
                         <div class="tab-pane fade" id="setting" role="tabpanel" aria-labelledby="contact-tab">
                             <div class="row">

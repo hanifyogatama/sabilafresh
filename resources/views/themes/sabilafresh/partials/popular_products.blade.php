@@ -29,6 +29,7 @@
                         <span>$90.00</span>
                     </div>
                 </div>
+                
                 <div class="product-wrapper">
                     <div class="product-img">
                         <a href="#">

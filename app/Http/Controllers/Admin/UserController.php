@@ -130,7 +130,10 @@ class UserController extends Controller
      */
     public function show($id)
     {
-        //
+        $this->data['user'] = User::find($id);
+        $this->data['roles'] = Role::pluck('name', 'id');
+
+        return view('admin.users.show', $this->data);
     }
 
     /**

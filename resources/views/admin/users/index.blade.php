@@ -55,11 +55,11 @@
                                 <td>
 
                                     @if ($userAdmin->roles->contains('name', 'Admin'))
-                                    <span class="badge badge-primary">{{ $userAdmin->roles->implode('name', ', ') }}</span>
+                                    <span class="badge btn-primary">{{ $userAdmin->roles->implode('name', ', ') }}</span>
                                     @elseif ($userAdmin->roles->contains('name', 'Owner'))
-                                    <span class="badge badge-info">{{ $userAdmin->roles->implode('name', ', ') }}</span>
+                                    <span class="badge btn-info">{{ $userAdmin->roles->implode('name', ', ') }}</span>
                                     @else
-                                    <span class="badge badge-success">Pelanggan</span>
+                                    <span class="badge btn-success">Pelanggan</span>
                                     @endif
 
                                 </td>
@@ -77,7 +77,7 @@
                                 <td>
 
                                     @role('Owner')
-                                    <span class="badge badge-danger"><i class="fas fa-exclamation-triangle"></i> Admin</span>
+                                    <span class="badge btn-danger mb-1"><i class="fas fa-exclamation-triangle"></i> Admin</span>
                                     @endrole
 
                                     @can('add_users')
@@ -141,11 +141,11 @@
                                 <td>
 
                                     @if ($userCustomer->roles->contains('name', 'Admin'))
-                                    <span class="badge badge-primary">{{ $userCustomer->roles->implode('name', ', ') }}</span>
+                                    <span class="badge btn-primary">{{ $userCustomer->roles->implode('name', ', ') }}</span>
                                     @elseif ($userCustomer->roles->contains('name', 'Owner'))
-                                    <span class="badge badge-info">{{ $userCustomer->roles->implode('name', ', ') }}</span>
+                                    <span class="badge btn-info">{{ $userCustomer->roles->implode('name', ', ') }}</span>
                                     @else
-                                    <span class="badge badge-success">Pelanggan</span>
+                                    <span class="badge btn-success">Pelanggan</span>
                                     @endif
                                 </td>
                                 <td>{{ $userCustomer->created_at->format('d-F-Y') }}</td>
@@ -159,7 +159,7 @@
                                 <td>
 
                                     @role('Owner')
-                                    <span class="badge badge-danger"><i class="fas fa-exclamation-triangle"></i> Admin</span>
+                                    <span class="badge btn-danger mb-1"><i class="fas fa-exclamation-triangle"></i> Admin</span>
                                     @endrole
 
                                     @can('add_users')

@@ -8,10 +8,10 @@
     </div>
     <div class="col-lg-2 ml-5">
         @role('Admin')
-        <span class="badge badge-info">Admin</span>
+        <span class="badge btn-info">Admin</span>
         @endrole
         @role('Owner')
-        <span class="badge badge-danger">Owner</span>
+        <span class="badge btn-danger">Owner</span>
         @endrole
 
     </div>
@@ -39,7 +39,7 @@
                     <h5>Selamat Siang</h5>
                     <i class="pl-5 pt-3 fa fa-sun fa-4x"></i>
             </div>
-            @elseif($Hour >= 19 || $Hour <= 4) <div>
+            @elseif($Hour >= 18 || $Hour <= 4) <div>
                 <h5>Selamat Malam</h5>
                 <i class="pl-5 pt-3 fa fa-cloud-moon fa-4x"></i>
         </div>
@@ -152,7 +152,7 @@
                 @forelse($users->take(5) as $user)
                 @if($user->isOnline())
                 <div class="media  mr-3 p-2 rounded shadow-sm">
-                    <img alt="image" src="{{ URL::asset('admin/assets/img/avatar/avatar-1.png') }}" class="mr-3 rounded-circle" width="50">
+                    <img alt="image" src="{{ URL::asset('admin/assets/img/avatar/profile-1.png') }}" class="mr-3 rounded-circle shadow-sm" width="50">
                     <div class="media-body">
                         <h6 class="media-title text-capitalize"><span>{{ Str::limit($user->nama_depan,13) }}</span></h6>
                         <div class="text-small text-muted">
@@ -164,7 +164,7 @@
                             <span class="text-dark">Pelanggan</span>
                             @endif
 
-                            <div class="bullet"></div>
+                            <div class="bullet text-success"></div>
                             @if($user->isOnline())
                             <span class="text-primary font-weight-bold">Online</span>
                             @endif
@@ -361,7 +361,7 @@
 <!-- end category list -->
 
 
-<div class="row">
+<!-- <div class="row">
     <div class="col">
         <div class="card">
             <div class="card-header">
@@ -438,5 +438,5 @@
     </div>
 
 
-</div>
+</div> -->
 @stop

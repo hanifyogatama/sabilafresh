@@ -50,9 +50,8 @@
             <li class="nav-item dropdown">
                 <a href="#" class="nav-link has-dropdown"><i class="fas fa-chart-bar"></i> <span>Laporan</span></a>
                 <ul class="dropdown-menu">
-                    <li><a href="auth-forgot-password.html">Produk</a></li>
-                    <!-- <li><a href="auth-forgot-password.html">Pendapatan</a></li>
-                    <li><a href="auth-login.html">Pembayaran</a></li> -->
+                    <li><a href="{{ url('admin/reports/product')}}">Produk</a></li>
+                    <li><a href="#">Pembayaran</a></li>
                     <li><a href="auth-forgot-password.html">Produk Inventori</a></li>
                 </ul>
             </li>
