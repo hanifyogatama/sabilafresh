@@ -94,12 +94,10 @@ class Produk extends Model
             ->where('parent_id', NULL);
     }
 
-
     function price_label()
     {
         return ($this->variants->count() > 0) ? $this->variants->first()->harga : $this->harga;
     }
-
 
     public function configurable()
     {

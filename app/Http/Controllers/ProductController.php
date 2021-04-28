@@ -10,6 +10,7 @@ use App\Models\AtributProduk;
 use App\Models\Kategori;
 
 use Str;
+use Symfony\Component\VarDumper\VarDumper;
 
 class ProductController extends Controller
 {
@@ -33,8 +34,8 @@ class ProductController extends Controller
             url('products') => 'Default',
             url('products?sort=harga-asc') => 'Harga - Rendah ke Tinggi',
             url('products?sort=harga-desc') => 'Harga - Tinggi ke Rendah',
-            url('products?sort=created_at-asc') => 'Produk - Baru ke Lama',
-            url('products?sort=created_at-desc') => 'Produk - Lama ke Baru',
+            url('products?sort=created_at-asc') => 'Produk - Lama ke Batu',
+            url('products?sort=created_at-desc') => 'Produk - Baru ke lama',
         ];
 
         $this->data['selectedSort'] = url('products');
@@ -48,13 +49,11 @@ class ProductController extends Controller
     public function index(Request $request)
     {
 
-        $products = Produk::active()->orderBy('created_at','desc');
+        $products = Produk::active();
 
         $products = $this->searchProducts($products, $request);
         $products = $this->filterProductByPriceRange($products, $request);
         $products = $this->sortProducts($products, $request);
-
-
 
         $this->data['products'] = $products->paginate(10);
 
@@ -147,10 +146,10 @@ class ProductController extends Controller
             return redirect('products');
         }
 
-        if ($product->type == 'configurable') {
-            $this->data['colors'] = AtributProduk::getAttributeOptions($product, 'color')->pluck('text_value', 'text_value');
-            $this->data['sizes'] = AtributProduk::getAttributeOptions($product, 'size')->pluck('text_value', 'text_value');
-        }
+        // if ($product->type == 'configurable') {
+        //     $this->data['colors'] = AtributProduk::getAttributeOptions($product, 'color')->pluck('text_value', 'text_value');
+        //     $this->data['sizes'] = AtributProduk::getAttributeOptions($product, 'size')->pluck('text_value', 'text_value');
+        // }
 
         $this->data['product'] = $product;
 
