@@ -32,7 +32,7 @@ class CreatePemesananTable extends Migration
             $table->string('nama_depan_konsumen');
             $table->string('nama_belakang_konsumen');
             $table->string('alamat_konsumen')->nullable();
-            
+
             $table->string('no_hp_konsumen')->nullable();
             $table->string('email_konsumen')->nullable();
             $table->string('kota_konsumen')->nullable();

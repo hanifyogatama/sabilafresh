@@ -12,7 +12,7 @@ use App\Models\Atribut;
 use App\Models\AtributOpsi;
 use App\Models\InventoriProduk;
 use App\Models\AtributProduk;
-
+use Illuminate\Http\Request;
 use App\Http\Requests\ProductRequest;
 use App\Http\Requests\ProductImageRequest;
 
@@ -37,10 +37,17 @@ class ProductController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $this->data['products'] = Produk::orderBy('id', 'DESC')->paginate(10);
+        $products = Produk::orderBy('id', 'DESC');
 
+        $searchInput = $request->input('searchInput');
+        if ($searchInput) {
+            $products = $products->Where('sku', 'like', '%' . $searchInput . '%')
+                ->orWhere('nama', 'like', '%' . $searchInput . '%');
+        }
+
+        $this->data['products'] = $products->paginate(10);
         return view('admin.products.index', $this->data);
     }
 

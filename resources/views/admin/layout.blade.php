@@ -18,6 +18,8 @@
 
     <link rel=" stylesheet" href="{{ URL::asset('admin/assets/modules/owlcarousel2/dist/assets/owl.carousel.min.css') }}">
     <link rel="stylesheet" href="{{ URL::asset('admin/assets/modules/owlcarousel2/dist/assets/owl.theme.default.min.css') }}">
+    <link id="bsdp-css" rel="stylesheet" href="{{ URL::asset('admin/assets/modules/bootstrap-datepicker/css/bootstrap-datepicker3.min.css') }}">
+
 
     <!-- Template CSS -->
     <link rel="stylesheet" href="{{ URL::asset('admin/assets/css/style.css') }}">
@@ -56,12 +58,14 @@
 
     <!-- General JS Scripts -->
     <script src="{{ URL::asset('admin/assets/modules/jquery.min.js') }}"></script>
+    <script src="{{ URL::asset('admin/assets/modules/bootstrap-datepicker/js/bootstrap-datepicker.min.js') }}"></script>
     <script src="{{ URL::asset('admin/assets/modules/popper.js') }}"></script>
     <script src="{{ URL::asset('admin/assets/modules/tooltip.js') }}"></script>
     <script src="{{ URL::asset('admin/assets/modules/bootstrap/js/bootstrap.min.js') }}"></script>
     <script src="{{ URL::asset('admin/assets/modules/nicescroll/jquery.nicescroll.min.js') }}"></script>
     <script src="{{ URL::asset('admin/assets/modules/moment.min.js') }}"></script>
     <script src="{{ URL::asset('admin/assets/js/stisla.js') }}"></script>
+
 
     <!-- JS Libraies -->
     <script src="{{ URL::asset('admin/assets/modules/izitoast/js/iziToast.min.js') }}"></script>
@@ -70,6 +74,7 @@
     <script src="{{ URL::asset('admin/assets/modules/owlcarousel2/dist/owl.carousel.min.js') }}"></script>
     <script src="{{ URL::asset('admin/assets/modules/summernote/summernote-bs4.js') }}"></script>
     <script src="{{ URL::asset('admin/assets/modules/chocolat/dist/js/jquery.chocolat.min.js') }}"></script>
+
 
     <!-- Page Specific JS File -->
     <script src="{{ URL::asset('admin/assets/js/page/index.js') }}"></script>

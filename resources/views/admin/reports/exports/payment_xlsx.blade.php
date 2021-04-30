@@ -1,26 +1,25 @@
 <table>
     <thead>
         <tr>
-            <th>Order ID</th>
+            <th>No Pemesanan</th>
             <th>Date</th>
             <th>Status</th>
             <th>Amount</th>
             <th>Gateway</th>
-            <th>Payment Type</th>
-            <th>Ref token</th>
+            <th>Tipe Pembayaran</th>
+
         </tr>
     </thead>
     <tbody>
-        <!-- @foreach ($payments as $payment)
+        @foreach ($payments as $payment)
         <tr>
-            <td>{{ $payment->code }}</td>
+            <td>{{ $payment->kode }}</td>
             <td>{{ $payment->created_at }}</td>
             <td>{{ $payment->status }}</td>
-            <td>{{ $payment->amount }}</td>
-            <td>{{ $payment->method }}</td>
-            <td>{{ $payment->payment_type }}</td>
-            <td>{{ $payment->token }}</td>
+            <td>{{ $payment->jumlah }}</td>
+            <td>{{ $payment->metode }}</td>
+            <td>{{ $payment->tipe_pembayaran }}</td>
         </tr>
-        @endforeach -->
+        @endforeach
     </tbody>
 </table>

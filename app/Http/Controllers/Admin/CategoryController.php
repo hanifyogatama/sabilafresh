@@ -5,11 +5,12 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\Kategori;
 use App\Http\Requests\CategoryRequest;
-
+use Illuminate\Http\Request;
 use Str;
 use Session;
 
 use App\Authorizable;
+
 
 class CategoryController extends Controller
 {
@@ -19,9 +20,17 @@ class CategoryController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $this->data['categories'] = Kategori::orderBy('id', 'DESC')->paginate(10);
+        $categories = Kategori::orderBy('id', 'DESC');
+
+        $searchInput = $request->input('searchInput');
+        if ($searchInput) {
+            $categories = $categories->Where('nama', 'like', '%' . $searchInput . '%');
+        }
+
+        $this->data['categories'] = $categories->paginate(10);
+
         return view('admin.categories.index', $this->data);
     }
 

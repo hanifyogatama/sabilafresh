@@ -360,6 +360,41 @@
 </div>
 <!-- end category list -->
 
+<!-- start list inventory products -->
+<div class="row">
+    <div class="col">
+        <div class="card ">
+            <div class="row pt-2">
+                <div class="col-sm-10">
+                    <h6 class="text-dark pl-4 pb-3">Inventori Produk <span class="py-1 badge badge-primary">??</span></h6>
+                </div>
+                @if($products->count() >= 6)
+                <div class="col"><a href="{{ url('admin/reports/inventory') }}" class="btn btn-round btn-primary px-3 py-0">Lihat Semua</a></div>
+                @endif
+            </div>
+            <div class="card-body d-flex justify-content-start mt-0 pt-0">
+                @forelse($products as $product)
+                <div class="media mr-3 p-2  shadow-sm btn-round">
+                    <div class="row">
+                        <div class="col-sm-3 pt-1">
+                            <div class="btn btn-outline-primary shadow-sm border btn-custom" style="border-radius: 50%;">{{ $product->inventoriProduk->qty }}</div>
+                        </div>
+                        <div class="col">
+                            <div class="media-body pt-2 pl-2">
+                                <h6 class="text-muted text-capitalize text-small"><span>{{ Str::limit($product->nama,14)}}</span></h6>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                @empty
+                Data tidak tersedia
+                @endforelse
+            </div>
+        </div>
+    </div>
+</div>
+<!-- end list inventory products -->
+
 
 <!-- <div class="row">
     <div class="col">

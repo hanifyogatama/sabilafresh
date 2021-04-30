@@ -22,7 +22,7 @@ class UserController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
 
         $roles = Role::all();
@@ -30,8 +30,15 @@ class UserController extends Controller
         // $this->data['users'] = User::first()->paginate(10);
         $userAdmins = User::orderBy('id', 'asc')->get();
         $userCustomers = User::where('is_admin', '0')
-            ->orderBy('created_at', 'desc')
-            ->paginate(10);
+            ->orderBy('created_at', 'desc');
+
+        $searchInput = $request->input('searchInput');
+        if ($searchInput) {
+            $userCustomers = $userCustomers->Where('nama_depan', 'like', '%' . $searchInput . '%')
+                ->orWhere('nama_depan', 'like', '%' . $searchInput . '%');
+        }
+
+        $userCustomers = $userCustomers->paginate(10);
 
         return view('admin.users.index', compact('roles', 'userAdmins', 'userCustomers'));
     }

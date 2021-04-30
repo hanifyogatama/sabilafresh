@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="utf-8">
-    <title>Payment Report</title>
+    <title>Laporan Pembayaran</title>
     <style type="text/css">
         table {
             width: 100%;
@@ -36,33 +36,31 @@
 </head>
 
 <body>
-    <h2>Product Report</h2>
+    <h2>Laporan Pembayaran</h2>
     <hr>
     <p>Period : {{ \General::datetimeFormat($startDate, 'd M Y') }} - {{ \General::datetimeFormat($endDate, 'd M Y') }}</p>
     <table>
         <thead>
             <tr>
-                <th>Order ID</th>
-                <th>Date</th>
+                <th>No Pemesanan</th>
+                <th>Tanggal</th>
                 <th>Status</th>
-                <th>Amount</th>
+                <th>Jumlah</th>
                 <th>Gateway</th>
-                <th>Payment Type</th>
-                <th>Ref</th>
+                <th>Tipe Pembayaran</th>
             </tr>
         </thead>
         <tbody>
-            <!-- @foreach ($payments as $payment)
+            @foreach ($payments as $payment)
             <tr>
-                <td>{{ $payment->code }}</td>
+                <td>{{ $payment->kode }}</td>
                 <td>{{ \General::datetimeFormat($payment->created_at) }}</td>
                 <td>{{ $payment->status }}</td>
-                <td>{{ \General::priceFormat($payment->amount) }}</td>
-                <td>{{ $payment->method }}</td>
-                <td>{{ $payment->payment_type }}</td>
-                <td>{{ $payment->token }}</td>
+                <td>{{ \General::priceFormat($payment->jumlah) }}</td>
+                <td>{{ $payment->metode }}</td>
+                <td>{{ $payment->tipe_pembayaran }}</td>
             </tr>
-            @endforeach -->
+            @endforeach
         </tbody>
     </table>
 </body>

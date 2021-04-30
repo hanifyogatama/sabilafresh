@@ -115,7 +115,7 @@
                     <h6 class="pl-2 pt-2" style="font-weight: 600;">Atur jumlah barang</h6>
                     {!! Form::open(['url' => 'carts']) !!}
                     {{ Form::hidden('produk_id', $product->id) }}
-                    @if ($product->type == 'configurable')
+                    <!-- @if ($product->type == 'configurable')
 
                     <div class="quick-view-select">
                         <div class="select-option-part">
@@ -127,7 +127,7 @@
                             {!! Form::select('color', $colors , null, ['class' => 'select', 'placeholder' => '- Please Select -', 'required' => true]) !!}
                         </div>
                     </div>
-                    @endif
+                    @endif -->
 
 
                     <div class="pl-2 quickview-plus-minus">
@@ -136,6 +136,9 @@
                         </div>
                     </div>
 
+                    <div class="">
+                        {{ $product->inventoriProduk->qty }}
+                    </div>
                     <div class="row px-2 mt-4 mb-2">
                         <div class="col">
                             <a class="btn btn-outline-light-green bg-white btn-block add-to-fav" href="" product-slug="{{ $product->slug }}"><i class="fa fa-heart"></i> Wishlist</a>

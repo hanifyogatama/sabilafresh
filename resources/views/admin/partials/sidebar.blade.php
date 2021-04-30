@@ -30,8 +30,6 @@
                 <ul class="dropdown-menu">
                     <li><a class="nav-link" href="{{ url('admin/products')}}">Produk</a></li>
                     <li><a class="nav-link" href="{{ url('admin/categories')}}">Kategori</a></li>
-                    <li><a class="nav-link" href="{{ url('admin/attributes')}}">Atribut Produk</a></li>
-
                 </ul>
             </li>
             @endrole
@@ -50,8 +48,9 @@
                 <a href="#" class="nav-link has-dropdown"><i class="fas fa-chart-bar"></i> <span>Laporan</span></a>
                 <ul class="dropdown-menu">
                     <li><a href="{{ url('admin/reports/product')}}">Produk</a></li>
-                    <li><a href="#">Pembayaran</a></li>
-                    <li><a href="auth-forgot-password.html">Produk Inventori</a></li>
+                    <li><a href="{{ url('admin/reports/customer')}}">Pelanggan</a></li>
+                    <li><a href="{{ url('admin/reports/payment')}}">Pembayaran</a></li>
+                    <li><a href="{{ url('admin/reports/inventory')}}">Produk Inventori</a></li>
                 </ul>
             </li>
 

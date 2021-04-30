@@ -29,16 +29,10 @@
                     </div>
                     @endcan
 
-                    <!-- <div class="card-header-form">
-                        <form>
-                            <div class="input-group">
-                                <input type="text" class="form-control" placeholder="Search">
-                                <div class="input-group-btn">
-                                    <button class="btn btn-primary"><i class="fas fa-search"></i></button>
-                                </div>
-                            </div>
-                        </form>
-                    </div> -->
+                    <div class="col d-inline-flex p-0 mb-2">
+                        @include('admin.partials.search')
+                        <a href="{{url('admin/products')}}" data-toggle="tooltip" title="Refresh" class="btn btn-sm btn-success btn-default px-2"><i class="fas fa-sync-alt"></i></a>
+                    </div>
 
                     <table class="table  mt-2">
                         <thead>
@@ -62,19 +56,13 @@
 
                                 @if($product->status_label() == 'aktif')
                                 <td>
-                                    <div class="badge badge-info">
-                                        {{ $product->status_label() }}
-                                    </div>
-                                </td>
-                                @elseif($product->status_label() == 'draf')
-                                <td>
-                                    <div class="badge badge-success">
+                                    <div class="badge btn-info">
                                         {{ $product->status_label() }}
                                     </div>
                                 </td>
                                 @else
                                 <td>
-                                    <div class="badge badge-danger">
+                                    <div class="badge btn-danger">
                                         {{ $product->status_label() }}
                                     </div>
                                 </td>

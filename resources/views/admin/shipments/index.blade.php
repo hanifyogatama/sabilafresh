@@ -1,13 +1,18 @@
 @extends('admin.layout')
 
 @section('content')
+<div class="section-header">
+    <h1>Pengiriman</h1>
+    <div class="section-header-breadcrumb">
+        <div class="breadcrumb-item active"> <a href=""><i class="fas fa-shopping-cart"></i></i> Cek Pemesanan</a> </div>
+        <div class="breadcrumb-item"><a href="{{url('admin/shipments')}}">Pengiriman</a></div>
+    </div>
+</div>
+
 <div class="content">
     <div class="row">
         <div class="col-lg-12">
             <div class="card card-default">
-                <div class="card-header card-header-border-bottom">
-                    <h2>Pengiriman</h2>
-                </div>
                 <div class="card-body">
                     @include('admin.partials.flash')
                     <table class="table table-bordered table-stripped">
@@ -44,7 +49,7 @@
                             </tr>
                             @empty
                             <tr>
-                                <td colspan="5">No records found</td>
+                                <td colspan="5">Data tidak tersedia</td>
                             </tr>
                             @endforelse
                         </tbody>

@@ -27,16 +27,10 @@
                         <div class="col"></div>
                     </div>
 
-                    <!-- <div class="card-header-form">
-                        <form>
-                            <div class="input-group">
-                                <input type="text" class="form-control" placeholder="Search">
-                                <div class="input-group-btn">
-                                    <button class="btn btn-primary"><i class="fas fa-search"></i></button>
-                                </div>
-                            </div>
-                        </form>
-                    </div> -->
+                    <div class="col d-inline-flex p-0 mb-2">
+                        @include('admin.partials.search')
+                        <a href="{{url('admin/categories')}}" data-toggle="tooltip" title="Refresh" class="btn btn-sm btn-success btn-default px-2"><i class="fas fa-sync-alt"></i></a>
+                    </div>
 
                     <table class="table  mt-2">
                         <thead>
@@ -68,7 +62,7 @@
                             @empty
                             <tr>
                                 <td colspan="5" style="text-align: center;">
-                                    <span class="text-dark">Data tidak  tersedia</span>
+                                    <span class="text-dark">Data tidak tersedia</span>
                                 </td>
                             </tr>
                             @endforelse

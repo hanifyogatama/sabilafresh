@@ -91,6 +91,7 @@ Route::group(
         Route::get('reports/product','ReportController@product');
         Route::get('reports/inventory','ReportController@inventory');
         Route::get('reports/payment','ReportController@payment');
+        Route::get('reports/customer','ReportController@customer');
 
         // Route::get('guides', 'GuidesController@index');
 

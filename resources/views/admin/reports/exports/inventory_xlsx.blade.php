@@ -1,18 +1,18 @@
 <table>
     <thead>
         <tr>
-            <th>Name</th>
-            <th>SKU</th>
-            <th>Stock</th>
+            <th>No Produk</th>
+            <th>Nama Produk</th>
+            <th>Stok</th>
         </tr>
     </thead>
     <tbody>
-        <!-- @foreach ($products as $product)
+        @foreach ($products as $product)
         <tr>
-            <td>{{ $product->name }}</td>
             <td>{{ $product->sku }}</td>
+            <td>{{ $product->nama }}</td>
             <td>{{ $product->stock }}</td>
         </tr>
-        @endforeach -->
+        @endforeach
     </tbody>
 </table>
