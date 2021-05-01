@@ -109,7 +109,7 @@ class CartController extends Controller
                 ]);
             }
 
-            \Session::flash('success', 'jumlah barang terupdate');
+            // \Session::flash('success', 'jumlah barang terupdate');
             return redirect('carts');
         }
     }

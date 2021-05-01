@@ -50,7 +50,7 @@
                             @php
                             $i = 1
                             @endphp
-                            @forelse ($product->gambarProduk as $image)
+                            @forelse ($product->gambarProduk->take(4) as $image)
                             <a class="{{ ($i == 1) ? 'active' : '' }} mr-12" href="#pro-details{{ $i }}" data-toggle="tab" role="tab" aria-selected="true">
                                 @if ($image->gambar_medium)
                                 <img src="{{ asset('storage/'.$image->gambar_medium) }}" alt="{{ $product->nama }}" style="border-radius: 16%; width:40px">
@@ -157,15 +157,45 @@
                     </div>
                     @endif -->
 
+                    <!-- <div class="box-spinnner">
+                        <input class="input-spinner" type="number" value="1" min="1" max="10" />
+                    </div> -->
+                    <!-- 
+                    <div class="row">
+                        <div class="col-md-5">
+                            <div class="box-spinnner">
+                                {!! Form::number('qty', 1, ['class' => 'input-spinner', 'min'=> 1, 'max' =>  '2','readonly','placeholder' => 'qty',]) !!}
+                            </div>
+                        </div>
+                    </div> -->
 
-                    <div class="pl-2 quickview-plus-minus">
-                        <div class="cart-plus-minus">
-                            {!! Form::number('qty', 1, ['class' => 'cart-plus-minus-box', 'readonly','placeholder' => 'qty', 'min' => 1]) !!}
+
+                    <!-- {{-- <input class="input-spinner" name="" value="{{ $item->quantity }}" type="number" min="1" readonly> --}} -->
+                    <div class="pl-10 row">
+                        <div class="col-md-7 mt-2">
+                            {!! Form::number('qty', 1, ['min' => 1, 'max' => $product->inventoriProduk->qty, 'required' => true]) !!}
+                        </div>
+                        <div class="col-md-5 pt-3">
+                            <p>Stok: <span class="text-dark font-weight-bold ">{{ $product->inventoriProduk->qty }}</span></p>
                         </div>
                     </div>
 
+
+
+                    <!-- <div class="qty mt-5">
+                        <span class="minus bg-dark">-</span>
+                        <input type="number" class="count" name="qty" value="1" max="4">
+                        <span class="plus bg-dark">+</span>
+                    </div> -->
+
+                    <!-- <div class="pl-2 quickview-plus-minus">
+                        <div class="cart-plus-minus">
+                            {!! Form::number('qty', 1, ['class' => 'cart-plus-minus-box', 'readonly','placeholder' => 'qty']) !!}
+                        </div>
+                    </div> -->
+
                     <div class="">
-                        {{ $product->inventoriProduk->qty }}
+
                     </div>
                     <div class="row px-2 mt-4 mb-2">
                         <div class="col">
@@ -176,10 +206,14 @@
                         </div>
                     </div>
                     {!! Form::close() !!}
+                    <a href="https://api.whatsapp.com/send?phone=6289676310705&text=Saya%20tertarik%20untuk%20membeli%20produk%20ini%20segera." target="_blank">Chat</a>
                 </div>
+
             </div>
         </div>
     </div>
 </div>
+
+
 
 @endsection

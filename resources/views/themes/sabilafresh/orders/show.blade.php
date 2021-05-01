@@ -10,7 +10,7 @@
             </div>
             <div class="col-lg-9">
                 <div class="d-flex justify-content-between">
-                    <h5 class="font-weight-bold" style="color: #03AC0E;"> #{{ $order->kode }}</h5>
+                    <h5 class="font-weight-bold" style="color: #03AC0E;"> {{ $order->kode }}</h5>
                 </div>
                 <!-- timeline start -->
 
@@ -22,7 +22,7 @@
                         <p class="text-dark mb-2" style="font-weight: normal; font-size:16px; text-transform: uppercase;"></p>
                         <div class="shadow col-md-12 border px-3 rounded-lg pt-3">
                             <address>
-                                ID: <span class="font-weight-bold"> {{ $order->kode }}</span>
+                                ID Pemesanan: <span class="font-weight-bold"> {{ $order->kode }}</span>
                                 <br>Tanggal Pemesanan:<span class="font-weight-bold"> {{ \General::datetimeFormat($order->tanggal_pemesanan) }}</span>
                                 <br>Batas Pembayaran:<span class="font-weight-bold"> {{ \General::datetimeFormat($order->batas_pembayaran) }}</span>
 

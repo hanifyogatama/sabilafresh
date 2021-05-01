@@ -41,18 +41,17 @@
 
 
                 <div class="row">
-                    <div class="col-md-8"></div>
+                    <div class="col-md-7"></div>
                     <div class="col-md-2 pl-5">
                         <a href="{{ url('carts/remove/'. $item->id)}}" class="delete"><i style="font-size: 20px; font-weight: bold;" class="ti-trash"></i></a>
                     </div>
 
-                    <div class="col-md-2 pr-5">
-                        <div class="product-quantity ">
-                            {{-- <input name="" value="{{ $item->quantity }}" type="number" min="1" > --}}
-                            {!! Form::number('items['. $item->id .'][quantity]', $item->quantity, ['min' => 1, 'required' => true], ['style'=>'height:10px']) !!}
+                    <div class="col-md-5">
+                        <div class="product-quantity">
+                            {{-- <input name="" value="{{ $item->quantity }}" type="number" min="1" readonly> --}}
+                            {!! Form::number('items['. $item->id .'][quantity]', $item->quantity, ['min' => 1, 'max' => $product->inventoriProduk->qty, 'required' => true], ['style'=>'height:10px'],['readonly']) !!}
                         </div>
                     </div>
-
                 </div>
                 <!-- <div class="product-price-cart"></div> -->
                 <!-- <div class="product-subtotal">Rp {{ number_format($item->price * $item->quantity)}}</div> -->
@@ -78,7 +77,7 @@
                 <h6 class="pl-4 mt-3 mb-3" style="font-weight: 600;">Ringkasan belanja</h6>
 
                 <div class="px-4 row">
-                
+
                     <div class="col-lg-8" style="font-weight: 500;">Total Harga ({{\Cart::getTotalQuantity()}} barang)</div>
                     <div class="col-lg-4"><span>Rp {{ number_format(\Cart::getSubTotal()) }}</span></div>
                 </div>
@@ -99,13 +98,13 @@
         </div>
         @else
         <div class="row pl-150 text-center ml-150">
-            <div class="ml-5  col-lg-12">
+            <div class="ml-5 col-lg-12">
                 <img class="mx-auto" src="{{ asset('themes/sabilafresh/assets/img/front/empty-cart.svg') }}" alt="" width="230px">
 
                 <p class="mb-0" style="font-weight:bold;">Wah keranjang belanjaanmu kosong!</p>
                 <span class="text-center" style="font-size:11px;">Yuk, isi dengan buah-buah segar yang kami sediakan</span>
                 <div class="mt-2">
-                    <a style="color: white !important; font-size: 14px; font-weight: 500;" class="mx-10 btn btn-light-green btn-lg" href="{{url('/')}}">Mulai Belanja</a>
+                    <a style="color: white !important; font-size: 14px; font-weight: 500;" class="px-5 mx-10 btn btn-light-green btn-lg" href="{{url('/')}}">Mulai Belanja</a>
                 </div>
             </div>
 

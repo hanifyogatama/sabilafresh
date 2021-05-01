@@ -69,7 +69,7 @@
                                                     <li><a style="color: red;" href="{{ route('logout') }}" onclick="event.preventDefault();
 											document.getElementById('logout-form').submit();">
                                                             {{ __('Logout') }}
-                                                            <i class="fa fa-sign-out ml-1"></i></a></li>
+                                                            <i class="fas fa-sign-out-alt"></i></a></li>
                                                 </div>
                                             </div>
                                         </ul>

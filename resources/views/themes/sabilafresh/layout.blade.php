@@ -25,6 +25,7 @@
     <link rel="stylesheet" href="{{ asset('themes/sabilafresh/assets/css/bundle.css') }}">
     <link rel="stylesheet" href="{{ asset('themes/sabilafresh/assets/css/style.css') }}">
     <link rel="stylesheet" href="{{ asset('themes/sabilafresh/assets/css/responsive.css') }}">
+    <link rel="stylesheet" href="{{ asset('themes/sabilafresh/assets/css/jquery.nice-number.css') }}">
     <script src="{{ asset('themes/sabilafresh/assets/js/vendor/modernizr-2.8.3.min.js') }}"></script>
     <!-- csrf token -->
     <meta name="csrf-token" content="{{csrf_token() }}">
@@ -40,9 +41,10 @@
     @include('themes.sabilafresh.partials.modals')
 
     <!-- all js here -->
-    
+
     <script src="{{ asset('themes/sabilafresh/assets/js/vendor/jquery-1.12.0.min.js') }}"></script>
     <script src="{{ asset('themes/sabilafresh/assets/js/app.js') }}"></script>
+    <script src="{{ asset('themes/sabilafresh/assets/js/input-spinner.js') }}"></script>
     <script src="{{ asset('themes/sabilafresh/assets/js/popper.js') }}"></script>
     <script src="{{ asset('themes/sabilafresh/assets/js/bootstrap.min.js') }}"></script>
     <script src="{{ asset('themes/sabilafresh/assets/js/jquery.magnific-popup.min.js') }}"></script>
@@ -54,7 +56,11 @@
     <script src="{{ asset('themes/sabilafresh/assets/js/owl.carousel.min.js') }}"></script>
     <script src="{{ asset('themes/sabilafresh/assets/js/plugins.js') }}"></script>
     <script src="{{ asset('themes/sabilafresh/assets/js/main.js') }}"></script>
-    
+    <script src="{{ asset('themes/sabilafresh/assets/js/input-spinner.js') }}"></script>
+
+    <script>
+        $("input[type='number']").inputSpinner();
+    </script>
 </body>
 
 </html>
