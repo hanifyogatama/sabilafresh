@@ -20,7 +20,7 @@
                     <table class="table table-bordered table-striped">
                         <thead>
                             <th>Nama</th>
-                            <th>SKU</th>
+                            <th>ID Barang</th>
                             <th>Produk Terjual</th>
                             <th>Net Revenue</th>
                             <th>Orders</th>

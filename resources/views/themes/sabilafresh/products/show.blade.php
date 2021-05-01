@@ -46,7 +46,7 @@
                             @endforelse
                         </div>
 
-                        <div class="product-details-small nav mt-12" role=tablist>
+                        <div class="product-details-small nav mt-12 mb-5" role=tablist>
                             @php
                             $i = 1
                             @endphp
@@ -72,45 +72,73 @@
             <div class="col-4 fixed-col">
                 <!-- code in here -->
                 <h6 class="text-capitalize" style="font-weight: 600;">{{ $product->nama }}</h6>
-
                 <h4 class="mt-3" style="font-weight: 600;">Rp {{ number_format($product->price_label()) }}</h4>
-                <div class="mt-3">
-                    <hr />
+
+                <div>
+                    <hr class="mt-3" />
                 </div>
 
-                <div class="ml-0 mb-2 mt-3">
-                    <ul>
-                        <li><span class="font-weight-light">Berat :</span> {{ number_format( $product->berat, 0, ',', '') }} Gram</li>
-                        <li><span class="font-weight-light">Kategori :</span>
-                            @foreach ($product->kategories as $category)
-                            <a style="color: #03AC0E; display: inline-block;  font-weight: 600;" href="{{ url('products?category/'. $category->slug ) }}">{{ $category->nama }}</a>
-                        </li>
-                        @endforeach
-                    </ul>
+                <div class="product-description-review-area ">
+                    <div class="container">
+                        <div class="product-description-review">
+                            <div class="description-review-title nav mb-2 mt-2 ml-4" role=tablist>
+                                <a class="active" href="#pro-dec" data-toggle="tab" role="tab" aria-selected="true">
+                                    Detail
+                                </a>
+                                <a href="#pro-review" data-toggle="tab" role="tab" aria-selected="false">
+                                    Info Penting
+                                </a>
+                            </div>
+
+                            <div style="margin-top: -9px; margin-left:-15px; width:111%;">
+                                <hr />
+                            </div>
+
+                            <div class="description-review-text tab-content mt-4">
+                                <div class="tab-pane active show fade" id="pro-dec" role="tabpanel">
+
+                                    <div class="mt-3 mb-3">
+                                        <ul>
+                                            <li><span class="font-weight-light">Berat :</span> {{ number_format( $product->berat, 0, ',', '') }} Gram</li>
+                                            <li><span class="font-weight-light">Kategori :</span>
+                                                @foreach ($product->kategories as $category)
+                                                <a style="color: #03AC0E; display: inline-block;  font-weight: 600;" href="{{ url('products?category/'. $category->slug ) }}">{{ $category->nama }}</a>
+                                            </li>
+                                            @endforeach
+                                        </ul>
+                                    </div>
+
+                                    <p class="mb-3">{{ $product->deskripsi }}</p>
+
+                                    <p>
+                                        {{ Str::limit($product->detail_deskripsi, 135,'') }}
+                                        @if (strlen($product->detail_deskripsi) > 135)
+                                        <span id="dots">...</span>
+                                        <span id="more">{{ substr($product->detail_deskripsi,135) }}</span>
+
+                                        <button style="background-color: transparent; border: 2px;color: #03AC0E; display: inline-block; font-size: 12px; font-weight:600; cursor: pointer; " onclick="myFunction()" id="myBtn">Lihat Selengkapnya</button>
+                                        @endif
+                                    </p>
+                                </div>
+                                <div class="tab-pane fade" id="pro-review" role="tabpanel">
+                                    <p class="text-capitalize mb-2" style="font-weight: 600;">Kebijakan Pengembalian Produk</p>
+
+                                    <p> {{ Str::limit($product->detail_deskripsi, 135,'') }}</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
 
-                <p>{{ $product->deskripsi }}</p>
 
-                <p>
-                    {{ Str::limit($product->detail_deskripsi, 135,'') }}
-                    @if (strlen($product->detail_deskripsi) > 135)
-                    <span id="dots">...</span>
-                    <span id="more">{{ substr($product->detail_deskripsi,135) }}</span>
-
-                    <button style="background-color: transparent; border: 2px;color: #03AC0E; display: inline-block; font-size: 12px; font-weight:600; cursor: pointer; " onclick="myFunction()" id="myBtn">Lihat Selengkapnya</button>
-                    @endif
-                </p>
                 <div class="mt-2">
                     <hr />
                 </div>
                 <p class="text-capitalize m-0" style="font-weight: 600;">Pengiriman</p>
-                <div class=""><i class="fas fa-map-marker-alt"></i> Kertodadi, Jln. Kaliurang KM.19, Sleman Yogyakarta</div>
-                <div class="mt-2">
-                    <hr />
-                </div>
+                <div class="mb-5"><i class="fas fa-map-marker-alt"></i> Kertodadi, Jln. Kaliurang KM.19, Sleman Yogyakarta</div>
             </div>
 
-            <div class="col-md-4 fixed-column">
+            <div class="col-md-4 fixed-column mb-5">
                 <div class="shadow product-details-content rounded-lg p-2 ">
                     <h6 class="pl-2 pt-2" style="font-weight: 600;">Atur jumlah barang</h6>
                     {!! Form::open(['url' => 'carts']) !!}
@@ -153,26 +181,5 @@
         </div>
     </div>
 </div>
-<div class="product-description-review-area pb-90">
-    <div class="container">
-        <div class="product-description-review text-center">
-            <div class="description-review-title nav" role=tablist>
-                <a class="active" href="#pro-dec" data-toggle="tab" role="tab" aria-selected="true">
-                    Description
-                </a>
-                <a href="#pro-review" data-toggle="tab" role="tab" aria-selected="false">
-                    Reviews (0)
-                </a>
-            </div>
-            <div class="description-review-text tab-content">
-                <div class="tab-pane active show fade" id="pro-dec" role="tabpanel">
-                    <!-- <p>{{ $product->description }} </p> -->
-                </div>
-                <div class="tab-pane fade" id="pro-review" role="tabpanel">
-                    <a href="#">Be the first to write your review!</a>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
+
 @endsection

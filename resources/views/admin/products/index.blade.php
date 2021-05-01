@@ -56,13 +56,13 @@
 
                                 @if($product->status_label() == 'aktif')
                                 <td>
-                                    <div class="badge btn-info">
+                                    <div class="badge btn-info text-capitalize">
                                         {{ $product->status_label() }}
                                     </div>
                                 </td>
                                 @else
                                 <td>
-                                    <div class="badge btn-danger">
+                                    <div class="badge btn-secondary ">
                                         {{ $product->status_label() }}
                                     </div>
                                 </td>

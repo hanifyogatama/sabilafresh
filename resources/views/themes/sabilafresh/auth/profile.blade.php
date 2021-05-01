@@ -39,7 +39,7 @@
 
                             <div class="form-group row">
                                 <div class="col-md-12">
-                                    {!! Form::text('alamat', null, ['required' => true, 'placeholder' => 'Rumah, Apartemen, Kontrakan, Kosan']) !!}
+                                    {!! Form::textarea('alamat', null, ['required' => true, 'placeholder' => 'Rumah, Apartemen, Kontrakan, Kosan','style' => 'height: 100px;']) !!}
                                     @error('alamat')
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
@@ -51,7 +51,7 @@
 
                             <div class="form-group row">
                                 <div class="col-md-6">
-                                    {!! Form::select('province_id', $provinces, Auth::user()->province_id, ['id' => 'user-province-id', 'placeholder' => '- Please Select - ', 'required' => true]) !!}
+                                    {!! Form::select('provinsi_id', $provinces, Auth::user()->province_id, ['id' => 'user-province-id', 'placeholder' => '- Pilih - ', 'required' => true]) !!}
                                     @error('province_id')
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
@@ -59,7 +59,7 @@
                                     @enderror
                                 </div>
                                 <div class="col-md-6">
-                                    {!! Form::select('city_id', $cities, null, ['id' => 'user-city-id', 'placeholder' => '- Please Select -', 'required' => true])!!}
+                                    {!! Form::select('kota_id', $cities, null, ['id' => 'user-city-id', 'placeholder' => '- Pilih -', 'required' => true])!!}
                                     @error('city_id')
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
@@ -98,7 +98,7 @@
                                 </div>
                             </div>
                             <div class="button-box">
-                                <button type="submit" class="default-btn float-right">Update</button>
+                                <button type="submit" class="btn btn-light-green float-right">Simpan</button>
                             </div>
                             {!! Form::close() !!}
                         </div>

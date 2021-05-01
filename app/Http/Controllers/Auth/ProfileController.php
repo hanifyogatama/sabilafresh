@@ -39,8 +39,10 @@ class ProfileController extends Controller
     {
         $params = $request->except('_token');
         $user = \Auth::user();
-        $user->update($params);
 
-        return redirect('profile')->with('success-edit', 'success');
+        if ($user->update($params)) {
+            \Session::flash('success', 'profil berhasil diperbarui');
+            return redirect('profile');
+        }
     }
 }

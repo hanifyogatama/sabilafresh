@@ -24,7 +24,9 @@ class DashboardController extends Controller
 
         $users = User::all();
 
-        $customers = User::where('is_admin', '==', 0)->get();
+        $customers = User::where('is_admin', '==', 0)->orderBy('created_at','desc')->get();
+        
+
         $admins = User::whereHas(
             'roles',
             function ($q) {

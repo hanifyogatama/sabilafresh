@@ -42,13 +42,13 @@
 
                                 @if($slide->status == 'Aktif')
                                 <td>
-                                    <div class="badge badge-info">
+                                    <div class="badge btn-info">
                                         {{ $slide->status }}
                                     </div>
                                 </td>
                                 @else
                                 <td>
-                                    <div class="badge badge-danger">
+                                    <div class="badge btn-secondary">
                                         {{ $slide->status }}
                                     </div>
                                 </td>

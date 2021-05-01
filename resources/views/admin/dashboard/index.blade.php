@@ -141,14 +141,8 @@
                 <div class="col-sm-10">
                     <h6 class="text-dark pl-4">User Aktif</h6>
                 </div>
-                @if($users->count() >= 5)
-                <div class="col"><a href="{{ url('admin/users') }}" class="btn btn-round btn-primary px-3 py-0">Lihat Semua</a></div>
-                @endif
             </div>
             <div class="card-body d-flex justify-content-start mt-0 pt-0">
-
-
-
                 @forelse($users->take(5) as $user)
                 @if($user->isOnline())
                 <div class="media  mr-3 p-2 rounded shadow-sm">
@@ -271,14 +265,14 @@
 
 <div class="row">
     <div class="col-lg-8 ">
-        <!-- <div class="card">
+        <div class="card">
             <div class="card-header">
-                <h4 style="color: #03AC0E;">Budget vs Sales</h4>
+                <h4 class="text-dark"">Budget vs Sales</h4>
             </div>
-            <div class="card-body">
-                <canvas id="myChart" height="158"></canvas>
+            <div class=" card-body">
+                    <canvas id="myChart" height="158"></canvas>
             </div>
-        </div> -->
+        </div>
     </div>
 
     <div class="col-lg-4">
@@ -300,7 +294,6 @@
                         @else
                         <img src="{{ asset('themes/sabilafresh/assets/img/product/fashion-colorful/1.jpg') }}" alt="{{ $product->nama }}" width="55" class="mr-3 rounded">
                         @endif
-
                         <div class="media-body">
                             <div class="float-right">
                                 <div class="font-weight-600 text-small" style="color: #03AC0E;">Rp {{ number_format($product->price_label()) }}</div>
@@ -315,7 +308,14 @@
                     </li>
                 </ul>
                 @empty
-                Produk Kosong!
+                <div class="col">
+                    <div class="row mx-auto">
+                        <img class="mx-auto" src="{{ asset('admin/assets/img/empty.svg') }}" alt="" width="70px">
+                    </div>
+                    <div class="row">
+                        <p class="mx-auto">Data tidak tersedia.</p>
+                    </div>
+                </div>
                 @endforelse
             </div>
             <div class="card-footer d-flex justify-content-center">
@@ -324,11 +324,70 @@
     </div>
 </div>
 
+
+<!-- list new user -->
+<div class="row">
+    <div class="col-lg-4">
+        <div class="card">
+            <div class="card-header">
+                <span class="d-inline text-dark font-weight-bold ">Pelanggan Baru</span>
+                <div class="card-header-action">
+                    @if($customers->count() >= 4)
+                    <div class="col"><a href="{{ url('admin/users') }}" class="btn btn-round btn-primary px-3 py-0 ">Lihat Semua</a></div>
+                    @endif
+                </div>
+            </div>
+            <div class="card-body" id="top-5-scroll">
+                @forelse ($customers->take(4) as $customer)
+                <ul class="list-unstyled list-unstyled-border">
+                    <li class="media">
+                        <img alt="image" src="{{ URL::asset('admin/assets/img/avatar/profile-1.png') }}" class="mr-3 rounded-circle shadow-sm" width="50">
+                        <div class="media-body">
+                            <div class="float-right">
+                                <div class="font-weight-600 text-small" style="color: #03AC0E;"></div>
+                            </div>
+                            <div class="media-title text-capitalize ">
+                                @if($customer->id != \Auth::user()->id)
+                                <td class="text-capitalize">
+                                    <a class="text-primary" href="{{ url('admin/users/'. $customer->id) }}">
+                                        {{$customer->nama_depan }} {{$customer->nama_belakang }}
+                                    </a>
+                                </td>
+                                @endif
+                            </div>
+                            <div class="mt-1">
+                                <div class="budget-price ">
+                                    <div class="budget-price-label ml-0">{{ $customer->getTimeAgo($customer->created_at) }}</div>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+                @empty
+                <div class="col">
+                    <div class="row mx-auto">
+                        <img class="mx-auto" src="{{ asset('admin/assets/img/empty.svg') }}" alt="" width="70px">
+                    </div>
+                    <div class="row">
+                        <p class="mx-auto text-dark">Data tidak tersedia</p>
+                    </div>
+                </div>
+                @endforelse
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- end list new user -->
+
+
+
+
 <!-- category list -->
 
 <div class="row">
     <div class="col">
-        <div class="card ">
+        <div class="card">
             <div class="row pt-2">
                 <div class="col-sm-10">
                     <h6 class="text-dark pl-4 pb-3">Kategori Produk <span class="py-1 badge badge-primary">{{$categories->count()}}</span></h6>
@@ -363,7 +422,7 @@
 <!-- start list inventory products -->
 <div class="row">
     <div class="col">
-        <div class="card ">
+        <div class="card">
             <div class="row pt-2">
                 <div class="col-sm-10">
                     <h6 class="text-dark pl-4 pb-3">Inventori Produk <span class="py-1 badge badge-primary">??</span></h6>
@@ -374,10 +433,11 @@
             </div>
             <div class="card-body d-flex justify-content-start mt-0 pt-0">
                 @forelse($products as $product)
-                <div class="media mr-3 p-2  shadow-sm btn-round">
+                <div class="media mr-3 p-2  shadow-sm btn-round ">
                     <div class="row">
                         <div class="col-sm-3 pt-1">
-                            <div class="btn btn-outline-primary shadow-sm border btn-custom" style="border-radius: 50%;">{{ $product->inventoriProduk->qty }}</div>
+                            <div class="btn btn-outline-primary shadow-sm border btn-custom" style="border-radius: 50%;">{{
+                                !empty($product->inventoriProduk) ? $product->inventoriProduk->qty:0}}</div>
                         </div>
                         <div class="col">
                             <div class="media-body pt-2 pl-2">
@@ -474,4 +534,7 @@
 
 
 </div> -->
+
+
+
 @stop

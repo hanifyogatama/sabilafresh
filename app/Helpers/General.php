@@ -112,7 +112,7 @@ class General
      *
      * @return string
      */
-    public static function datetimeFormat($datetime, $format = 'd M Y H:i:s')
+    public static function datetimeFormat($datetime, $format = 'd M Y H:i:s A')
     {
         if (!empty($datetime)) {
             return date($format, strtotime($datetime));

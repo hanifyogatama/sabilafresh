@@ -18,13 +18,12 @@
                     @include('admin.reports.filter')
                     <table class="table table-bordered table-striped">
                         <thead>
-                            <th>Order ID</th>
+                            <th>ID Pemesanan</th>
                             <th>Tanggal</th>
                             <th>Status</th>
                             <th>Jumlah</th>
-                            <th>Gateway</th>
                             <th>Tipe Pembayaran</th>
-                            <th>Ref</th>
+
                         </thead>
                         <tbody>
                             @forelse ($payments as $payment)
@@ -33,9 +32,8 @@
                                 <td>{{ \General::datetimeFormat($payment->created_at) }}</td>
                                 <td>{{ $payment->status }}</td>
                                 <td>{{ \General::priceFormat($payment->jumlah) }}</td>
-                                <td>{{ $payment->metode }}</td>
                                 <td>{{ $payment->tipe_pembayaran }}</td>
-                                <td>{{ $payment->token }}</td>
+
                             </tr>
                             @empty
                             <tr>

@@ -19,7 +19,7 @@
                     <table class="table table-bordered table-stripped">
                         <thead>
                             <th>Kode Pemesanan</th>
-                            <th>Total Akhir</th>
+                            <th>Total</th>
                             <th>Nama Konsumen</th>
                             <th>Status</th>
                             <th>Pembayaran</th>

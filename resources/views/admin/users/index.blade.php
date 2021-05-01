@@ -43,16 +43,20 @@
                             @forelse ($userAdmins as $userAdmin)
                             @if ($userAdmin->is_admin == 1)
                             <tr>
-
                                 <th scope="row">{{$no}}</th>
+
+                                @if($userAdmin->id != \Auth::user()->id)
+                                <td class="text-capitalize">
+                                    <a href="{{ url('admin/users/'. $userAdmin->id) }}">
+                                        {{Str::limit($userAdmin->nama_depan, '15') }}
+                                    </a>
+                                </td>
+                                @else
                                 <td class="text-capitalize">{{Str::limit($userAdmin->nama_depan, '15') }}</td>
-
-
+                                @endif
 
                                 <td>{{Str::limit($userAdmin->email, '23') }}</td>
-
                                 <td>
-
                                     @if ($userAdmin->roles->contains('name', 'Admin'))
                                     <span class="badge btn-primary">{{ $userAdmin->roles->implode('name', ', ') }}</span>
                                     @elseif ($userAdmin->roles->contains('name', 'Owner'))
@@ -60,21 +64,17 @@
                                     @else
                                     <span class="badge btn-success">Pelanggan</span>
                                     @endif
-
                                 </td>
-
                                 <td>{{ $userAdmin->created_at->format('d-F-Y') }}</td>
-
-
                                 <td>
                                     @if($userAdmin->isOnline())
                                     <label class="py-2 px-3 badge btn-success">Online</label>
                                     @else
-                                    <label class="py-2 px-3 badge btn-dark">Offline</label>
+                                    <label class="py-2 px-3 badge btn-secondary">Offline</label>
                                     @endif
                                 </td>
-                                <td>
 
+                                <td>
                                     @role('Owner')
                                     <span class="badge btn-danger mb-1"><i class="fas fa-exclamation-triangle"></i> Admin</span>
                                     @endrole
@@ -137,14 +137,18 @@
                             <tr>
 
                                 <th scope="row">{{ $userCustomers->firstItem() + $key }}</th>
-                                <td class="text-capitalize">{{Str::limit($userCustomer->nama_depan, '7') }}</td>
 
+                                @if($userCustomer->id != \Auth::user()->id)
+                                <td class="text-capitalize">
+                                    <a href="{{ url('admin/users/'. $userCustomer->id) }}">
+                                    {{Str::limit($userCustomer->nama_depan, '7') }}
+                                    </a>
+                                </td>
+                                @endif
 
-
+                            
                                 <td>{{Str::limit($userCustomer->email, '23') }}</td>
-
                                 <td>
-
                                     @if ($userCustomer->roles->contains('name', 'Admin'))
                                     <span class="badge btn-primary">{{ $userCustomer->roles->implode('name', ', ') }}</span>
                                     @elseif ($userCustomer->roles->contains('name', 'Owner'))
@@ -158,7 +162,7 @@
                                     @if($userCustomer->isOnline())
                                     <label class="py-2 px-3 badge btn-success">Online</label>
                                     @else
-                                    <label class="py-2 px-3 badge btn-dark">Offline</label>
+                                    <label class="py-2 px-3 badge btn-secondary">Offline</label>
                                     @endif
                                 </td>
                                 <td>

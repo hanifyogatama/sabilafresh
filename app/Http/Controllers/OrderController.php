@@ -16,6 +16,26 @@ class OrderController extends Controller
         $this->middleware('auth');
     }
 
+    public function index()
+    {
+        $orders = Pemesanan::forUser(\Auth::user())
+            ->orderBy('created_at', 'DESC')
+            ->paginate(10);
+
+        $this->data['orders'] = $orders;
+
+        return $this->load_theme('orders.index', $this->data);
+    }
+
+
+    public function show($id)
+    {
+        $order = Pemesanan::forUser(\Auth::user())->findOrFail($id);
+        $this->data['order'] = $order;
+
+        return $this->load_theme('orders.show', $this->data);
+    }
+
     public function checkout()
     {
         if (\Cart::isEmpty()) {

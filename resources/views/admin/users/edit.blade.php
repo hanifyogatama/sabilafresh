@@ -17,10 +17,20 @@
         <div class="col-lg-6">
             <div class="card card-default">
                 <div class="card-header card-header-border-bottom">
-                    <h5><span class="badge badge-primary">{{ $user->nama_depan }}</span> </h5>
+                    <h5><span class="badge badge-primary">{{ $user->nama_depan }} {{ $user->nama_belakang }}</span> </h5>
                 </div>
                 <div class="card-body">
                     {!! Form::model($user, ['method' => 'PUT', 'route' => ['users.update', $user->id ] ]) !!}
+                    @if($user->is_admin == true)
+                    <div class="form-group @if ($errors->has('name')) has-error @endif">
+                        {!! Form::label('nama_depan', 'Nama') !!}
+                        {!! Form::text('nama_depan', null, ['class' => 'form-control', 'placeholder' => 'Nama', 'autocomplete'=>'off']) !!}
+                        @error('nama_depan')
+                        <small style="font-weight: 600;" class="text-danger">{{ $message }}</small>
+                        @enderror
+                    </div>
+                    @endif
+
                     @include('admin.users.form')
                     <!-- Submit Form Button -->
                     @if($user->is_admin == true)

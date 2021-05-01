@@ -8998,26 +8998,35 @@ h5.panel-title {
 }
 
 .description-review-title {
-    justify-content: center;
+    justify-content: left;
     margin-bottom: 44px;
 }
 
 .description-review-title a.active {
-    color: #333333;
+    color: #03ac0e;
+    padding-bottom: 6px;
+    border-bottom: 2px solid #03ac0e;
 }
 
 .description-review-title a {
-    color: #666;
-    font-size: 30px;
+    color: #a5a6a9;
+    font-size: 13.5px;
     font-weight: 600;
-    margin: 0 20px;
+    margin: 0 27px;
 }
 
 .description-review-text .tab-pane p {
     color: #545454;
-    font-size: 15px;
-    margin: 0 auto;
-    width: 61%;
+    font-size: 14px;
+    margin: 0 -15px;
+    width: 113%;
+}
+
+.description-review-text .tab-pane div {
+    color: #545454;
+    font-size: 14px;
+    margin: 0 -15px;
+    width: 105%;
 }
 
 #pro-review a {

@@ -42,7 +42,7 @@
                                 <td>{{ $customer->nama_depan }} {{ $customer->nama_belakang }}</td>
                                 <td>{{ $customer->email }}</td>
                                 <td>{{ $customer->no_hp }}</td>
-                                <td>{{ $customer->alamat }}</td>
+                                <td>{{ Str::limit($customer->alamat, '30') }}</td>
                                 <td>{{ date('d F Y', strtotime($customer->created_at)) }}</td>
                             </tr>
                             @endforeach

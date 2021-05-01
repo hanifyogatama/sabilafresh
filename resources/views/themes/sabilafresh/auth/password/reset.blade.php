@@ -1,38 +1,45 @@
-@extends('themes.sabilafresh.layout')
+@extends('themes.sabilafresh.auth_layout')
 
 @section('content')
-<div class="breadcrumb-area pt-205 breadcrumb-padding pb-210" style="background-image: url({{ asset('themes/sabilafresh/assets/img/bg/breadcrumb.jpg') }})">
-    <div class="container-fluid">
-        <div class="breadcrumb-content text-center">
-            <h2>Reset Password</h2>
-            <ul>
-                <li><a href="#">home</a></li>
-                <li>Reset Password</li>
-            </ul>
+
+<!-- register-area start -->
+
+<div class="mx-auto mt-5" style="background-image: url('{{ asset('themes/sabilafresh/assets/img/front/.svg') }}');  height: 450px; background-repeat: no-repeat; background-position: center; ">
+
+    <div class="container-fluid mt-0">
+        <div class="row">
+            <div class="col-lg-12 d-flex justify-content-center">
+                <a href="">
+                    <img src="{{ asset('themes/sabilafresh/assets/img/front/new-logo.svg') }}" alt="" width="155px">
+                </a>
+            </div>
         </div>
     </div>
-</div>
-<!-- register-area start -->
-<div class="register-area ptb-100">
-    <div class="container-fluid">
-        <div class="row">
-            <div class="col-md-12 col-12 col-lg-12 col-xl-6 ml-auto mr-auto">
-                <div class="login">
-                    <div class="login-form-container">
-                        <div class="login-form">
-                            @if (session('status'))
-                            <div class="alert alert-success" role="alert">
-                                {{ session('status') }}
-                            </div>
-                            @endif
 
-                            <form method="POST" action="{{ route('password.update') }}">
-                                @csrf
-                                <input type="hidden" name="token" value="{{ $token }}">
+    <div class="register-area ptb-40">
+        <div class="container-fluid">
 
-                                <div class="form-group row">
-                                    <div class="col-md-12">
-                                        <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ $email ?? old('email') }}" required autocomplete="email" autofocus placeholder="{{ __('E-Mail Address') }}">
+            <div class="row">
+                <div class="col-md-4 mr-auto ml-auto">
+                    <div class="login">
+                        <div class="shadow login-form-container p-4 mx-0 bg-white rounded">
+                            <div class="login-form">
+                                <div>
+                                    <p class="text-left font-weight-bold" style=" font-size: 1rem;">Reset Kata Sandi</p>
+                                </div>
+
+                                @if (session('status'))
+                                <div class="alert alert-success" role="alert">
+                                    {{ session('status') }}
+                                </div>
+                                @endif
+
+                                <form method="POST" action="{{ route('password.update') }}">
+                                    @csrf
+                                    <input type="hidden" name="token" value="{{ $token }}">
+
+                                    <div class="form-group">
+                                        <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" readonly value="{{ $email ?? old('email') }}" required autocomplete="email" autofocus placeholder="{{ __('E-Mail Address') }}">
 
                                         @error('email')
                                         <span class="invalid-feedback" role="alert">
@@ -40,10 +47,8 @@
                                         </span>
                                         @enderror
                                     </div>
-                                </div>
 
-                                <div class="form-group row">
-                                    <div class="col-md-12">
+                                    <div class="form-group">
                                         <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="new-password" placeholder="{{ __('Password') }}">
 
                                         @error('password')
@@ -52,21 +57,21 @@
                                         </span>
                                         @enderror
                                     </div>
-                                </div>
 
-                                <div class="form-group row">
-                                    <div class="col-md-12">
-                                        <input id="password-confirm" type="password" class="form-control" name="password_confirmation" required autocomplete="new-password" placeholder="{{ __('Confirm Password') }}">
+                                    <div class="form-group">
+                                        
+                                            <input id="password-confirm" onkeyup="manage(this)" type="password" class="form-control" name="password_confirmation" required autocomplete="new-password" placeholder="{{ __('Ulangi Password') }}">
+                                        
                                     </div>
-                                </div>
-                                <div class="form-group row mb-0">
-                                    <div class="col-md-12">
-                                        <div class="button-box">
-                                            <button type="submit" class="default-btn floatright">{{ __('Reset Password') }}</button>
+                                    <div class="form-group row mb-2">
+                                        <div class="col-md-12">
+                                            <div class="button-box">
+                                                <button type="submit" id="btSubmit" disabled class="btn btn-light-green btn-lg btn-block">{{ __('Reset Password') }}</button>
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
-                            </form>
+                                </form>
+                            </div>
                         </div>
                     </div>
                 </div>
