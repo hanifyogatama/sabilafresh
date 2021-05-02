@@ -35,7 +35,8 @@ class UserController extends Controller
         $searchInput = $request->input('searchInput');
         if ($searchInput) {
             $userCustomers = $userCustomers->Where('nama_depan', 'like', '%' . $searchInput . '%')
-                ->orWhere('nama_depan', 'like', '%' . $searchInput . '%');
+                ->orWhere('nama_belakang', 'like', '%' . $searchInput . '%')
+                ->orWhere('kode', 'like', '%' . $searchInput . '%');
         }
 
         $userCustomers = $userCustomers->paginate(10);
@@ -206,6 +207,36 @@ class UserController extends Controller
 
         return redirect('admin/users')->with('success-edit', 'success');;
     }
+
+    // public function upload_image(Request $request, $id)
+    // {
+    //     $user = User::findOrFail($id);
+
+    //     if ($request->hasFile('image')) {
+    //         $image = $request->file('image');
+
+    //         $name = $user->nama_depan . '_' . time();
+    //         $fileName = $name . '.' . $image->getClientOriginalExtension();
+
+    //         $folder = User::UPLOAD_DIR . '/images';
+
+    //         $filePath = $image->storeAs($folder . '/original', $fileName, 'public');
+
+    //         $params['gambar'] = $filePath;
+
+    //         if (User::create($params)) {
+    //             var_dump($params);
+    //             exit;
+    //             Session::flash('success', 'Gambar berhasil ditambah');
+    //         } else {
+    //             Session::flash('error', 'Gambar gagal ditambah');
+    //         }
+
+    //         return redirect('admin/users/' . $id)->refresh();
+    //     }
+    // }
+
+
 
     /**
      * Remove the specified resource from storage.

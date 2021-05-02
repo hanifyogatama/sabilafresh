@@ -3,7 +3,11 @@
 @section('content')
 
 <div class="section-header">
-    <h1 class="text-capitalize">{{ $user->nama_depan }} {{ $user->nama_belakang }}</h1>
+    <h1 class="text-capitalize">{{ $user->nama_depan }} {{ $user->nama_belakang }}</h1>&nbsp;&nbsp;
+
+    @if($user->is_admin == false)
+    <span class="pt-2 badge btn-info"> {{ $user->kode }}</span>
+    @endif
     <div class="section-header-breadcrumb">
         <div class="breadcrumb-item active"> <a href=""><i class="fas fa-user"></i></i> User profile</a> </div>
         <div class="breadcrumb-item"><a href="{{url('admin/users/'. \Auth::user()->id)}}">{{ $user->nama_depan }}</a></div>
@@ -22,12 +26,28 @@
                             <span class=" border border-dark rounded p-1 font-weight-bold text-dark">Terdaftar: {{$user->created_at->format('d F Y')}}</span>
                         </div>
                     </div>
+
                     <div class="row mt-3">
                         <div class="col-md-3 ">
                             <div class="d text-center py-2">
                                 <img alt="image" src="{{ URL::asset('admin/assets/img/avatar/profile-1.png') }}" class="shadow rounded-circle" width="130px">
                             </div>
                         </div>
+
+                        <!-- <div class="card-body">
+                            
+                            {!! Form::open(['url' => ['admin/users/', $user->id], 'method' => 'POST', 'enctype' => 'multipart/form-data']) !!}
+                            <div class="form-group">
+                                {!! Form::label('image', 'User Image') !!}
+                                {!! Form::file('image', ['class' => 'form-control-file', 'placeholder' => 'user image']) !!}
+                            </div>
+                            <div class="form-footer pt-5 border-top ">
+                            
+                                <button type="submit" class="btn btn-primary btn-default">Simpan</button>
+                            </div>
+                            {!! Form::close() !!}
+                        </div> -->
+
                         <div class="col-md-9 ">
                             <div class="row">
                                 <div class="col-md-1 text-center"><span title="Nama" class="badge btn-info"><i class="fas fa-user"></i></span></div>
@@ -77,13 +97,13 @@
                                 <div class="col-md-1 text-center"><span title="Alamat" class="badge btn-dark"><i class="fas fa-home"></i></span></div>
                                 <div class="col-md-11 pt-1 pl-1">
                                     <h6 class="text-dark text-left">
-                                       @if(!empty($user->alamat && $user->kode_pos))
-                                       {{$user->alamat}} , {{$user->kode_pos}}
-                                       @else
-                                       {{ '-' }}
-                                       @endif
-                                        
-                                       </h6>
+                                        @if(!empty($user->alamat && $user->kode_pos))
+                                        {{$user->alamat}} , {{$user->kode_pos}}
+                                        @else
+                                        {{ '-' }}
+                                        @endif
+
+                                    </h6>
                                 </div>
                             </div>
                             @endif
@@ -94,6 +114,7 @@
         </div>
     </div>
 </div>
+
 
 <!-- list for customer only -->
 

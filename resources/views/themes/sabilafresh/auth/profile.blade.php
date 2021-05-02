@@ -70,7 +70,7 @@
 
                             <div class="form-group row">
                                 <div class="col-md-6">
-                                    {!! Form::number('kode_pos', null, ['required' => true, 'placeholder' => 'Kode pos']) !!}
+                                    {!! Form::text('kode_pos', null, ['required' => true, 'placeholder' => 'Kode pos']) !!}
                                     @error('kode_pos')
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>

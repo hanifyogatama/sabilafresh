@@ -380,13 +380,13 @@
     
     /* popular-product-active-2 active */
     $('.popular-product-active-2').owlCarousel({
-        loop: true,
+        loop: false,
         nav: true,
         autoplay: false,
         autoplayTimeout: 5000,
-        item: 4,
+        item: 5,
         margin: 22,
-        navText: ['<img src="assets/img/icon-img/left.png">', '<img src="assets/img/icon-img/right.png">'],
+        navText: ['<img src="">', '<img src="">'],
         responsive: {
             0: {
                 items: 1

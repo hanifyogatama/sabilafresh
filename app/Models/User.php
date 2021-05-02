@@ -21,9 +21,11 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
+        'kode',
         'nama_depan',
         'nama_belakang',
         'no_hp',
+        'gambar',
         'alamat',
         'provinsi_id',
         'kota_id',
@@ -33,6 +35,7 @@ class User extends Authenticatable
         'is_admin',
     ];
 
+    public const UPLOAD_DIR = 'uploads';
     /**
      * The attributes that should be hidden for arrays.
      *
@@ -50,6 +53,10 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+
+    public const USERCODE = 'CUS';
+
 
     public function products()
     {
@@ -79,5 +86,35 @@ class User extends Authenticatable
             [' detik', ' detik', ' menit', ' menit', ' jam', ' jam', ' hari', ' hari', ' minggu', ' minggu'],
             $carbonObject->diffForHumans(null, true) . ' yang lalu'
         );
+    }
+
+    public static function generateCode()
+    {
+        $dateCode = self::USERCODE . '-' . date('Ymd') . '-';
+
+        $lastUser = self::select([\DB::raw('MAX(users.kode) AS kode_akhir')])
+            ->where('kode', 'like', $dateCode . '%')
+            ->first();
+
+        $lastUserCode = !empty($lastUser) ? $lastUser['kode_akhir'] : null;
+
+        $userCode = $dateCode . '00001';
+        if ($lastUserCode) {
+            $lastUserNumber = str_replace($dateCode, '', $lastUserCode);
+            $nextUserNumber = sprintf('%05d', (int)$lastUserNumber + 1);
+
+            $userCode = $dateCode . $nextUserNumber;
+        }
+
+        if (self::_isUserCodeExists($userCode)) {
+            return generateOrderCode();
+        }
+
+        return $userCode;
+    }
+
+    private static function _isUserCodeExists($userCode)
+    {
+        return User::where('kode', '=', $userCode)->exists();
     }
 }

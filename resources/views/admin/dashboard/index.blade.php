@@ -323,6 +323,43 @@
         </div>
     </div>
 </div>
+<!-- end chart -->
+
+<!-- category list -->
+
+<div class="row">
+    <div class="col">
+        <div class="card">
+            <div class="row pt-2">
+                <div class="col-sm-10">
+                    <h6 class="text-dark pl-4 pb-3">Kategori Produk <span class="py-1 badge badge-warning">{{$categories->count()}}</span></h6>
+                </div>
+                @if($categories->count() >= 6)
+                <div class="col"><a href="{{ url('admin/categories') }}" class="btn btn-round btn-primary px-3 py-0">Lihat Semua</a></div>
+                @endif
+            </div>
+            <div class="card-body d-flex justify-content-start mt-0 pt-0">
+                @forelse($categories as $category)
+                <div class="media mr-3 p-2  shadow-sm btn-round">
+                    <div class="row">
+                        <div class="col-sm-3 pt-1">
+                            <div class="btn btn-outline-primary shadow-sm border btn-custom" style="border-radius: 50%;">{{ $category->produks->count() }}</div>
+                        </div>
+                        <div class="col">
+                            <div class="media-body pt-2 pl-2">
+                                <h6 class="text-muted text-capitalize text-small"><span>{{ Str::limit($category->nama,14)}}</span></h6>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                @empty
+                Data tidak tersedia
+                @endforelse
+            </div>
+        </div>
+    </div>
+</div>
+<!-- end category list -->
 
 
 <!-- list new user -->
@@ -352,13 +389,14 @@
                                     <a class="text-primary" href="{{ url('admin/users/'. $customer->id) }}">
                                         {{$customer->nama_depan }} {{$customer->nama_belakang }}
                                     </a>
+                                    <div class="budget-price ">
+                                        <div class="budget-price-label ml-0">{{ $customer->kode }}</div>
+                                    </div>
                                 </td>
                                 @endif
                             </div>
-                            <div class="mt-1">
-                                <div class="budget-price ">
-                                    <div class="budget-price-label ml-0">{{ $customer->getTimeAgo($customer->created_at) }}</div>
-                                </div>
+                            <div class="budget-price ">
+                                <div class="budget-price-label ml-0">{{ $customer->getTimeAgo($customer->created_at) }}</div>
                             </div>
                         </div>
                     </li>
@@ -376,48 +414,74 @@
             </div>
         </div>
     </div>
+
+    <div class="col-lg-8">
+        <div class="card">
+            <div class="card-header">
+                <div class="col-md-9 pl-0">
+                    <h4 class="d-inline text-dark">Faktur</h4>
+                </div>
+                <div class="col-md-3 pl-4">
+                    @if($orders->count() >= 4)
+                    <a href="{{ url('admin/orders') }}" class="btn btn-round btn-primary ml-2 px-3 py-0">Lihat Semua</a>
+                    @endif
+
+                </div>
+            </div>
+            <div class="card-body">
+                <div class="table-responsive table-invoice">
+                    <table class="table table-striped">
+                        <thead>
+                            <th>Kode Pemesanan</th>
+
+                            <th>Tanggal</th>
+                            <th>Status</th>
+                        </thead>
+                        <tbody>
+                            @forelse ($orders as $order)
+                            <tr>
+                                <td>
+                                    <a href="{{ url('admin/orders/'. $order->id) }}">{{ $order->kode }}</a><br>
+                                    <span style=" font-size: 12px; font-weight: normal" class="text-capitalize"> {{$order->nama_depan_konsumen}} {{$order->nama_belakang_konsumen}}</span>
+                                </td>
+
+
+                                <td>
+                                    <span style="font-size: 12px; font-weight: normal">{{\General::datetimeFormat($order->tanggal_pemesanan) }}
+                                        <br>
+                                        <span style="font-size: 12px; font-weight: normal;" class="text-danger">{{\General::datetimeFormat($order->batas_pembayaran) }}</span>
+                                </td>
+                                <td>
+                                    @if($order->status_pembayaran == 'paid')
+                                    <div class="badge badge-success text-capitalize">{{ $order->status_pembayaran }}</div>
+                                    @else
+                                    <div class="badge badge-danger text-capitalize">{{ $order->status_pembayaran }}</div>
+                                    @endif
+                                </td>
+                            </tr>
+                            @empty
+                            <tr>
+                                <td colspan="5">Data tidak tersedia</td>
+                            </tr>
+                            @endforelse
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+
+        </div>
+    </div>
 </div>
+
+
 
 <!-- end list new user -->
 
 
 
 
-<!-- category list -->
 
-<div class="row">
-    <div class="col">
-        <div class="card">
-            <div class="row pt-2">
-                <div class="col-sm-10">
-                    <h6 class="text-dark pl-4 pb-3">Kategori Produk <span class="py-1 badge badge-primary">{{$categories->count()}}</span></h6>
-                </div>
-                @if($categories->count() >= 6)
-                <div class="col"><a href="{{ url('admin/categories') }}" class="btn btn-round btn-primary px-3 py-0">Lihat Semua</a></div>
-                @endif
-            </div>
-            <div class="card-body d-flex justify-content-start mt-0 pt-0">
-                @forelse($categories as $category)
-                <div class="media mr-3 p-2  shadow-sm btn-round">
-                    <div class="row">
-                        <div class="col-sm-3 pt-1">
-                            <div class="btn btn-outline-primary shadow-sm border btn-custom" style="border-radius: 50%;">{{ $category->produks->count() }}</div>
-                        </div>
-                        <div class="col">
-                            <div class="media-body pt-2 pl-2">
-                                <h6 class="text-muted text-capitalize text-small"><span>{{ Str::limit($category->nama,14)}}</span></h6>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                @empty
-                Data tidak tersedia
-                @endforelse
-            </div>
-        </div>
-    </div>
-</div>
-<!-- end category list -->
 
 <!-- start list inventory products -->
 <div class="row">
@@ -425,7 +489,7 @@
         <div class="card">
             <div class="row pt-2">
                 <div class="col-sm-10">
-                    <h6 class="text-dark pl-4 pb-3">Inventori Produk <span class="py-1 badge badge-primary">??</span></h6>
+                    <h6 class="text-dark pl-4 pb-3">Stok Produk <span class="py-1 badge badge-primary"></span></h6>
                 </div>
                 @if($products->count() >= 6)
                 <div class="col"><a href="{{ url('admin/reports/inventory') }}" class="btn btn-round btn-primary px-3 py-0">Lihat Semua</a></div>

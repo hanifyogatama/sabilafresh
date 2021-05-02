@@ -27,6 +27,7 @@ class HomeController extends Controller
      */
     public function index()
     {
+        $products = Produk::active();
 
         // $products = Produk::popular()->get();
         // $this->data['products'] = $products;
@@ -37,7 +38,9 @@ class HomeController extends Controller
         $this->data['categories'] = Kategori::parentCategories()
             ->orderBy('id', 'asc')
             ->get();
-
-        return $this->load_theme('home',$this->data);
+            
+        $this->data['products'] = $products->orderBy('created_at','desc')->get();
+        
+        return $this->load_theme('home', $this->data);
     }
 }

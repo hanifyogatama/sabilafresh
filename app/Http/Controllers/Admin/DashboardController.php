@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Models\User;
 use App\Models\Produk;
 use App\Models\Kategori;
+use App\Models\Pemesanan;
 use App\Models\Role;
 use App\Models\Permission;
 
@@ -24,8 +25,7 @@ class DashboardController extends Controller
 
         $users = User::all();
 
-        $customers = User::where('is_admin', '==', 0)->orderBy('created_at','desc')->get();
-        
+        $customers = User::where('is_admin', '==', 0)->orderBy('created_at', 'desc')->get();
 
         $admins = User::whereHas(
             'roles',
@@ -43,14 +43,17 @@ class DashboardController extends Controller
 
         $categories = Kategori::orderBy('id', 'DESC')->paginate(7);
 
+
         $products = Produk::orderBy('created_at', 'DESC')->paginate(5);
         $this->data['products'] = $products;
-
 
         $product = Produk::orderBy('created_at', 'DESC');
         $this->data['product'] = $product;
 
-        return view('admin.dashboard.index', compact('admins', 'categories', 'customers', 'product', 'owners', 'products', 'users'));
+        $orders = Pemesanan::orderBy('created_at', 'desc')->get();
+        
+
+        return view('admin.dashboard.index', compact('admins', 'categories', 'customers', 'product', 'owners', 'products', 'users', 'orders'));
     }
 
     /**

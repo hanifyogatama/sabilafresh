@@ -20,7 +20,7 @@
                         <thead>
                             <th>Kode Pemesanan</th>
                             <th>Total</th>
-                            <th>Nama Konsumen</th>
+                            <th>Nama Pelanggan</th>
                             <th>Status</th>
                             <th>Pembayaran</th>
                             <th>Action</th>

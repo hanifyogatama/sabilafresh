@@ -127,7 +127,6 @@
                             <th>Nama</th>
                             <th>Email</th>
                             <th>Role</th>
-                            <th>Terdaftar</th>
                             <th>Status</th>
                             <th>Action</th>
                         </thead>
@@ -141,12 +140,14 @@
                                 @if($userCustomer->id != \Auth::user()->id)
                                 <td class="text-capitalize">
                                     <a href="{{ url('admin/users/'. $userCustomer->id) }}">
-                                    {{Str::limit($userCustomer->nama_depan, '7') }}
+                                        {{$userCustomer->nama_depan }} {{$userCustomer->nama_belakang }}
                                     </a>
+                                    <br>
+                                    <span style=" font-size: 12px; font-weight: normal" class="text-capitalize"> {{$userCustomer->kode}}</span>
                                 </td>
                                 @endif
 
-                            
+
                                 <td>{{Str::limit($userCustomer->email, '23') }}</td>
                                 <td>
                                     @if ($userCustomer->roles->contains('name', 'Admin'))
@@ -157,7 +158,7 @@
                                     <span class="badge btn-success">Pelanggan</span>
                                     @endif
                                 </td>
-                                <td>{{ $userCustomer->created_at->format('d-F-Y') }}</td>
+
                                 <td>
                                     @if($userCustomer->isOnline())
                                     <label class="py-2 px-3 badge btn-success">Online</label>

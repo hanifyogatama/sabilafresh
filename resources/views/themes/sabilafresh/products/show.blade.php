@@ -194,9 +194,6 @@
                         </div>
                     </div> -->
 
-                    <div class="">
-
-                    </div>
                     <div class="row px-2 mt-4 mb-2">
                         <div class="col">
                             <a class="btn btn-outline-light-green bg-white btn-block add-to-fav" href="" product-slug="{{ $product->slug }}"><i class="fa fa-heart"></i> Wishlist</a>

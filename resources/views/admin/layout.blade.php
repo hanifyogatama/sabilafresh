@@ -74,10 +74,12 @@
     <script src="{{ URL::asset('admin/assets/modules/owlcarousel2/dist/owl.carousel.min.js') }}"></script>
     <script src="{{ URL::asset('admin/assets/modules/summernote/summernote-bs4.js') }}"></script>
     <script src="{{ URL::asset('admin/assets/modules/chocolat/dist/js/jquery.chocolat.min.js') }}"></script>
+    
 
 
     <!-- Page Specific JS File -->
     <script src="{{ URL::asset('admin/assets/js/page/index.js') }}"></script>
+    <script src="{{ URL::asset('admin/assets/js/page/bootstrap-modal.js') }}"></script>
 
     <!-- Template JS File -->
     <script src="{{ URL::asset('admin/assets/js/scripts.js') }}"></script>
