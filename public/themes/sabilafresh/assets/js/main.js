@@ -354,7 +354,7 @@
     
     /* popular-product-active active */
     $('.popular-product-active').owlCarousel({
-        loop: true,
+        loop: false,
         nav: true,
         autoplay: false,
         autoplayTimeout: 5000,

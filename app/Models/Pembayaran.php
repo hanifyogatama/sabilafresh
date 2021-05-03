@@ -11,7 +11,6 @@ class Pembayaran extends Model
     protected $fillable = [
         'pemesanan_id',
         'no_pembayaran',
-
         'jumlah',
         'metode',
         'status',
@@ -70,5 +69,11 @@ class Pembayaran extends Model
     private static function _isOrderCodeExists($orderCode)
     {
         return self::where('no_pembayaran', '=', $orderCode)->exists();
+    }
+
+   
+    public function pemesanan()
+    {
+        return $this->belongsTo(\App\Models\Pemesanan::class);
     }
 }

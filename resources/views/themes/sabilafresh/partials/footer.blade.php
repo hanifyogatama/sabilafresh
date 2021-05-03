@@ -43,9 +43,9 @@ use Symfony\Component\VarDumper\Cloner\Data;
                         <h6 style="font-weight: 600;">Bantuan</h6>
                         <div class="sidebar">
                             <ul>
-                                <li><a class="list-category" href="{{ url('/') }}">Kontak</a></li>
-                                <li><a class="list-category" href="{{ url('/') }}">Syarat dan Ketentuan</a></li>
-                                <li><a class="list-category" href="{{ url('/') }}">Kebijakan Privasi</a></li>
+                                <li><a class="list-category" target="_blank" href="https://linktr.ee/sabilafresh">Kontak</a></li>
+                                <li><a class="list-category" href="">Syarat dan Ketentuan</a></li>
+                                <li><a class="list-category" href="">Kebijakan Privasi</a></li>
                             </ul>
                         </div>
                     </div>

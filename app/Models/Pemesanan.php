@@ -67,6 +67,10 @@ class Pemesanan extends Model
         return $this->hasOne('App\Models\Pengiriman');
     }
 
+    public function pembayaran()
+    {
+        return $this->hasMany('App\Models\Pembayaran');
+    }
 
     public function itemPemesanan()
     {

@@ -2,8 +2,8 @@
     <div class="container">
         <div class="row">
             @forelse ($orders as $order)
+            
             @include('themes.sabilafresh.orders.list_box')
-
             @empty
             <div class="col">
                 <div class="row mx-auto">

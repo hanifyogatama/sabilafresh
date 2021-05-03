@@ -121,7 +121,7 @@
 								<div class="col-md-6">
 									<div class="checkout-form-list">
 										<label>Postcode / Zip <span class="required">*</span></label>
-										{!! Form::number('kodepos_pengiriman', null, ['placeholder' => 'Postcode']) !!}
+										{!! Form::number('kode_pos_pengiriman', null, ['placeholder' => 'Postcode']) !!}
 									</div>
 								</div>
 								<div class="col-md-6">

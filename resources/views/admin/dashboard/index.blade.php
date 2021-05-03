@@ -332,7 +332,7 @@
         <div class="card">
             <div class="row pt-2">
                 <div class="col-sm-10">
-                    <h6 class="text-dark pl-4 pb-3">Kategori Produk <span class="py-1 badge badge-warning">{{$categories->count()}}</span></h6>
+                    <h6 class="text-dark pl-4 pb-3">Kategori Produk <span class="py-1 badge badge-success">{{$categories->count()}}</span></h6>
                 </div>
                 @if($categories->count() >= 6)
                 <div class="col"><a href="{{ url('admin/categories') }}" class="btn btn-round btn-primary px-3 py-0">Lihat Semua</a></div>
@@ -419,7 +419,7 @@
         <div class="card">
             <div class="card-header">
                 <div class="col-md-9 pl-0">
-                    <h4 class="d-inline text-dark">Faktur</h4>
+                    <h4 class="d-inline text-dark">Faktur Terbaru</h4>
                 </div>
                 <div class="col-md-3 pl-4">
                     @if($orders->count() >= 4)

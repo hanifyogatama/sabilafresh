@@ -20,9 +20,12 @@ class OrderController extends Controller
     {
         $orders = Pemesanan::forUser(\Auth::user())
             ->orderBy('created_at', 'DESC')
-            ->paginate(10);
+            ->paginate(5);
 
         $this->data['orders'] = $orders;
+
+        $items = \Cart::getContent();
+        $this->data['items'] = $items;
 
         return $this->load_theme('orders.index', $this->data);
     }
@@ -32,6 +35,7 @@ class OrderController extends Controller
     {
         $order = Pemesanan::forUser(\Auth::user())->findOrFail($id);
         $this->data['order'] = $order;
+
 
         return $this->load_theme('orders.show', $this->data);
     }

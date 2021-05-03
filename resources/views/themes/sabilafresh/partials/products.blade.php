@@ -1,14 +1,14 @@
-<div class="mt-30 pb-30 ml-30 mr-30 pt-10 pl-3">
+<div class="mt-20 mb-10 ml-30 mr-30 pt-10 pl-3">
     <div class="row">
-        @forelse ($products->take(12) as $product)
+        @forelse ($products->take(6) as $product)
         <div class="col px-0">
             <div class="shadow product-dashboard mb-15 rounded-lg ">
                 <div class="product-img-2">
                     <a href="{{ url('product/'. $product->slug) }}">
                         @if ($product->gambarProduk->first())
-                        <img src="{{ asset('storage/'.$product->gambarProduk->first()->gambar_medium) }}" alt="{{ $product->nama }}" >
+                        <img src="{{ asset('storage/'.$product->gambarProduk->first()->gambar_medium) }}" alt="{{ $product->nama }}">
                         @else
-                        <img src="{{ asset('themes/sabilafarm/assets/img/product/fashion-colorful/1.jpg') }}" alt="{{ $product->nama }}" >
+                        <img src="{{ asset('themes/sabilafarm/assets/img/product/fashion-colorful/1.jpg') }}" alt="{{ $product->nama }}">
                         @endif
                     </a>
 

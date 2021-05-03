@@ -14,7 +14,7 @@
     <div class="sidebar-title mt-2">Profil Saya</div>
     <div class="sidebar-categories">
         <p><a href="{{ url('profile') }}">Biodata Diri</a></p>
-        <p><a href="{{ url('orders') }}">Riwayat Transaksi</a></p>
+        <p><a href="{{ url('orders') }}">Semua Transaksi</a></p>
         <p><a href="{{ url('favorites') }}">Wishlist</a></p>
     </div>
 </div>

@@ -55,7 +55,7 @@ class ProductController extends Controller
         $products = $this->filterProductByPriceRange($products, $request);
         $products = $this->sortProducts($products, $request);
 
-        $this->data['products'] = $products->paginate(10);
+        $this->data['products'] = $products->paginate(16);
 
         return $this->load_theme('products.index', $this->data);
     }

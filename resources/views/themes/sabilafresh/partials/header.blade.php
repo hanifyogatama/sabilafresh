@@ -61,7 +61,7 @@
                                                 <div class="col-md-6 pr-0">
                                                     <li class="pb-0"><a href="{{ url('profile') }}">Ubah Profil</a></li>
                                                     <hr />
-                                                    <li class="pb-0"><a href="{{ url('orders') }}">Riwayat Pembelian</a></li>
+                                                    <li class="pb-0"><a href="{{ url('orders') }}">Semua Transaksi</a></li>
                                                     <hr />
                                                     <li class="pb-0"><a href="{{ url('favorites') }}">Wishlist</a></li>
                                                 </div>
