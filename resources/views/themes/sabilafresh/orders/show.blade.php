@@ -48,6 +48,8 @@
                                 @endif
                                 <hr class="my-3" />
                                 <span class="font-weight-bold" style="color: #03AC0E;">{{ $order->kode }}</span>
+                                <a href="{{ url('orders/received/'. $order->id) }}" class="float-right px-4 py-2 badge badge-success">Lihat</a>
+
                             </address>
                         </div>
                     </div>
@@ -124,12 +126,10 @@
                     <div class="shadow pb-2 col-md-12  px-3 rounded-lg pt-3">
                         <address>
                             <span class="font-weight-bold text-dark text-capitalize">Informasi Pembayaran</span>
-
                             <address>
                                 <br>
                                 Metode Pembayaran<span class="font-weight-bold float-right">
                                     @foreach ($order->pembayaran as $payment)
-
                                     @if(!empty($payment->tipe_pembayaran))
                                     {{ucwords(str_replace("_", " ",  $payment->tipe_pembayaran))}}
                                     @else
@@ -146,7 +146,6 @@
                                 Total Ongkos Kirim ({{$order->pengiriman->total_berat }} gr)<span class="font-weight-bold float-right"> Rp {{ \General::priceFormat($order->biaya_pengiriman) }}</span>
                                 <hr class="my-3" />
 
-
                                 Pajak ({{$order->persen_pajak+0}}%)<span class="font-weight-bold float-right"> Rp {{$order->jumlah_pajak+0}}</span>
                                 <hr class="my-3" />
 
@@ -157,7 +156,6 @@
                         </address>
                     </div>
                 </div>
-
             </div>
         </div>
     </div>

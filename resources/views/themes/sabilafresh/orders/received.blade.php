@@ -4,99 +4,138 @@
 <!-- header end -->
 
 <!-- checkout-area start -->
-<div class="cart-main-area  ptb-100">
-    <div class="container">
+<div class="cart-main-area ptb-100 plr-70">
+    <div class="container pt-50">
+        @include('admin.partials.flash', ['$errors' => $errors])
+        <div class="row">
+            <div class="col-md-8">
+                <a href="">
+                    <img src="{{ asset('themes/sabilafresh/assets/img/front/new-logo.svg') }}" alt="" width="140px">
+                </a>
+                <br><br>
+                <span class="text-dark mb-2" style="font-weight: normal; font-size:16px; text-transform: capitalize;">Nomor Invoice: </span><span class="text-success font-weight-bold">{{ $order->kode }}</span>
+                <p class="mt-2 mb-0">Diterbitkan atas nama:</p>
+                <address>
+                    <div class="row">
+                        <div class="col-md-2">
+                            <ul class="font-weight-bold">
+                                <li>Penjual</li>
+                                <li>Tanggal</li>
+                            </ul>
+                        </div>
+                        <div class="col-md">
+                            <ul>
+                                <li>Sabilafresh</li>
+                                <li>{{ \General::datetimeFormat($order->tanggal_pemesanan) }}</li>
+                            </ul>
+                        </div>
+                    </div>
+                </address>
+            </div>
+            <div class="col-md-4">
+                <p class="text-dark mb-2" style="font-weight: bold; font-size:17px; text-transform: capitalize;">Tujuan Pengiriman</p>
+                <address>
+                    <span class="text-capitalize font-weight-bold text-dark">{{ $order->pengiriman->nama_depan }} {{ $order->pengiriman->nama_belakang }}</span>
+                    <br> {{ $order->pengiriman->alamat }}
+                    <br> {{ $order->pengiriman->kodepos }}
+                    <br> {{ $order->pengiriman->no_hp }}
+                </address>
+            </div>
+        </div>
+
         <div class="row">
             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                @include('admin.partials.flash', ['$errors' => $errors])
-                <h1 class="cart-heading">Your Order:</h4>
-                    <div class="row">
-                        <div class="col-xl-3 col-lg-4">
-                            <p class="text-dark mb-2" style="font-weight: normal; font-size:16px; text-transform: uppercase;">Billing Address</p>
-                            <address>
-                                {{ $order->nama_depan_konsumen }} {{ $order->nama_belakang_konsumen }}
-                                <br> {{ $order->alamat_konsumen }}
-                                <br> Email: {{ $order->email_konsumen }}
-                                <br> Phone: {{ $order->no_hp_konsumen }}
-                                <br> Postcode: {{ $order->kodepos_konsumen }}
-                            </address>
-                        </div>
-                        <div class="col-xl-3 col-lg-4">
-                            <p class="text-dark mb-2" style="font-weight: normal; font-size:16px; text-transform: uppercase;">Shipment Address</p>
-                            <address>
-                                {{ $order->pengiriman->nama_depan }} {{ $order->pengiriman->nama_belakang }}
-                                <br> {{ $order->pengiriman->alamat }}
+                <div class="table-responsive">
+                    <table class="table mt-3 " style="width:100%">
+                        <thead>
+                            <tr>
+                                <th>Nama Produk</th>
+                                <th>Jumah</th>
+                                <th>Berat Satuan</th>
+                                <th>Harga Barang</th>
+                                <th>Sub Total</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @forelse ($order->itemPemesanan as $item)
+                            <tr>
+                                <td>{{ $item->nama_produk }}</td>
+                                <td>{{ $item->qty }}</td>
+                                <td>{{$item->berat+0}} gr</td>
+                                <td>Rp {{ \General::priceFormat($item->harga) }}</td>
+                                <td>Rp {{ \General::priceFormat($item->sub_total) }}</td>
+                            </tr>
 
-                                <br> Email: {{ $order->pengiriman->email }}
-                                <br> Phone: {{ $order->pengiriman->no_hp }}
-                                <br> Postcode: {{ $order->pengiriman->kodepos }}
-                            </address>
-                        </div>
-                        <div class="col-xl-3 col-lg-4">
-                            <p class="text-dark mb-2" style="font-weight: normal; font-size:16px; text-transform: uppercase;">Details</p>
-                            <address>
-                                Invoice ID:
-                                <span class="text-dark">#{{ $order->kode }}</span>
-                                <br> {{ \General::datetimeFormat($order->tanggal_pemesanan) }}
-                                <br> Shipped by: {{ $order->layanan_kurir }}
-                            </address>
-                        </div>
-                    </div>
-                    <div class="table-content table-responsive">
-                        <table class="table mt-3 table-striped table-responsive table-responsive-large" style="width:100%">
-                            <thead>
-                                <tr>
-                                    <th>#</th>
-                                    <th>Item</th>
-                                    <th>Description</th>
-                                    <th>Quantity</th>
-                                    <th>Unit Cost</th>
-                                    <th>Total</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                @forelse ($order->itemPemesanan as $item)
-                                <tr>
-                                    <td>{{ $item->sku }}</td>
-                                    <td>{{ $item->nama_produk }}</td>
-                                    <td>{!! \General::showAttributes($item->atribut) !!}</td>
-                                    <td>{{ $item->qty }}</td>
-                                    <td>{{ \General::priceFormat($item->harga) }}</td>
-                                    <td>{{ \General::priceFormat($item->sub_total) }}</td>
-                                </tr>
-                                @empty
-                                <tr>
-                                    <td colspan="6">Order item not found!</td>
-                                </tr>
-                                @endforelse
-                            </tbody>
-                        </table>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-5 ml-auto">
-                            <div class="cart-page-total">
-                                <ul>
-                                    <li> Subtotal
-                                        <span>{{ \General::priceFormat($order->total_awal) }}</span>
-                                    </li>
-                                    <li>Tax (0%)
-                                        <span>{{ \General::priceFormat($order->jumlah_pajak) }}</span>
-                                    </li>
-                                    <li>Shipping Cost
-                                        <span>{{ \General::priceFormat($order->biaya_pengiriman) }}</span>
-                                    </li>
-                                    <li>Total
-                                        <span>{{ \General::priceFormat($order->total_akhir) }}</span>
-                                    </li>
-                                </ul>
-                                @if(!$order->isPaid())
-                                <a href="{{ $order->url_pembayaran }}">Proceed to payment</a>
-                                @endif
+                            @empty
+                            <tr>
+                                <td colspan="6">kosong!</td>
+                            </tr>
+
+                            @endforelse
+
+                        </tbody>
+                    </table>
+                    <hr class="mt-0" />
+                </div>
+                <div class="row">
+                    <div class="col-md-5 ml-auto">
+                        <div class="row mx-0 pt-10">
+                            <div class="col-md-12 py-3">
+                                <div class="row pb-2">
+                                    <div class="col-sm-8">
+                                        <span class="text-dark font-weight-bold">Subtotal Harga Barang </span>
+                                    </div>
+                                    <div class="col-sm-4">
+                                        <span class="text-dark font-weight-bold">Rp {{ \General::priceFormat($order->total_awal) }}</span>
+                                    </div>
+                                </div>
+                                <hr />
+                                <div class="row pb-2 pt-2">
+                                    <div class="col-sm-8">
+                                        <span class="text-dark">{{ $order->layanan_kurir }} </span>
+                                    </div>
+                                    <div class="col-sm-4">
+                                        <span class="text-dark">Rp {{ \General::priceFormat($order->biaya_pengiriman) }}</span>
+                                    </div>
+                                </div>
+                                <hr />
+                                <div class="row pb-2 pt-2">
+                                    <div class="col-sm-8">
+                                        <span class="text-dark">Pajak({{$order->persen_pajak+0}}%) </span>
+                                    </div>
+                                    <div class="col-sm-4">
+                                        <span class="text-dark">Rp {{ \General::priceFormat($order->jumlah_pajak) }}</span>
+                                    </div>
+                                </div>
+                                <hr />
                             </div>
                         </div>
+
+                        <div class="row mx-3 border pb-0">
+                            <div class="col-md-12 pt-3 pb-2">
+                                <div class="row pb-2">
+                                    <div class="col-sm-8">
+                                        <span class="text-dark font-weight-bold">Total Bayar </span>
+                                    </div>
+                                    <div class="col-sm-4">
+                                        <span class="text-dark font-weight-bold">Rp {{ \General::priceFormat($order->total_akhir) }}</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+
+                        @if(!$order->isPaid())
+                        <div class="float-right mr-3 mt-3">
+                            <a class="btn btn-light-green btn-sm px-3" href="{{ $order->url_pembayaran }}">Bayar</a>
+                        </div>
+                        @else
+                        <div class="mx-auto d-block mb-3" style="background-image: url('{{ asset('themes/sabilafresh/assets/img/front/paid.svg') }}');  height: 140px; background-repeat: no-repeat; background-position: right; ">
+                            @endif
+                        </div>
                     </div>
+                </div>
             </div>
         </div>
     </div>
-</div>
-@endsection
+    @endsection

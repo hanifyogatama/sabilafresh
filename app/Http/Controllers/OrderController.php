@@ -268,7 +268,7 @@ class OrderController extends Controller
             \Cart::clear();
             $this->_sendEmailOrderReceived($order);
 
-            \Session::flash('success', 'Thank you. Your order has been received!');
+            \Session::flash('success', 'Pesanan anda telah ditambahkan');
             return redirect('orders/received/' . $order->id);
         }
 
@@ -330,8 +330,8 @@ class OrderController extends Controller
             'kode'                     => Pemesanan::generateCode(),
             'status'                   => Pemesanan::CREATED,
             'tanggal_pemesanan'        => $orderDate,
-            'batas_pembayaran'          => $paymentDue,
-            'status_pembayaran'         => Pemesanan::UNPAID,
+            'batas_pembayaran'         => $paymentDue,
+            'status_pembayaran'        => Pemesanan::UNPAID,
             'total_awal'               => $baseTotalPrice,
             'jumlah_pajak'             => $taxAmount,
             'persen_pajak'             => $taxPercent,
@@ -345,7 +345,7 @@ class OrderController extends Controller
             'email_konsumen'           => $params['email'],
             'kota_konsumen'            => $params['kota_id'],
             'provinsi_konsumen'        => $params['provinsi_id'],
-            'kodepos_konsumen'        => $params['kode_pos'],
+            'kodepos_konsumen'         => $params['kode_pos'],
             'nama_kurir'               => $selectedShipping['courier'],
             'layanan_kurir'            => $selectedShipping['service'],
         ];

@@ -49,6 +49,8 @@ class ProductController extends Controller
     public function index(Request $request)
     {
 
+    
+
         $products = Produk::active();
 
         $products = $this->searchProducts($products, $request);

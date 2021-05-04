@@ -129,8 +129,6 @@
                         </div>
                     </div>
                 </div>
-
-
                 <div class="mt-2">
                     <hr />
                 </div>
@@ -178,7 +176,13 @@
                         <div class="col-md-5 pt-3">
                             <p>Stok: <span class="text-dark font-weight-bold ">{{ $product->inventoriProduk->qty }}</span></p>
                         </div>
+                        <!-- @if($product->inventoriProduk->qty == 0)
+                        <span class="text-danger">stok habis</span>
+                        @endif -->
+
+                        
                     </div>
+
 
 
 

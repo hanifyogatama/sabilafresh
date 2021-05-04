@@ -84,6 +84,7 @@ class CartController extends Controller
 
         \Cart::add($item);
 
+        
         \Session::flash('success', 'Produk ' . $item['name'] . ' has been added to cart');
         return redirect('/product/' . $slug);
     }

@@ -11,7 +11,7 @@
             <div class="col-lg-9">
 
                 <div class="d-flex justify-content-between mb-2">
-                    <h5 class="row ml-1" style="font-weight: 500; color: #6C727C;"><i class="fa fa-credit-card" style="font-size:22px ; color: #6C727C; margin-right: 10px;"></i>Semua Transaksi</h5>
+                    <h5 class="row ml-1" style="font-weight: 500; color: #6C727C;"><i class="fa fa-credit-card" style="font-size:22px ;margin-right: 10px;"></i>Semua Transaksi</h5>
                 </div>
 
                 @include('admin.partials.flash')

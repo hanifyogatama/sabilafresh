@@ -34,7 +34,7 @@ $formTitle = !empty($category) ? 'Edit' : 'Tambah'
 
                 <div class="form-group">
                     {!! Form::label('tipe', 'Tipe Produk') !!}
-                    {!! Form::select('tipe', $types , !empty($product) ? $product->type : null, ['class' => 'form-control product-type', 'placeholder' => '-- Pilih Tipe --', 'disabled' => !empty($product)]) !!}
+                    {!! Form::select('tipe', ['simple' => 'Tanpa Atribut'] , !empty($product) ? $product->type : null, ['class' => 'form-control product-type', 'disabled' => !empty($product)]) !!}
                     @error('tipe')
                     <small style="font-weight: 600;" class="text-danger">{{ $message }}</small>
                     @enderror
@@ -98,6 +98,7 @@ $formTitle = !empty($category) ? 'Edit' : 'Tambah'
                     <small style="font-weight: 600;" class="text-danger">{{ $message }}</small>
                     @enderror
                 </div>
+
                 @endif
                 <div class="form-footer pt-5 border-top float-right">
                     <a href="{{ url('admin/products') }}" class="btn btn-secondary btn-default">Kembali</a>

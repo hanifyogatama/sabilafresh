@@ -77,10 +77,11 @@ class Produk extends Model
     {
         return [
             'simple' => 'Tanpa Atribut',
-            'configurable' => 'Pakai Atribut',
+            // 'configurable' => 'Pakai Atribut',
         ];
     }
 
+    
     function status_label()
     {
         $statuses = $this->statuses();

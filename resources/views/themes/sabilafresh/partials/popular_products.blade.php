@@ -23,7 +23,7 @@
 
                     <div class="card-body pt-1 px-2">
                         <div class="card-text">
-                            <span style="color: rgba(49, 53, 59, 0.96) !important; text-transform: capitalize;" class="card-title"><a href="{{ url('product/'. $product->slug) }}">{{Str::limit($product->nama,43) }}</a></span>
+                            <span style="color: rgba(49, 53, 59, 0.96) !important; text-transform: capitalize;" class="card-title"><a href="{{ url('product/'. $product->slug) }}">{{Str::limit($product->nama,30) }}</a></span>
                         </div>
 
 

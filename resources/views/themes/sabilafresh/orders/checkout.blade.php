@@ -2,78 +2,94 @@
 
 @section('content')
 <!-- header end -->
-<div class="breadcrumb-area pt-205 breadcrumb-padding pb-210" style="background-image: url({{ asset('themes/sabilafresh/assets/img/bg/breadcrumb.jpg') }})">
-	<div class="container">
-		<div class="breadcrumb-content text-center">
-			<h2>Checkout Page</h2>
-			<ul>
-				<li><a href="{{ url('/') }}">home</a></li>
-				<li> Checkout Page</li>
-			</ul>
-		</div>
-	</div>
-</div>
+
 <!-- checkout-area start -->
-<div class="checkout-area ptb-100">
+<div class="checkout-area ptb-100 mx-5">
 	<div class="container">
 		@include('admin.partials.flash', ['$errors' => $errors])
 
 		{!! Form::model($user, ['url' => 'orders/checkout']) !!}
 		<div class="row">
-			<div class="col-lg-6 col-md-12 col-12">
+			<div class="col-lg-6 col-md-12 col-12 pt-30">
 				<div class="checkbox-form">
-					<h3>Billing Details</h3>
+					<h5 style="font-weight: 600;">Checkout</h5>
+					<h6 class="pt-15 " style="font-weight: 600;">Alamat Pengiriman</h6>
+					<hr />
 					<div class="row">
-						<div class="col-md-6">
-							<div class="checkout-form-list">
-								<label>First Name <span class="required">*</span></label>
-								{!! Form::text('nama_depan', null, ['required' => true]) !!}
-							</div>
-						</div>
-						<div class="col-md-6">
-							<div class="checkout-form-list">
-								<label>Last Name <span class="required">*</span></label>
-								{!! Form::text('nama_belakang', null, ['required' => true]) !!}
-							</div>
+						<div class="col-md-6 pt-2">
+							<ul>
+								<li class="text-capitalize" style="font-weight: 600;">{{ $user->nama_depan }} {{ $user->nama_belakang }}
+									<div class="badge badge-success px-2 py-1"><span style="font-weight: 600;">Utama</span></div>
+								</li>
+								<li class="text-capitalize">
+									@if(!empty($user->no_hp))
+									{{ $user->no_hp }}
+									@else
+									<span class="text-success font-weight-light font-italic">silahkan isi no hp <a class="font-weight-bold" href="{{ url('profile') }}"> disini</a></span>
+									@endif
+								</li>
+								<li class="text-capitalize">
+									@if(!empty($user->alamat))
+									{{ $user->alamat }}
+									@else
+									<span class="text-success font-weight-light font-italic">silahkan isi alamat <a class="font-weight-bold" href="{{ url('profile') }}"> disini</a></span>
+									@endif
+								</li>
+								<li>
+									@if(!empty($user->kode_pos))
+									{{ $user->kode_pos }}
+									@else
+									<span class="text-success font-weight-light font-italic">silahkan isi kode pos <a class="font-weight-bold" href="{{ url('profile') }}"> disini</a></span>
+									@endif
+								</li>
+							</ul>
 						</div>
 
-						<div class="col-md-12">
-							<div class="checkout-form-list">
-								<label>Address <span class="required">*</span></label>
-								{!! Form::text('alamat', null, ['required' => true, 'placeholder' => 'Home number and street name']) !!}
-							</div>
+
+
+
+
+
+						<div class="col-md-6 mt-2">
+							{!! Form::hidden('nama_depan', null, ['required' => true]) !!}
 						</div>
 
-						<div class="col-md-12">
+						<div class="col-md-6 mt-2">
+							{!! Form::hidden('nama_belakang', null, ['required' => true]) !!}
+						</div>
+
+						<div class="col-md-12 mt-2">
+							{!! Form::hidden('alamat', null, ['required' => true, 'placeholder' => 'Home number and street name']) !!}
+						</div>
+
+						<div class="col-md-6 mt-2">
+							{!! Form::hidden('kode_pos', null, ['required' => true, 'placeholder' => 'Postcode']) !!}
+						</div>
+
+
+						<div class="col-md-12 ">
 							<div class="checkout-form-list">
-								<label>Province<span class="required">*</span></label>
+								<label>Provinsi<span class="required">*</span></label>
 								{!! Form::select('provinsi_id', $provinces, Auth::user()->provinsi_id, ['id' => 'province-id', 'placeholder' => '- Pilih - ', 'required' => true]) !!}
 							</div>
 						</div>
 						<div class="col-md-6">
 							<div class="checkout-form-list">
-								<label>City<span class="required">*</span></label>
+								<label>Kota<span class="required">*</span></label>
 								{!! Form::select('kota_id', $cities, null, ['id' => 'city-id', 'placeholder' => '- Pilih -', 'required' => true])!!}
 
 							</div>
 						</div>
 
+
 						<div class="col-md-6">
 							<div class="checkout-form-list">
-								<label>Postcode / Zip <span class="required">*</span></label>
-								{!! Form::number('kode_pos', null, ['required' => true, 'placeholder' => 'Postcode']) !!}
+								{!! Form::hidden('no_hp', null, ['required' => true, 'placeholder' => 'Phone']) !!}
 							</div>
 						</div>
 						<div class="col-md-6">
 							<div class="checkout-form-list">
-								<label>Phone <span class="required">*</span></label>
-								{!! Form::text('no_hp', null, ['required' => true, 'placeholder' => 'Phone']) !!}
-							</div>
-						</div>
-						<div class="col-md-6">
-							<div class="checkout-form-list">
-								<label>Email Address </label>
-								{!! Form::text('email', null, ['placeholder' => 'Email', 'readonly' => true]) !!}
+								{!! Form::hidden('email', null, ['placeholder' => 'Email', 'readonly' => true]) !!}
 							</div>
 						</div>
 					</div>
@@ -94,39 +110,39 @@
 								</div>
 								<div class="col-md-6">
 									<div class="checkout-form-list">
-										<label>Last Name <span class="required">*</span></label>
+										<label>Last Name</label>
 										{!! Form::text('nama_belakang_pengiriman') !!}
 									</div>
 								</div>
 
 								<div class="col-md-12">
 									<div class="checkout-form-list">
-										<label>Address <span class="required">*</span></label>
-										{!! Form::text('alamat_pengiriman', null, ['placeholder' => 'Home number and street name']) !!}
+										<label>Alamat <span class="required">*</span></label>
+										{!! Form::text('alamat_pengiriman', null, ['placeholder' => 'nomor rumah , nomor jalan']) !!}
 									</div>
 								</div>
 
 								<div class="col-md-12">
 									<div class="checkout-form-list">
-										<label>Province<span class="required">*</span></label>
+										<label>Provinsi<span class="required">*</span></label>
 										{!! Form::select('provinsi_id_pengiriman', $provinces, null, ['id' => 'shipping-province', 'placeholder' => '- Please Select - ']) !!}
 									</div>
 								</div>
 								<div class="col-md-6">
 									<div class="checkout-form-list">
-										<label>City<span class="required">*</span></label>
+										<label>Kota<span class="required">*</span></label>
 										{!! Form::select('kota_id_pengiriman', [], null, ['id' => 'shipping-city','placeholder' => '- Please Select -'])!!}
 									</div>
 								</div>
 								<div class="col-md-6">
 									<div class="checkout-form-list">
-										<label>Postcode / Zip <span class="required">*</span></label>
-										{!! Form::number('kode_pos_pengiriman', null, ['placeholder' => 'Postcode']) !!}
+										<label>Kodepos <span class="required">*</span></label>
+										{!! Form::text('kode_pos_pengiriman', null, ['placeholder' => 'Postcode']) !!}
 									</div>
 								</div>
 								<div class="col-md-6">
 									<div class="checkout-form-list">
-										<label>Phone <span class="required">*</span></label>
+										<label>No Hp <span class="required">*</span></label>
 										{!! Form::text('no_hp_pengiriman', null, ['placeholder' => 'Phone']) !!}
 									</div>
 								</div>
@@ -140,7 +156,7 @@
 						</div>
 						<div class="order-notes">
 							<div class="checkout-form-list mrg-nn">
-								<label>Order Notes</label>
+								<label>Catatan </label>
 								{!! Form::textarea('catatan', null, ['cols' => 30, 'rows' => 10,'placeholder' => 'Notes about your order, e.g. special notes for delivery.']) !!}
 							</div>
 						</div>
@@ -238,6 +254,7 @@
 							</div>
 						</div>
 					</div>
+
 				</div>
 			</div>
 		</div>

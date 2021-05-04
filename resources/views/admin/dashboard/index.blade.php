@@ -433,12 +433,11 @@
                     <table class="table table-striped">
                         <thead>
                             <th>Kode Pemesanan</th>
-
                             <th>Tanggal</th>
                             <th>Status</th>
                         </thead>
                         <tbody>
-                            @forelse ($orders as $order)
+                            @forelse ($orders->take(4) as $order)
                             <tr>
                                 <td>
                                     <a href="{{ url('admin/orders/'. $order->id) }}">{{ $order->kode }}</a><br>
