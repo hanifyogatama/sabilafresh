@@ -33,16 +33,16 @@
                                 <th>Email</th>
                                 <th>No Hp</th>
                                 <th>Alamat</th>
-                                <th>Tgl Daftar</th>
+                                <th>Terdaftar</th>
                             </tr>
                         </thead>
                         <tbody>
                             @foreach ($customers as $customer)
                             <tr>
-                                <td>{{ $customer->nama_depan }} {{ $customer->nama_belakang }}</td>
+                                <td>{{ $customer->nama_depan }} {{  Str::limit($customer->nama_belakang, 9) }}</td>
                                 <td>{{ $customer->email }}</td>
                                 <td>{{ $customer->no_hp }}</td>
-                                <td>{{ Str::limit($customer->alamat, '30') }}</td>
+                                <td>{{ Str::limit($customer->alamat, 24) }}</td>
                                 <td>{{ date('d F Y', strtotime($customer->created_at)) }}</td>
                             </tr>
                             @endforeach

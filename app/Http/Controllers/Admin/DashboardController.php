@@ -24,9 +24,7 @@ class DashboardController extends Controller
     {
 
         $users = User::all();
-
         $customers = User::where('is_admin', '==', 0)->orderBy('created_at', 'desc')->get();
-
         $admins = User::whereHas(
             'roles',
             function ($q) {
@@ -43,17 +41,19 @@ class DashboardController extends Controller
 
         $categories = Kategori::orderBy('id', 'DESC')->paginate(7);
 
-
         $products = Produk::orderBy('created_at', 'DESC')->paginate(5);
         $this->data['products'] = $products;
 
         $product = Produk::orderBy('created_at', 'DESC');
         $this->data['product'] = $product;
 
-        $orders = Pemesanan::orderBy('created_at', 'desc')->get();
+        $activeProducts = Produk::where('status', '=', '1')->get();
         
+        $nonActiveProducts = Produk::where('status', '=', '0');
 
-        return view('admin.dashboard.index', compact('admins', 'categories', 'customers', 'product', 'owners', 'products', 'users', 'orders'));
+        $orders = Pemesanan::orderBy('created_at', 'desc')->get();
+
+        return view('admin.dashboard.index', compact('admins', 'categories', 'customers', 'product', 'owners', 'products', 'users', 'orders', 'activeProducts', 'nonActiveProducts'));
     }
 
     /**

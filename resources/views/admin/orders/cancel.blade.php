@@ -32,7 +32,7 @@
                 <div class="card-body">
                     <div class="row">
                         <div class="col-xl-6 col-lg-6">
-                            <p class="text-dark mb-2" style="font-weight: normal; font-size:16px; text-transform: uppercase;">Billing Address</p>
+                            <p class="text-dark mb-2" style="font-weight: normal; font-size:16px; text-transform: uppercase;">Detail Pengiriman</p>
                             <address>
                                 {{ $order->nama_depan_konsumen }} {{ $order->nama_belakang_konsumen }}
                                 <br> {{ $order->alamat_konsumen }}
@@ -55,16 +55,16 @@
                     <table class="table mt-3 table-striped table-responsive table-responsive-large" style="width:100%">
                         <thead>
                             <tr>
-                                <th>#</th>
-                                <th>Item</th>
-                                <th>Qty</th>
+                              
+                                <th>Produk</th>
+                                <th>Banyak</th>
                                 <th>Total</th>
                             </tr>
                         </thead>
                         <tbody>
                             @forelse ($order->itemPemesanan as $item)
                             <tr>
-                                <td>{{ $item->sku }}</td>
+                               
                                 <td>{{ $item->nama_produk }}</td>
                                 <td>{{ $item->qty }}</td>
                                 <td>{{ \General::priceFormat($item->sub_total) }}</td>

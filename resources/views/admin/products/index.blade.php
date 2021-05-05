@@ -49,9 +49,9 @@
                             @forelse($products as $key => $product)
                             <tr>
                                 <th scope="row">{{ $products->firstItem() + $key }}</th>
-                                <td style="width: 20%;">{{ Str::limit($product->sku,16)}}</td>
+                                <td style="width: 20%;">{{ Str::limit($product->sku,14)}}</td>
 
-                                <td style="width: 32%;">{{ Str::limit($product->nama,32) }}</td>
+                                <td style="width: 26%;">{{ Str::limit($product->nama,21) }}</td>
                                 <td>Rp {{ number_format($product->harga) }}</td>
 
                                 @if($product->status_label() == 'aktif')
@@ -62,13 +62,13 @@
                                 </td>
                                 @else
                                 <td>
-                                    <div class="badge btn-secondary ">
+                                    <div class="badge btn-secondary text-capitalize ">
                                         {{ $product->status_label() }}
                                     </div>
                                 </td>
                                 @endif
 
-                                <td>
+                                <td style="width: 15%;">
                                     <a href="{{ url('admin/products/'.$product->id.'/edit') }}" class="btn btn-warning btn-sm" data-toggle="tooltip" title="Edit"><i class="far fa-edit"></i></a>
                                     @can('delete_products')
                                     {!! Form::open(['url' => 'admin/products/'.$product->id,'class' => 'delete','style' => 'display:inline-block']) !!}

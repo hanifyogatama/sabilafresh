@@ -165,12 +165,12 @@
 			</div>
 			<div class="col-lg-6 col-md-12 col-12">
 				<div class="your-order">
-					<h3>Your order</h3>
+					<h3>Ringkasan Belanja</h3>
 					<div class="your-order-table table-responsive">
 						<table>
 							<thead>
 								<tr>
-									<th class="product-name">Product</th>
+									<th class="product-name">Produk</th>
 									<th class="product-total">Total</th>
 								</tr>
 							</thead>
@@ -200,15 +200,15 @@
 									<td><span class="amount">{{ number_format(\Cart::getSubTotal()) }}</span></td>
 								</tr>
 								<tr class="cart-subtotal">
-									<th>Tax</th>
+									<th>Pajak</th>
 									<td><span class="amount">{{ number_format(\Cart::getCondition('TAX 0%')->getCalculatedValue(\Cart::getSubTotal())) }}</span></td>
 								</tr>
 								<tr class="cart-subtotal">
-									<th>Shipping Cost ({{ $totalWeight }} kg)</th>
+									<th>Biaya pengiriman ({{ $totalWeight }} kg)</th>
 									<td><select id="shipping-cost-option" required name="layanan_kurir"></select></td>
 								</tr>
 								<tr class="order-total">
-									<th>Order Total</th>
+									<th> Total</th>
 									<td><strong><span class="total-amount">{{ number_format(\Cart::getTotal()) }}</span></strong>
 									</td>
 								</tr>
@@ -217,40 +217,9 @@
 					</div>
 					<div class="payment-method">
 						<div class="payment-accordion">
-							<div class="panel-group" id="faq">
-								<div class="panel panel-default">
-									<div class="panel-heading">
-										<h5 class="panel-title"><a data-toggle="collapse" aria-expanded="true" data-parent="#faq" href="#payment-1">Direct Bank Transfer.</a></h5>
-									</div>
-									<div id="payment-1" class="panel-collapse collapse show">
-										<div class="panel-body">
-											<p>Make your payment directly into our bank account. Please use your Order ID as the payment reference. Your order won’t be shipped until the funds have cleared in our account.</p>
-										</div>
-									</div>
-								</div>
-								<div class="panel panel-default">
-									<div class="panel-heading">
-										<h5 class="panel-title"><a class="collapsed" data-toggle="collapse" aria-expanded="false" data-parent="#faq" href="#payment-2">Cheque Payment</a></h5>
-									</div>
-									<div id="payment-2" class="panel-collapse collapse">
-										<div class="panel-body">
-											<p>Make your payment directly into our bank account. Please use your Order ID as the payment reference. Your order won’t be shipped until the funds have cleared in our account.</p>
-										</div>
-									</div>
-								</div>
-								<div class="panel panel-default">
-									<div class="panel-heading">
-										<h5 class="panel-title"><a class="collapsed" data-toggle="collapse" aria-expanded="false" data-parent="#faq" href="#payment-3">PayPal</a></h5>
-									</div>
-									<div id="payment-3" class="panel-collapse collapse">
-										<div class="panel-body">
-											<p>Make your payment directly into our bank account. Please use your Order ID as the payment reference. Your order won’t be shipped until the funds have cleared in our account.</p>
-										</div>
-									</div>
-								</div>
-							</div>
+							
 							<div class="order-button-payment">
-								<input type="submit" value="Place order" />
+								<input type="submit" value="Lanjut" />
 							</div>
 						</div>
 					</div>

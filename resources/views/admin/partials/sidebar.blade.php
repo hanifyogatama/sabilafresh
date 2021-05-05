@@ -39,7 +39,7 @@
                 <a href="#" class="nav-link has-dropdown"><i class="fas fa-shopping-cart"></i> <span>Cek Pemesanan</span></a>
                 <ul class="dropdown-menu">
                     <li><a href="{{ url('admin/orders')}}">Pemesanan</a></li>
-                    <li><a href="{{ url('admin/shipments')}}">Pengiriman</a></li>
+                    <!-- <li><a href="{{ url('admin/shipments')}}">Pengiriman</a></li> -->
                 </ul>
             </li>
             @endrole
@@ -47,9 +47,9 @@
             <li class="nav-item dropdown">
                 <a href="#" class="nav-link has-dropdown"><i class="fas fa-chart-bar"></i> <span>Laporan</span></a>
                 <ul class="dropdown-menu">
-                    <li><a href="{{ url('admin/reports/product')}}">Produk</a></li>
+                    <!-- <li><a href="{{ url('admin/reports/product')}}">Produk</a></li> -->
                     <li><a href="{{ url('admin/reports/customer')}}">Pelanggan</a></li>
-                    <li><a href="{{ url('admin/reports/payment')}}">Pembayaran</a></li>
+                    <!-- <li><a href="{{ url('admin/reports/payment')}}">Pembayaran</a></li> -->
                     <li><a href="{{ url('admin/reports/inventory')}}">Produk Inventori</a></li>
                 </ul>
             </li>

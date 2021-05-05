@@ -255,22 +255,65 @@
     </div>
 </div> -->
 
-
-<!-- chart -->
-<!-- <div class="row">
-    <div class="col-lg-8">
-
-    </div>
-</div> -->
-
 <div class="row">
-    <div class="col-lg-8 ">
+    <div class="col-md-4 ">
+    <div class="card pb-5">
+        <span>ha</span>
+        </div>
+        <div class="card mt-4">
+            <div class="card-header">
+                <h4 class="text-dark">Status Produk</h4>
+            </div>
+
+            <div class="card-body ml-3 pb-0">
+                <div class="row">
+                    <div class="col">
+                        <canvas id="myChart" style="width: 200px; align-items: center;"></canvas>
+                    </div>
+                    <div class="col"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-4">
+   
         <div class="card">
             <div class="card-header">
-                <h4 class="text-dark"">Budget vs Sales</h4>
+                <h4 class="text-dark">Produk Inventori</h4>
+                <div class="card-header-action">
+                    @role('Admin')
+                    <a href="{{ url('admin/reports/inventory')}}" class="btn btn-primary py-0">Lihat Semua</a>
+                    @endrole
+                </div>
             </div>
-            <div class=" card-body">
-                    <canvas id="myChart" height="158"></canvas>
+           <div class="card-body mb-4">
+                <div class="table-responsive ">
+                    <table class="table table-striped table-sm py-2 ">
+                        <thead>
+                            <th>Nama Produk</th>
+                            <th>Stok</th>
+                        </thead>
+                        <tbody>
+                            @forelse ($activeProducts->take(7) as $actPro)
+                            <tr>
+                                <td>
+                                    <span class="text-capitalize">{{ Str::limit($actPro->nama,20) }}</span>
+                                </td>
+                                <td>
+                                    <span style="font-size: 12px; font-weight: normal">{{
+                                !empty($actPro->inventoriProduk) ? $actPro->inventoriProduk->qty:0}}
+                                    </span>
+                                </td>
+                            </tr>
+                            @empty
+                            <tr>
+                                <td colspan="5">Data tidak tersedia</td>
+                            </tr>
+                            @endforelse
+                        </tbody>
+                    </table>
+                </div>
             </div>
         </div>
     </div>
@@ -323,16 +366,17 @@
         </div>
     </div>
 </div>
+
 <!-- end chart -->
 
-<!-- category list -->
 
+<!-- category list -->
 <div class="row">
     <div class="col">
         <div class="card">
             <div class="row pt-2">
                 <div class="col-sm-10">
-                    <h6 class="text-dark pl-4 pb-3">Kategori Produk <span class="py-1 badge badge-success">{{$categories->count()}}</span></h6>
+                    <h6 class="text-dark pl-4 pb-3">Kategori Produk <span class="py-1 badge badge-primary">{{$categories->count()}}</span></h6>
                 </div>
                 @if($categories->count() >= 6)
                 <div class="col"><a href="{{ url('admin/categories') }}" class="btn btn-round btn-primary px-3 py-0">Lihat Semua</a></div>
@@ -443,8 +487,6 @@
                                     <a href="{{ url('admin/orders/'. $order->id) }}">{{ $order->kode }}</a><br>
                                     <span style=" font-size: 12px; font-weight: normal" class="text-capitalize"> {{$order->nama_depan_konsumen}} {{$order->nama_belakang_konsumen}}</span>
                                 </td>
-
-
                                 <td>
                                     <span style="font-size: 12px; font-weight: normal">{{\General::datetimeFormat($order->tanggal_pemesanan) }}
                                         <br>
@@ -467,137 +509,32 @@
                     </table>
                 </div>
             </div>
-
-
         </div>
     </div>
 </div>
-
-
-
 <!-- end list new user -->
+@stop
 
+@section('chart')
+<script src="{{ URL::asset('admin/assets/modules/chart.min.js') }}"></script>
 
+<script>
+    var ctx = document.getElementById('myChart').getContext('2d');
 
-
-
-
-<!-- start list inventory products -->
-<div class="row">
-    <div class="col">
-        <div class="card">
-            <div class="row pt-2">
-                <div class="col-sm-10">
-                    <h6 class="text-dark pl-4 pb-3">Stok Produk <span class="py-1 badge badge-primary"></span></h6>
-                </div>
-                @if($products->count() >= 6)
-                <div class="col"><a href="{{ url('admin/reports/inventory') }}" class="btn btn-round btn-primary px-3 py-0">Lihat Semua</a></div>
-                @endif
-            </div>
-            <div class="card-body d-flex justify-content-start mt-0 pt-0">
-                @forelse($products as $product)
-                <div class="media mr-3 p-2  shadow-sm btn-round ">
-                    <div class="row">
-                        <div class="col-sm-3 pt-1">
-                            <div class="btn btn-outline-primary shadow-sm border btn-custom" style="border-radius: 50%;">{{
-                                !empty($product->inventoriProduk) ? $product->inventoriProduk->qty:0}}</div>
-                        </div>
-                        <div class="col">
-                            <div class="media-body pt-2 pl-2">
-                                <h6 class="text-muted text-capitalize text-small"><span>{{ Str::limit($product->nama,14)}}</span></h6>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                @empty
-                Data tidak tersedia
-                @endforelse
-            </div>
-        </div>
-    </div>
-</div>
-<!-- end list inventory products -->
-
-
-<!-- <div class="row">
-    <div class="col">
-        <div class="card">
-            <div class="card-header">
-                <h4>Best Products</h4>
-            </div>
-            <div class="card-body">
-                <div class="owl-carousel owl-theme" id="products-carousel">
-                    <div>
-                        <div class="product-item pb-3">
-                            <div class="product-image">
-                                <img alt="image" src="https://i.pinimg.com/originals/20/c9/e0/20c9e0a5110642b2c3bb88d7546c13f3.png" class="img-fluid">
-                            </div>
-                            <div class="product-details">
-                                <div class="product-name">iBook Pro 2018</div>
-                                <div class="product-review">
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                </div>
-                                <div class="text-muted text-small">67 Sales</div>
-                                <div class="product-cta">
-                                    <a href="#" class="btn btn-primary">Detail</a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div>
-                        <div class="product-item">
-                            <div class="product-image">
-                                <img alt="image" src="https://i.pinimg.com/originals/20/c9/e0/20c9e0a5110642b2c3bb88d7546c13f3.png" class="img-fluid">
-                            </div>
-                            <div class="product-details">
-                                <div class="product-name">oPhone S9 Limited</div>
-                                <div class="product-review">
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star-half"></i>
-                                </div>
-                                <div class="text-muted text-small">86 Sales</div>
-                                <div class="product-cta">
-                                    <a href="#" class="btn btn-primary">Detail</a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div>
-                        <div class="product-item">
-                            <div class="product-image">
-                                <img alt="image" src="https://i.pinimg.com/originals/20/c9/e0/20c9e0a5110642b2c3bb88d7546c13f3.png" class="img-fluid">
-                            </div>
-                            <div class="product-details">
-                                <div class="product-name">Headphone Blitz</div>
-                                <div class="product-review">
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                    <i class="far fa-star"></i>
-                                </div>
-                                <div class="text-muted text-small">63 Sales</div>
-                                <div class="product-cta">
-                                    <a href="#" class="btn btn-primary">Detail</a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-
-</div> -->
-
-
-
+    var myChart = new Chart(ctx, {
+        type: 'doughnut',
+        data: {
+            labels: ['Tidak aktif', 'Aktif'],
+            datasets: [{
+                label: 'lorem',
+                data: [ {{ $nonActiveProducts->count() }} , {{ $activeProducts->count() }}],
+                backgroundColor: [
+                    'rgb(255, 99, 132)',
+                    'rgb(54, 162, 235)'
+                ],
+                hoverOffset: 4
+            }],
+        },
+    });
+</script>
 @stop

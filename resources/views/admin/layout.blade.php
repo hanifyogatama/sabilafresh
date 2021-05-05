@@ -20,11 +20,9 @@
     <link rel="stylesheet" href="{{ URL::asset('admin/assets/modules/owlcarousel2/dist/assets/owl.theme.default.min.css') }}">
     <link id="bsdp-css" rel="stylesheet" href="{{ URL::asset('admin/assets/modules/bootstrap-datepicker/css/bootstrap-datepicker3.min.css') }}">
 
-
     <!-- Template CSS -->
     <link rel="stylesheet" href="{{ URL::asset('admin/assets/css/style.css') }}">
     <link rel="stylesheet" href="{{ URL::asset('admin/assets/css/components.css') }}">
-
 
 </head>
 
@@ -40,21 +38,12 @@
             <!-- Main Content -->
             <div class="main-content">
                 <section class="section">
-
                     @yield('content')
-
                 </section>
             </div>
-
             @include('admin.partials.footer')
         </div>
     </div>
-
-    <!-- General JS Scripts -->
-    <!-- <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script> -->
-
-
-
 
     <!-- General JS Scripts -->
     <script src="{{ URL::asset('admin/assets/modules/jquery.min.js') }}"></script>
@@ -66,15 +55,12 @@
     <script src="{{ URL::asset('admin/assets/modules/moment.min.js') }}"></script>
     <script src="{{ URL::asset('admin/assets/js/stisla.js') }}"></script>
 
-
     <!-- JS Libraies -->
     <script src="{{ URL::asset('admin/assets/modules/izitoast/js/iziToast.min.js') }}"></script>
     <script src="{{ URL::asset('admin/assets/modules/jquery.sparkline.min.js') }}"></script>
-    <script src="{{ URL::asset('admin/assets/modules/chart.min.js') }}"></script>
     <script src="{{ URL::asset('admin/assets/modules/owlcarousel2/dist/owl.carousel.min.js') }}"></script>
     <script src="{{ URL::asset('admin/assets/modules/summernote/summernote-bs4.js') }}"></script>
     <script src="{{ URL::asset('admin/assets/modules/chocolat/dist/js/jquery.chocolat.min.js') }}"></script>
-    
 
 
     <!-- Page Specific JS File -->
@@ -84,6 +70,8 @@
     <!-- Template JS File -->
     <script src="{{ URL::asset('admin/assets/js/scripts.js') }}"></script>
     <script src="{{ URL::asset('admin/assets/js/custom.js') }}"></script>
+
+
 
     @if(Session::has('success-add'))
     <script>
@@ -147,6 +135,10 @@
             });
         });
     </script>
+
+
+    @yield('chart')
+
 
 </body>
 
