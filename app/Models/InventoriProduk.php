@@ -13,7 +13,7 @@ class InventoriProduk extends Model
         'qty',
     ];
 
-    
+
     public function produk()
     {
         return $this->belongsTo('App\Models\Produk');
@@ -32,6 +32,18 @@ class InventoriProduk extends Model
         $inventory->qty = $inventory->qty - $qty;
         $inventory->save();
     }
+
+
+    // public static function productNonActive($productId)
+    // {
+    //     $inventory = self::where('produk_id', $productId)->firstOrFail();
+
+    //     if ($inventory->qty = 0) {
+    //         $product = Produk::findOrFail($productId);
+    //         $product->status = 0;
+    //         $product->save();
+    //     }
+    // }
 
 
     public static function increaseStock($productId, $qty)

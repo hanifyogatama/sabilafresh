@@ -21,7 +21,6 @@ class ItemPemesanan extends Model
         'tipe',
         'nama_produk',
         'berat',
-        'atribut',
     ];
 
     /**

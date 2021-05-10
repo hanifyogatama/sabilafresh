@@ -25,6 +25,7 @@ class User extends Authenticatable
         'nama_depan',
         'nama_belakang',
         'no_hp',
+        'jk',
         'gambar',
         'alamat',
         'provinsi_id',
@@ -116,5 +117,13 @@ class User extends Authenticatable
     private static function _isUserCodeExists($userCode)
     {
         return User::where('kode', '=', $userCode)->exists();
+    }
+
+    public static function genders()
+    {
+        return [
+            'pria' => 'Pria',
+            'wanita' => 'Wanita'
+        ];
     }
 }

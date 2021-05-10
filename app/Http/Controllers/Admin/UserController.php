@@ -16,6 +16,10 @@ use DB;
 class UserController extends Controller
 {
     use Authorizable;
+    public function __construct()
+    {
+        $this->data['genders'] = User::genders();
+    }
 
     /**
      * Display a listing of the resource.

@@ -75,12 +75,10 @@ Route::group(
         Route::resource('users', 'UserController');
         Route::post('users/{userID}', 'UserController@upload_image')->name('users.upload_image');
 
-
         Route::resource('profile', 'ProfileController');
 
         // Route::get('orders/trashed', 'OrderController@trashed');
         // Route::get('orders/restore/{orderID}', 'OrderController@restore');
-
 
         Route::resource('orders', 'OrderController');
         Route::get('orders/{orderID}/cancel', 'OrderController@cancel');
@@ -100,9 +98,7 @@ Route::group(
 
         // Route::get('guides', 'GuidesController@index');
 
-        Route::get('guides', function () {
-            return view('admin.guides.index');
-        });
+
     }
 );
 

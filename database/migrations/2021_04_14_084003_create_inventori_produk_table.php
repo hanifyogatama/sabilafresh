@@ -16,12 +16,12 @@ class CreateInventoriProdukTable extends Migration
         Schema::create('inventori_produk', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->unsignedBigInteger('produk_id');
-            $table->unsignedBigInteger('product_attribute_value_id');
+            
             $table->integer('qty');
             $table->timestamps();
 
             $table->foreign('produk_id')->references('id')->on('produk')->onDelete('cascade');
-            $table->foreign('product_attribute_value_id')->references('id')->on('atribut_produk')->onDelete('cascade');
+           
         });
     }
 

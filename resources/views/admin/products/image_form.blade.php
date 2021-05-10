@@ -7,7 +7,6 @@
     <div class="section-header-breadcrumb">
         <div class="breadcrumb-item active"> <a href=""><i class="fas fa-box-open"></i> Katalog</a> </div>
         <div class="breadcrumb-item"><a href="{{url('admin/products')}}">Produk</a></div>
-        <!-- <div class="breadcrumb-item">Table</div> -->
     </div>
 </div>
 
@@ -23,8 +22,8 @@
                     @include('admin.partials.flash', ['$errors' => $errors])
                     {!! Form::open(['url' => ['admin/products/images', $product->id], 'method' => 'POST', 'enctype' => 'multipart/form-data']) !!}
                     <div class="form-group">
-                        {!! Form::label('image', 'Product Image') !!}
-                        {!! Form::file('image', ['class' => 'form-control-file', 'placeholder' => 'product image']) !!}
+                        {!! Form::label('image', 'Produk Gambar') !!}
+                        {!! Form::file('image', ['class' => 'form-control-file', 'placeholder' => 'produk gambar']) !!}
                     </div>
                     <div class="form-footer pt-5 border-top ">
                         <a href="{{ url('admin/products/'.$productID.'/images') }}" class="btn btn-secondary btn-default">Kembali</a>

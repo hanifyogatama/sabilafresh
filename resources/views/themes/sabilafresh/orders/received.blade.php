@@ -36,9 +36,10 @@
                 <p class="text-dark mb-2" style="font-weight: bold; font-size:17px; text-transform: capitalize;">Tujuan Pengiriman</p>
                 <address>
                     <span class="text-capitalize font-weight-bold text-dark">{{ $order->pengiriman->nama_depan }} {{ $order->pengiriman->nama_belakang }}</span>
+                    <br> {{ $order->pengiriman->no_hp }}
                     <br> {{ $order->pengiriman->alamat }}
                     <br> {{ $order->pengiriman->kodepos }}
-                    <br> {{ $order->pengiriman->no_hp }}
+
                 </address>
             </div>
         </div>
@@ -83,7 +84,7 @@
                             <div class="col-md-12 py-3">
                                 <div class="row pb-2">
                                     <div class="col-sm-8">
-                                        <span class="text-dark font-weight-bold">Subtotal Harga Barang </span>
+                                        <span class="text-dark font-weight-bold">Sub total Harga Barang </span>
                                     </div>
                                     <div class="col-sm-4">
                                         <span class="text-dark font-weight-bold">Rp {{ \General::priceFormat($order->total_awal) }}</span>

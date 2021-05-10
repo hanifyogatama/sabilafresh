@@ -3,7 +3,6 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
-use PhpParser\Node\Expr\FuncCall;
 
 class Produk extends Model
 {
@@ -25,6 +24,7 @@ class Produk extends Model
         'panjang',
         'deskripsi',
         'detail_deskripsi',
+        'info_produk',
         'status',
     ];
 
@@ -53,10 +53,10 @@ class Produk extends Model
         return $this->belongsTo('App\Models\Produk', 'parent_id');
     }
 
-    public function atributProduk()
-    {
-        return $this->hasMany('App\Models\AtributProduk', 'parent_produk_id');
-    }
+    // public function atributProduk()
+    // {
+    //     return $this->hasMany('App\Models\AtributProduk', 'parent_produk_id');
+    // }
 
     public function gambarProduk()
     {
@@ -71,15 +71,12 @@ class Produk extends Model
         ];
     }
 
-
     public static function types()
     {
         return [
-            'simple' => 'Tanpa Atribut',
-            // 'configurable' => 'Pakai Atribut',
+            'simple' => 'Tanpa Atribut'
         ];
     }
-
 
     function status_label()
     {
@@ -99,11 +96,10 @@ class Produk extends Model
         return ($this->variants->count() > 0) ? $this->variants->first()->harga : $this->harga;
     }
 
-    public function configurable()
-    {
-        return $this->tipe == 'configurable';
-    }
-
+    // public function configurable()
+    // {
+    //     return $this->tipe == 'configurable';
+    // }
 
     public function simple()
     {
@@ -118,12 +114,6 @@ class Produk extends Model
             $carbonObject->diffForHumans(null, true) . ' yang lalu'
         );
     }
-
-    public function changeStatusProduct()
-    {
-        $xx = Produk::inventoriProduk()->qty;
-    }
-
 
     protected $guarded = [];
 }

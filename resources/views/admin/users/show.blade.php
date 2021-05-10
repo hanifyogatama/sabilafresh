@@ -34,20 +34,6 @@
                             </div>
                         </div>
 
-                        <!-- <div class="card-body">
-                            
-                            {!! Form::open(['url' => ['admin/users/', $user->id], 'method' => 'POST', 'enctype' => 'multipart/form-data']) !!}
-                            <div class="form-group">
-                                {!! Form::label('image', 'User Image') !!}
-                                {!! Form::file('image', ['class' => 'form-control-file', 'placeholder' => 'user image']) !!}
-                            </div>
-                            <div class="form-footer pt-5 border-top ">
-                            
-                                <button type="submit" class="btn btn-primary btn-default">Simpan</button>
-                            </div>
-                            {!! Form::close() !!}
-                        </div> -->
-
                         <div class="col-md-9 ">
                             <div class="row">
                                 <div class="col-md-1 text-center"><span title="Nama" class="badge btn-info"><i class="fas fa-user"></i></span></div>
@@ -89,7 +75,7 @@
                             <div class="row mt-2">
                                 <div class="col-md-1 text-center"><span title="Jenis kelamin" class="badge btn-success"><i class="fas fa-venus-mars"></i></span></div>
                                 <div class="col-md-11 pt-1 pl-1">
-                                    <h6 class="text-dark text-left">-</h6>
+                                    <h6 class="text-dark text-left text-capitalize">{{$user->jk ? $user->jk : '-' }}</h6>
                                 </div>
                             </div>
 
@@ -102,7 +88,6 @@
                                         @else
                                         {{ '-' }}
                                         @endif
-
                                     </h6>
                                 </div>
                             </div>

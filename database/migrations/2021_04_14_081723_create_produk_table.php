@@ -19,6 +19,7 @@ class CreateProdukTable extends Migration
             $table->string('sku'); 
             $table->string('nama'); // name
             $table->string('slug');
+            $table->text('info_produk')->nullable();
             $table->decimal('harga', 15, 2); // price
             $table->decimal('berat', 10, 2); //weight
             $table->decimal('lebar', 10, 2); // width

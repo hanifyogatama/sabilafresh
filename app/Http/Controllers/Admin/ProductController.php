@@ -59,102 +59,102 @@ class ProductController extends Controller
     public function create()
     {
         $categories = Kategori::orderBy('nama', 'DESC')->get();
-        $configurableAttributes = $this->getConfigurableAttributes();
+        // $configurableAttributes = $this->getConfigurableAttributes();
 
         $this->data['categories'] = $categories->toArray();
         $this->data['product'] = null;
         $this->data['categoryIDs'] = [];
         $this->data['productID'] = 0;
-        $this->data['configurableAttributes'] = $configurableAttributes;
+        // $this->data['configurableAttributes'] = $configurableAttributes;
 
         return view('admin.products.form', $this->data);
     }
 
-    private function getConfigurableAttributes()
-    {
-        return Atribut::where('is_configurable', true)->get();
-    }
+    // private function getConfigurableAttributes()
+    // {
+    //     return Atribut::where('is_configurable', true)->get();
+    // }
 
 
-    private function generateAttributeCombinations($arrays)
-    {
-        $result = [[]];
-        foreach ($arrays as $property => $property_values) {
-            $tmp = [];
-            foreach ($result as $result_item) {
-                foreach ($property_values as $property_value) {
-                    $tmp[] = array_merge($result_item, array($property => $property_value));
-                }
-            }
-            $result = $tmp;
-        }
-        return $result;
-    }
+    // private function generateAttributeCombinations($arrays)
+    // {
+    //     $result = [[]];
+    //     foreach ($arrays as $property => $property_values) {
+    //         $tmp = [];
+    //         foreach ($result as $result_item) {
+    //             foreach ($property_values as $property_value) {
+    //                 $tmp[] = array_merge($result_item, array($property => $property_value));
+    //             }
+    //         }
+    //         $result = $tmp;
+    //     }
+    //     return $result;
+    // }
 
 
-    private function convertVariantAsName($variant)
-    {
-        $variantName = '';
+    // private function convertVariantAsName($variant)
+    // {
+    //     $variantName = '';
 
-        foreach (array_keys($variant) as $key => $kode) {
-            $attributeOptionID = $variant[$kode];
-            $attributeOption = AtributOpsi::find($attributeOptionID);
+    //     foreach (array_keys($variant) as $key => $kode) {
+    //         $attributeOptionID = $variant[$kode];
+    //         $attributeOption = AtributOpsi::find($attributeOptionID);
 
-            if ($attributeOption) {
-                $variantName .= ' - ' . $attributeOption->nama;
-            }
-        }
+    //         if ($attributeOption) {
+    //             $variantName .= ' - ' . $attributeOption->nama;
+    //         }
+    //     }
 
-        return $variantName;
-    }
+    //     return $variantName;
+    // }
 
-    private function generateProductVariants($product, $params)
-    {
-        $configurableAttributes = $this->getConfigurableAttributes();
+    // private function generateProductVariants($product, $params)
+    // {
+    //     $configurableAttributes = $this->getConfigurableAttributes();
 
-        $variantAttributes = [];
-        foreach ($configurableAttributes as $attribute) {
-            $variantAttributes[$attribute->kode] = $params[$attribute->kode];
-        }
+    //     $variantAttributes = [];
+    //     foreach ($configurableAttributes as $attribute) {
+    //         $variantAttributes[$attribute->kode] = $params[$attribute->kode];
+    //     }
 
-        $variants = $this->generateAttributeCombinations($variantAttributes);
+    //     $variants = $this->generateAttributeCombinations($variantAttributes);
 
-        if ($variants) {
-            foreach ($variants as $variant) {
-                $variantParams = [
-                    'parent_id' => $product->id,
-                    'user_id' => Auth::user()->id,
-                    'sku' => $product->sku . '-' . implode('-', array_values($variant)),
-                    'tipe' => 'simple',
-                    'nama' => $product->nama . $this->convertVariantAsName($variant),
-                ];
+    //     if ($variants) {
+    //         foreach ($variants as $variant) {
+    //             $variantParams = [
+    //                 'parent_id' => $product->id,
+    //                 'user_id' => Auth::user()->id,
+    //                 'sku' => $product->sku . '-' . implode('-', array_values($variant)),
+    //                 'tipe' => 'simple',
+    //                 'nama' => $product->nama . $this->convertVariantAsName($variant),
+    //             ];
 
-                $variantParams['slug'] = Str::slug($variantParams['nama']);
+    //             $variantParams['slug'] = Str::slug($variantParams['nama']);
 
-                $newProductVariant = Produk::create($variantParams);
+    //             $newProductVariant = Produk::create($variantParams);
 
-                $categoryIds = !empty($params['category_ids']) ? $params['category_ids'] : [];
-                $newProductVariant->kategories()->sync($categoryIds);
+    //             $categoryIds = !empty($params['category_ids']) ? $params['category_ids'] : [];
+    //             $newProductVariant->kategories()->sync($categoryIds);
 
-                $this->saveProductAttributeValues($newProductVariant, $variant);
-            }
-        }
-    }
+    //             // $this->saveProductAttributeValues($newProductVariant, $variant);
+    //         }
+    //     }
+    // }
 
-    private function saveProductAttributeValues($product, $variant)
-    {
-        foreach (array_values($variant) as $attributeOptionID) {
-            $attributeOption = AtributOpsi::find($attributeOptionID);
+    // private function saveProductAttributeValues($product, $variant)
+    // {
+    //     foreach (array_values($variant) as $attributeOptionID) {
+    //         $attributeOption = AtributOpsi::find($attributeOptionID);
 
-            $attributeValueParams = [
-                'produk_id' => $product->id,
-                'atribut_id' => $attributeOption->atribut_id,
-                'nama' => $attributeOption->nama,
-            ];
+    //         $attributeValueParams = [
+    //             'produk_id' => $product->id,
+    //             'atribut_id' => $attributeOption->atribut_id,
+    //             'nama' => $attributeOption->nama,
+    //         ];
 
-            AtributProduk::create($attributeValueParams);
-        }
-    }
+    //         AtributProduk::create($attributeValueParams);
+    //     }
+    // }
 
 
     /**
@@ -174,9 +174,9 @@ class ProductController extends Controller
             $product = Produk::create($params);
             $product->kategories()->sync($categoryIds);
 
-            if ($params['tipe'] == 'configurable') {
-                $this->generateProductVariants($product, $params);
-            }
+            // if ($params['tipe'] == 'configurable') {
+            //     $this->generateProductVariants($product, $params);
+            // }
 
             return $product;
         });
@@ -246,11 +246,9 @@ class ProductController extends Controller
             $product->update($params);
             $product->kategories()->sync($categoryIds);
 
-            if ($product->tipe == 'configurable') {
-                $this->updateProductVariants($params);
-            } else {
-                InventoriProduk::updateOrCreate(['produk_id' => $product->id], ['qty' => $params['qty']]);
-            }
+
+            InventoriProduk::updateOrCreate(['produk_id' => $product->id], ['qty' => $params['qty']]);
+
 
             return true;
         });
@@ -265,20 +263,20 @@ class ProductController extends Controller
     }
 
 
-    private function updateProductVariants($params)
-    {
-        if ($params['variants']) {
-            foreach ($params['variants'] as $productParams) {
-                $product = Produk::find($productParams['id']);
-                $product->update($productParams);
+    // private function updateProductVariants($params)
+    // {
+    //     if ($params['variants']) {
+    //         foreach ($params['variants'] as $productParams) {
+    //             $product = Produk::find($productParams['id']);
+    //             $product->update($productParams);
 
-                $product->status = $params['status'];
-                $product->save();
+    //             $product->status = $params['status'];
+    //             $product->save();
 
-                InventoriProduk::updateOrCreate(['produk_id' => $product->id], ['qty' => $productParams['qty']]);
-            }
-        }
-    }
+    //             InventoriProduk::updateOrCreate(['produk_id' => $product->id], ['qty' => $productParams['qty']]);
+    //         }
+    //     }
+    // }
 
     /**
      * Remove the specified resource from storage.

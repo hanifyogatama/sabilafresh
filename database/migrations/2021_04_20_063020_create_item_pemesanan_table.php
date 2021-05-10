@@ -27,7 +27,6 @@ class CreateItemPemesananTable extends Migration
             $table->string('tipe');
             $table->string('nama_produk');
             $table->string('berat');
-            $table->json('atribut');
             $table->timestamps();
 
             $table->foreign('pemesanan_id')->references('id')->on('pemesanan');

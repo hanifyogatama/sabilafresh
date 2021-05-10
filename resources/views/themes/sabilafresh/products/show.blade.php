@@ -102,13 +102,18 @@
                                             <li><span class="font-weight-light">Berat :</span> {{ number_format( $product->berat, 0, ',', '') }} Gram</li>
                                             <li><span class="font-weight-light">Kategori :</span>
                                                 @foreach ($product->kategories as $category)
-                                                <a style="color: #03AC0E; display: inline-block;  font-weight: 600;" href="{{ url('products?category/'. $category->slug ) }}">{{ $category->nama }}</a>
+                                                <a style="color: #03AC0E; display: inline-block;  font-weight: 600;" href="{{ url('products?category/'. $category->slug ) }}">{{ $category->nama ? $category->nama : '-' }}</a>
                                             </li>
                                             @endforeach
                                         </ul>
                                     </div>
 
+                                    @if(!empty($product->deskripsi))
                                     <p class="mb-3">{{ $product->deskripsi }}</p>
+                                    @else
+                                    <p class="mb-3">Tidak ada deskripsi yang ditambahkan</p>
+                                    @endif
+                                    
 
                                     <p>
                                         {{ Str::limit($product->detail_deskripsi, 135,'') }}
@@ -121,9 +126,15 @@
                                     </p>
                                 </div>
                                 <div class="tab-pane fade" id="pro-review" role="tabpanel">
-                                    <p class="text-capitalize mb-2" style="font-weight: 600;">Kebijakan Pengembalian Produk</p>
 
-                                    <p> {{ Str::limit($product->detail_deskripsi, 135,'') }}</p>
+                                    @if(!empty($product->info_produk))
+                                    <p class="text-capitalize mb-2" style="font-weight: 600;">Kebijakan Pengembalian Produk</p>
+                                    <p> {{ $product->info_produk }}</p>
+                                    @else
+                                    <p class="text-dark text-center">Tidak ada info yang ditambahkan</p>
+                                    @endif
+
+                                    
                                 </div>
                             </div>
                         </div>
@@ -175,21 +186,21 @@
                         </div>
                         <div class="col-md-5 pt-3">
                             <p>Stok <span class="text-dark font-weight-bold ">
-                           
-                            
-                            @if($product->inventoriProduk->qty != 0)
-                            : {{ $product->inventoriProduk->qty }}
-                            @else
-                            habis
-                            @endif
-                            
-                            </span></p>
+
+
+                                    @if($product->inventoriProduk->qty != 0)
+                                    : {{ $product->inventoriProduk->qty }}
+                                    @else
+                                    habis
+                                    @endif
+
+                                </span></p>
                         </div>
                         <!-- @if($product->inventoriProduk->qty == 0)
                         <span class="text-danger">stok habis</span>
                         @endif -->
 
-                        
+
                     </div>
                     <div class="row px-2 mt-4 mb-2">
                         <div class="col">

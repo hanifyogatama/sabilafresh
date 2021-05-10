@@ -49,7 +49,7 @@
                             </div>
 
 
-                            <div class="form-group row">
+                            <!-- <div class="form-group row">
                                 <div class="col-md-6">
                                     {!! Form::select('provinsi_id', $provinces, Auth::user()->province_id, ['id' => 'user-province-id', 'placeholder' => '- Pilih - ', 'required' => true]) !!}
                                     @error('province_id')
@@ -66,11 +66,11 @@
                                     </span>
                                     @enderror
                                 </div>
-                            </div>
+                            </div> -->
 
                             <div class="form-group row">
                                 <div class="col-md-6">
-                                    {!! Form::text('kode_pos', null, ['required' => true, 'placeholder' => 'Kode pos']) !!}
+                                    {!! Form::text('kode_pos', null, ['required' => true, 'placeholder' => 'Kode pos','id'=>'num-input-kodepos']) !!}
                                     @error('kode_pos')
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
@@ -78,7 +78,7 @@
                                     @enderror
                                 </div>
                                 <div class="col-md-6">
-                                    {!! Form::text('no_hp', null, ['required' => true, 'placeholder' => 'No hp']) !!}
+                                    {!! Form::text('no_hp', null, ['required' => true, 'placeholder' => 'No hp','id'=>'num-input-hp']) !!}
                                     @error('no_hp')
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
@@ -97,6 +97,14 @@
                                     @enderror
                                 </div>
                             </div>
+
+                            <div class="form-group">
+                                {!! Form::select('jk', ['pria'=>'Pria','wanita'=>'Wanita'], null, ['class' => 'form-control', 'placeholder' => '-- Pilih --']) !!}
+                                @error('jk')
+                                <small style="font-weight: 600;" class="text-danger">{{ $message }}</small>
+                                @enderror
+                            </div>
+
                             <div class="button-box">
                                 <button type="submit" class="btn btn-light-green float-right">Simpan</button>
                             </div>
@@ -109,4 +117,7 @@
     </div>
 </div>
 <!-- register-area end -->
+
+
+
 @endsection

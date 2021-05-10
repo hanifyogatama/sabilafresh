@@ -8,7 +8,7 @@ function getShippingCostOptions(city_id) {
 		},
 		success: function (response) {
 			$('#shipping-cost-option').empty();
-			$('#shipping-cost-option').append('<option value>- Please Select -</option>');
+			$('#shipping-cost-option').append('<option value>- Pilih -</option>');
 
 			$.each(response.results, function(key, result){
 				$('#shipping-cost-option').append('<option value="'+ result.service.replace(/\s/g, '') +'">'+ result.service + ' | ' + result.cost + ' | ' + result.etd + '</option>');
@@ -18,20 +18,21 @@ function getShippingCostOptions(city_id) {
 }
 
 (function($) {
-	$('#user-province-id').on('change', function (e) {
-		var province_id = e.target.value;
+	
+	// $('#user-province-id').on('change', function (e) {
+	// 	var province_id = e.target.value;
  
-		$.get('/orders/cities?province_id=' + province_id, function(data){
-			$('#user-city-id').empty();
-			$('#user-city-id').append('<option value>- Pilih -</option>');
+	// 	$.get('/orders/cities?province_id=' + province_id, function(data){
+	// 		$('#user-city-id').empty();
+	// 		$('#user-city-id').append('<option value>- Pilih -</option>');
 
-			$.each(data.cities, function(city_id, city){
+	// 		$.each(data.cities, function(city_id, city){
 			  
-			   $('#user-city-id').append('<option value="'+city_id+'">'+ city + '</option>');
+	// 		   $('#user-city-id').append('<option value="'+city_id+'">'+ city + '</option>');
 
-		   });
-		});
-	});
+	// 	   });
+	// 	});
+	// });
 
 
 	$('#province-id').on('change', function (e) {

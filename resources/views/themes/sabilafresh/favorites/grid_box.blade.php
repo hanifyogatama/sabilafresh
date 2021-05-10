@@ -24,9 +24,7 @@
                     <a style="color: white; font-weight: 500;" href=" {{ url('products/category/'. $category->slug ) }}">{{ $category->nama }}</a></li>
                     @endforeach
                 </div>
-
                 <p class="card-text pt-1" style="font-weight:700; color: black; font-size: 14px !important;">Rp {{ number_format($product->price_label()) }}</p>
-                <a type="button" href="" class="btn btn-outline-danger-fix btn-sm btn-block mb-5">+ Keranjang</a>
             </div>
         </div>
     </div>

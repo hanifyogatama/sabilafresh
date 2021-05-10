@@ -9,16 +9,16 @@
                 </div>
                 <div class="card-stats-items">
                     <div class="card-stats-item">
-                        <div class="card-stats-item-count">24</div>
-                        <div class="card-stats-item-label">Pending</div>
+                        <div class="card-stats-item-count">{{$ordersCreated->count()}}</div>
+                        <div style="font-size: 12px;">Created</div>
                     </div>
                     <div class="card-stats-item">
-                        <div class="card-stats-item-count">12</div>
-                        <div class="card-stats-item-label">Shipping</div>
+                        <div class="card-stats-item-count">{{ $ordersConfirmed->count() }}</div>
+                        <div style="font-size: 12px;">Confirmed</div>
                     </div>
                     <div class="card-stats-item">
-                        <div class="card-stats-item-count">23</div>
-                        <div class="card-stats-item-label">Completed</div>
+                        <div class="card-stats-item-count">{{ $ordersCompleted->count() }}</div>
+                        <div style="font-size: 12px;">Completed</div>
                     </div>
                 </div>
             </div>
@@ -30,7 +30,7 @@
                     <h4>Total Pemesanan</h4>
                 </div>
                 <div class="card-body">
-                    59
+                    {{ $orders->count() }}
                 </div>
             </div>
         </div>
@@ -243,8 +243,16 @@
 
 <div class="row">
     <div class="col-md-4 ">
-    <div class="card pb-5">
-        <span>ha</span>
+    <div class="card pb-1 pt-2">
+            <div class="row text-center p-0 m-0">
+                <span class="col-md-4" style="font-size: 12px;">
+                    <h4 class="text-dark">{{ $inventoryProducts->sum('qty') }}</h4>Total Stok
+                </span>
+                <span class="col-md-8" style="font-size: 12px;">
+                    <h4 class="text-dark">{{ count($lowInventory) }}</h4>
+                    Jumlah Produk Stok Tipis
+                </span>
+            </div>
         </div>
         <div class="card mt-4">
             <div class="card-header">
@@ -266,7 +274,7 @@
    
         <div class="card">
             <div class="card-header">
-                <h4 class="text-dark">Produk Inventori</h4>
+                <h4 class="text-dark">Inventori Produk</h4>
                 <div class="card-header-action">
                     @role('Admin')
                     <a href="{{ url('admin/reports/inventory')}}" class="btn btn-primary py-0">Lihat Semua</a>
@@ -281,15 +289,21 @@
                             <th>Stok</th>
                         </thead>
                         <tbody>
-                            @forelse ($activeProducts->take(7) as $actPro)
+                            @forelse ($inventories as $inventory)
                             <tr>
                                 <td>
-                                    <span class="text-capitalize">{{ Str::limit($actPro->nama,20) }}</span>
+                                    <span class="text-capitalize">{{ Str::limit($inventory->nama,20) }}</span>
                                 </td>
                                 <td>
-                                    <span style="font-size: 12px; font-weight: normal">{{
-                                !empty($actPro->inventoriProduk) ? $actPro->inventoriProduk->qty:0}}
+                                    @if($inventory->stok <= 5)
+                                    <span style="font-size: 12px; font-weight: normal" class="text-danger">{{
+                                !empty($inventory->stok) ? $inventory->stok:0}}
                                     </span>
+                                    @else
+                                    <span style="font-size: 12px; font-weight: normal">{{
+                                !empty($inventory->stok) ? $inventory->stok:0}}
+                                    </span>
+                                    @endif
                                 </td>
                             </tr>
                             @empty
@@ -352,7 +366,6 @@
         </div>
     </div>
 </div>
-
 <!-- end chart -->
 
 
@@ -370,7 +383,7 @@
             </div>
             <div class="card-body d-flex justify-content-start mt-0 pt-0">
                 @forelse($categories as $category)
-                <div class="media mr-3 p-2  shadow-sm btn-round">
+                <div class="media mr-3 p-2 shadow-sm btn-round">
                     <div class="row">
                         <div class="col-sm-3 pt-1">
                             <div class="btn btn-outline-primary shadow-sm border btn-custom" style="border-radius: 50%;">{{ $category->produks->count() }}</div>

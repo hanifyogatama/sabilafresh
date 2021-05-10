@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\User;
 use App\Models\Produk;
+use App\Models\InventoriProduk;
 use App\Models\Kategori;
 use App\Models\Pemesanan;
 use App\Models\Role;
@@ -48,12 +49,53 @@ class DashboardController extends Controller
         $this->data['product'] = $product;
 
         $activeProducts = Produk::where('status', '=', '1')->get();
-        
+
         $nonActiveProducts = Produk::where('status', '=', '0');
 
         $orders = Pemesanan::orderBy('created_at', 'desc')->get();
 
-        return view('admin.dashboard.index', compact('admins', 'categories', 'customers', 'product', 'owners', 'products', 'users', 'orders', 'activeProducts', 'nonActiveProducts'));
+        $sql = "
+		SELECT
+			P.*,
+			PI.qty as stok
+		FROM inventori_produk PI
+		LEFT JOIN produk P 
+        ON P.id = PI.produk_id
+		ORDER BY stok ASC
+        LIMIT 7";
+        $inventories = \DB::select(\DB::raw($sql));
+        $this->data['inventories'] = $inventories;
+
+        $inventoryProducts = InventoriProduk::all();
+        $this->data['inventoryProducts'] = $inventoryProducts;
+
+        $sql2 = "
+		SELECT
+			P.*,
+			PI.qty as low_stok
+		FROM inventori_produk PI
+		LEFT JOIN produk P 
+        ON P.id = PI.produk_id
+		WHERE PI.qty <= 5
+        ";
+
+        $lowInventory = \DB::select(\DB::raw($sql2));
+        $this->data['lowInventory'] = $lowInventory;
+
+        $orders = Pemesanan::where('status','!=','cancelled')->get();
+        $this->data['orders'] = $orders;
+
+        $ordersCreated = Pemesanan::where('status', '=', 'created')->get();
+        $this->data['ordersCreated'] = $ordersCreated;
+
+        $ordersConfirmed = Pemesanan::where('status', '=', 'confirmed')->get();
+        $this->data['ordersConfirmed'] = $ordersConfirmed;
+
+        $ordersCompleted = Pemesanan::where('status', '=', 'completed')->get();
+        $this->data['ordersCompleted'] = $ordersCompleted;
+
+
+        return view('admin.dashboard.index', compact('admins', 'categories', 'customers', 'product', 'owners', 'products', 'users', 'orders', 'activeProducts', 'nonActiveProducts', 'inventories', 'inventoryProducts', 'lowInventory', 'orders','ordersCreated','ordersConfirmed','ordersCompleted'));
     }
 
     /**

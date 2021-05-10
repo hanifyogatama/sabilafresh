@@ -23,7 +23,7 @@
 
                 <div class="badge badge-danger my-0 py-1 mt-2">
                     @foreach ($product->kategories->take(1) as $category)
-                    <a style="color: white; font-weight: 500;" href=" {{ url('products/category/'. $category->slug ) }}">{{ $category->nama }}</a></li>
+                    <a style="color: white; font-weight: 500;" href=" {{ url('products/category/'. $category->slug ) }}">{{ $category->nama ? $category->nama : '-' }}</a></li>
                     @endforeach
                 </div>
 

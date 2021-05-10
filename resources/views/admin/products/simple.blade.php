@@ -12,7 +12,7 @@
 
     <div class="col-md-4">
         <div class="form-group">
-            {!! Form::label('berat', 'Berat') !!}<span><small class="text-danger"> (satuan gram)</small></span>
+            {!! Form::label('berat', 'Berat') !!}<span><small class="text-danger"> (satuan gram min:1000 gr)</small></span>
             {!! Form::number('berat', null, ['class' => 'form-control', 'placeholder' => 'berat cth. 1000','min' => '1000','autocomplete'=>'off']) !!}
             @error('harga')
             <small style="font-weight: 600;" class="text-danger">{{ $message }}</small>

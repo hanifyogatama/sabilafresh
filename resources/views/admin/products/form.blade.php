@@ -23,7 +23,7 @@ $formTitle = !empty($category) ? 'Edit' : 'Tambah'
     <div class="col-lg-8">
         <div class="card card-default">
             <div class="card-body">
-                @include('admin.partials.flash', ['$errors' => $errors])
+                <!-- @include('admin.partials.flash', ['$errors' => $errors]) -->
                 @if (!empty($product))
                 {!! Form::model($product, ['url' => ['admin/products', $product->id], 'method' => 'PUT']) !!}
                 {!! Form::hidden('id') !!}
@@ -32,7 +32,7 @@ $formTitle = !empty($category) ? 'Edit' : 'Tambah'
                 {!! Form::open(['url' => 'admin/products']) !!}
                 @endif
 
-                <div class="form-group">
+                <div class="form-group" style="display: none;">
                     {!! Form::label('tipe', 'Tipe Produk') !!}
                     {!! Form::select('tipe', ['simple' => 'Tanpa Atribut'] , !empty($product) ? $product->type : null, ['class' => 'form-control product-type', 'disabled' => !empty($product)]) !!}
                     @error('tipe')
@@ -75,20 +75,23 @@ $formTitle = !empty($category) ? 'Edit' : 'Tambah'
                 </div>
 
                 @if ($product)
-                @if ($product->tipe == 'configurable')
-                @include('admin.products.configurable')
-                @else
+                @if ($product->tipe == 'simple')
                 @include('admin.products.simple')
                 @endif
 
                 <div class="form-group">
                     {!! Form::label('deskripsi', 'Deskripsi') !!}
-                    {!! Form::textarea('deskripsi', null, ['class' => 'form-control', 'placeholder' => 'Deskripsi']) !!}
+                    {!! Form::textarea('deskripsi', null, ['class' => 'form-control', 'placeholder' => 'deskripsi','style' => 'height: 200px !important;']) !!}
                 </div>
 
                 <div class="form-group">
                     {!! Form::label('detail_deskripsi', 'Detail Deskripsi') !!}
-                    {!! Form::textarea('detail_deskripsi', null, ['class' => 'form-control', 'placeholder' => 'detail deskripsi']) !!}
+                    {!! Form::textarea('detail_deskripsi', null, ['class' => 'form-control', 'placeholder' => 'detail deskripsi','style' => 'height: 200px !important;']) !!}
+                </div>
+
+                <div class="form-group">
+                    {!! Form::label('info_produk', 'Info Produk') !!}
+                    {!! Form::textarea('info_produk', null, ['class' => 'form-control', 'placeholder' => 'info produk','style' => 'height: 200px !important;']) !!}
                 </div>
 
                 <div class="form-group">
