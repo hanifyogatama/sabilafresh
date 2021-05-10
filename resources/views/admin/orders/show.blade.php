@@ -1,59 +1,98 @@
 @extends('admin.layout')
 
 @section('content')
+
+<div class="section-header">
+    <h1>{{ $order->kode }}</h1>
+    <div class="section-header-breadcrumb">
+
+    </div>
+</div>
+
 <div class="content">
-    <div class="invoice-wrapper rounded border bg-white py-5 px-3 px-md-4 px-lg-5">
-        <div class="d-flex justify-content-between">
-            <h2 class="text-dark font-weight-medium">no invoice #{{ $order->kode }}</h2>
-            <!-- <div class="btn-group">
-                <button class="btn btn-sm btn-secondary">
-                    <i class="mdi mdi-content-save"></i> Save</button>
-                <button class="btn btn-sm btn-secondary">
-                    <i class="mdi mdi-printer"></i> Print</button>
-            </div> -->
-        </div>
-        <div class="row pt-5">
-            <!-- <div class="col-xl-4 col-lg-4">
-                <p class="text-dark mb-2" style="font-weight: normal; font-size:16px; text-transform: uppercase;">Billing Address</p>
+    <div class="invoice-wrapper rounded bg-white py-5 px-3 px-md-4 px-lg-5">
+        <div class="row border rounded px-3 py-3 mx-0">
+            <div class="col-md-12 p-0 ">
+                <p class="text-dark mb-2" style="font-weight: bold; font-size:16px; text-transform: capitalize;">Detail Pemesan</p>
                 <address>
-                    {{ $order->nama_depan_konsumen }} {{ $order->nama_belakang_konsumen }}
-                    <br> Alamat: {{ $order->alamat_konsumen }}
-                    <br> Email: {{ $order->email_konsumen }}
-                    <br> No Hp: {{ $order->no_hp_konsumen }}
-                    <br> Kode pos: {{ $order->kode_pos_konsumen }}
-                </address>
-            </div> -->
-            <div class="col-xl-4 col-lg-4">
-                <p class="text-dark mb-2" style="font-weight: normal; font-size:16px; text-transform: uppercase;">Detail Pengiriman</p>
-                <address>
-                    {{ $order->pengiriman->nama_depan }} {{ $order->pengiriman->nama_belakang}}
-                    <br> {{ $order->pengiriman->alamat }}
-                    <br> Email: {{ $order->pengiriman->email }}
-                    <br> No hp: {{ $order->pengiriman->no_hp }}
-                    <br> kode pos: {{ $order->pengiriman->kodepos }}
-                </address>
-            </div>
-            <div class="col-xl-4 col-lg-4">
-                <p class="text-dark mb-2" style="font-weight: normal; font-size:16px; text-transform: uppercase;">Detail</p>
-                <address>
-                    <!-- ID: <span class="text-dark">#{{ $order->kode }}</span> -->
-                    <br> {{ \General::datetimeFormat($order->tanggal_pemesanan) }}
-                    <br> Status: {{ $order->status }} {{ $order->isCancelled() ? '('. \General::datetimeFormat($order->cancelled_at) .')' : null}}
-                    @if ($order->isCancelled())
-                    <br> Cancellation Note : {{ $order->catatan_pembatalan}}
-                    @endif
-                    <br> Status pembayaran: {{ $order->status_pembayaran }}
-                    <br> {{ $order->layanan_kurir }}
+                    <div class="row pt-2">
+                        <div class="col-sm-5">Nama</div>
+                        <div class="col-sm-7 text-left text-dark text-capitalize"> {{ $order->nama_depan_konsumen }} {{ $order->nama_belakang_konsumen }}</div>
+                    </div>
+
+                    <div class="row pt-2">
+                        <div class="col-sm-5">Email</div>
+                        <div class="col-sm-7 text-left text-dark"> {{ $order->email_konsumen }}</div>
+                    </div>
+
+                    <div class="row pt-2">
+                        <div class="col-sm-5">No Hp</div>
+                        <div class="col-sm-7 text-left text-dark text-capitalize"> {{ $order->no_hp_konsumen }}</div>
+                    </div>
+
+                    <div class="row pt-2">
+                        <div class="col-sm-5">Tanggal Pemesanan</div>
+                        <div class="col-sm-7 text-left text-dark text-capitalize"> {{ \General::datetimeFormat($order->tanggal_pemesanan) }}</div>
+                    </div>
+
+                    <div class="row pt-2">
+                        <div class="col-sm-5">Batas Pemesanan</div>
+                        <div class="col-sm-7 text-left text-danger text-capitalize"> {{ \General::datetimeFormat($order->batas_pembayaran) }}</div>
+                    </div>
+
+                    <div class="row pt-2">
+                        <div class="col-sm-5">Status Pembayaran</div>
+                        <div class="col-sm-7 text-left text-success font-weight-bold text-capitalize"> {{ $order->status_pembayaran }}</div>
+                    </div>
                 </address>
             </div>
         </div>
-        <table class="table mt-3 table-striped table-responsive table-responsive-large" style="width:100%">
+
+        <!-- shipping order -->
+        <div class="row border rounded px-3 py-3 mx-0 mt-3">
+            <div class="col-md-12 p-0 ">
+                <p class="text-dark mb-2" style="font-weight: bold; font-size:16px; text-transform: capitalize;">Detail Pengiriman</p>
+                <address>
+                    <div class="row pt-2">
+                        <div class="col-sm-5">Nama</div>
+                        <div class="col-sm-7 text-left text-dark text-capitalize"> {{ $order->pengiriman->nama_depan }} {{ $order->pengiriman->nama_belakang}}</div>
+                    </div>
+
+                    <div class="row pt-2">
+                        <div class="col-sm-5">Email</div>
+                        <div class="col-sm-7 text-left text-dark"> {{ $order->pengiriman->email }}</div>
+                    </div>
+
+                    <div class="row pt-2">
+                        <div class="col-sm-5">No Hp</div>
+                        <div class="col-sm-7 text-left text-dark text-capitalize"> {{ $order->pengiriman->no_hp }}</div>
+                    </div>
+
+                    <div class="row pt-2">
+                        <div class="col-sm-5">Alamat</div>
+                        <div class="col-sm-7 text-left text-dark text-capitalize"> {{ $order->pengiriman->alamat}} , {{ $order->pengiriman->kodepos}}</div>
+                    </div>
+
+                    <div class="row pt-2">
+                        <div class="col-sm-5">Kurir</div>
+                        <div class="col-sm-7 text-left text-dark text-capitalize">{{$order->nama_kurir}} ({{$order->layanan_kurir}})</div>
+                    </div>
+
+                    <div class="row pt-2">
+                        <div class="col-sm-5">Status Pengiriman</div>
+                        <div class="col-sm-7 text-left text-dark text-capitalize"> {{ $order->pengiriman->status}} </div>
+                    </div>
+
+                </address>
+            </div>
+        </div>
+
+        <table class="table mt-3" style="width:100%">
             <thead>
                 <tr>
-
                     <th>Nama Produk</th>
-
                     <th>Banyak</th>
+                    <th>Berat Satuan</th>
                     <th>Harga Satuan</th>
                     <th>Total Harga</th>
                 </tr>
@@ -61,12 +100,11 @@
             <tbody>
                 @forelse ($order->ItemPemesanan as $item)
                 <tr>
-
-                    <td>{{ $item->nama_produk }}</td>
-
+                    <td class="text-capitalize">{{ $item->nama_produk }}</td>
                     <td>{{ $item->qty }}</td>
-                    <td>{{ \General::priceFormat($item->harga) }}</td>
-                    <td>{{ \General::priceFormat($item->sub_total) }}</td>
+                    <td>{{ $item->berat+0 }} gr</td>
+                    <td>Rp {{ \General::priceFormat($item->harga) }}</td>
+                    <td>Rp {{ \General::priceFormat($item->sub_total) }}</td>
                 </tr>
                 @empty
                 <tr>
@@ -76,21 +114,26 @@
             </tbody>
         </table>
         <div class="row justify-content-end">
-            <div class="col-lg-5 col-xl-4 col-xl-3 ml-sm-auto">
+            <div class="col-lg-5 col-xl-4 col-xl-5 ml-sm-auto">
                 <ul class="list-unstyled mt-4">
-                    <li class="mid pb-3 text-dark">Subtotal
-                        <span class="d-inline-block float-right text-default">{{ \General::priceFormat($order->total_awal) }}</span>
+                    <li class="mid text-dark">Subtotal
+                        <span class="d-inline-block float-right text-default font-weight-bold">Rp {{ \General::priceFormat($order->total_awal) }}</span>
                     </li>
-                    <li class="mid pb-3 text-dark">Pajak(0%)
-                        <span class="d-inline-block float-right text-default">{{ \General::priceFormat($order->jumlah_pajak) }}</span>
+                    <hr class="my-3" />
+                    <li class="mid text-dark">Pajak({{$order->persen_pajak+0}}%)
+                        <span class="d-inline-block float-right text-default font-weight-bold">Rp {{ \General::priceFormat($order->jumlah_pajak) }}</span>
                     </li>
-                    <li class="mid pb-3 text-dark">Biaya Pengiriman
-                        <span class="d-inline-block float-right text-default">{{ \General::priceFormat($order->biaya_pengiriman) }}</span>
+                    <hr class="my-3" />
+                    <li class="mid text-dark">Biaya Pengiriman ({{$order->pengiriman->total_berat }} gr)
+                        <span class="d-inline-block float-right text-default font-weight-bold">Rp {{ \General::priceFormat($order->biaya_pengiriman) }}</span>
                     </li>
-                    <li class="pb-3 text-dark">Total
-                        <span class="d-inline-block float-right">{{ \General::priceFormat($order->total_akhir) }}</span>
+                    <hr class="my-3" />
+                    <li class="text-dark font-weight-bold">Total
+                        <span class="d-inline-block font-weight-bold float-right">Rp {{ \General::priceFormat($order->total_akhir) }}</span>
                     </li>
                 </ul>
+
+
                 @if (!$order->trashed())
                 @if ($order->isPaid() && $order->isConfirmed())
                 <a href="{{ url('admin/shipments/'. $order->pengiriman->id .'/edit')}}" class="btn btn-block mt-2 btn-lg btn-primary btn-pill"> Proses</a>
@@ -102,7 +145,7 @@
 
                 @if ($order->isDelivered())
                 <a href="#" class="btn btn-block mt-2 btn-lg btn-success btn-pill" onclick="event.preventDefault();
-						document.getElementById('complete-form-{{ $order->id }}').submit();"> Mark as Completed</a>
+						document.getElementById('complete-form-{{ $order->id }}').submit();"> Complete</a>
 
                 {!! Form::open(['url' => 'admin/orders/complete/'. $order->id, 'id' => 'complete-form-'. $order->id, 'style' => 'display:none']) !!}
                 {!! Form::close() !!}

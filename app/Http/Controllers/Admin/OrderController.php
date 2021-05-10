@@ -158,7 +158,7 @@ class OrderController extends Controller
         $order = Pemesanan::findOrFail($id);
 
         if (!$order->isDelivered()) {
-            \Session::flash('error', 'Mark as complete the order can be done if the latest status is delivered');
+            \Session::flash('error', 'data belum selesai di proses');
             return redirect('admin/orders');
         }
 
@@ -167,7 +167,7 @@ class OrderController extends Controller
         $order->approved_at = now();
 
         if ($order->save()) {
-            \Session::flash('success', 'The order has been marked as completed!');
+            \Session::flash('success', 'Status pemesanan telah complated');
             return redirect('admin/orders');
         }
     }

@@ -15,7 +15,7 @@
             <div class="card card-default">
                 <div class="card-body">
                     @include('admin.partials.flash')
-                    <!-- @include('admin.orders.filter') -->
+                    @include('admin.orders.filter')
                     <table class="table table-bordered table-stripped">
                         <thead>
                             <th>Kode Pemesanan</th>

@@ -30,7 +30,7 @@
                                     {{ $order->isCancelled() ? '('. \General::datetimeFormat($order->cancelled_at) .')' : null}}
                                 </span>
                                 <hr class="my-3" />
-                                Tanggal Pembelian<span class="font-weight-bold float-right"> {{ \General::datetimeFormat($order->tanggal_pemesanan) }}</span>
+                                Tanggal Pemesanan<span class="font-weight-bold float-right"> {{ \General::datetimeFormat($order->tanggal_pemesanan) }}</span>
                                 <hr class="my-3" />
                                 Batas Pembayaran<span class="font-weight-bold float-right"> {{ \General::datetimeFormat($order->batas_pembayaran) }}</span>
                                 <hr class="my-3" />
@@ -128,7 +128,7 @@
                             <span class="font-weight-bold text-dark text-capitalize">Informasi Pembayaran</span>
                             <address>
                                 <br>
-                                Metode Pembayaran<span class="font-weight-bold float-right">
+                                Metode Pembayaran<span class="font-weight-bold float-right ">
                                     @foreach ($order->pembayaran as $payment)
                                     @if(!empty($payment->tipe_pembayaran))
                                     {{ucwords(str_replace("_", " ",  $payment->tipe_pembayaran))}}
@@ -140,16 +140,16 @@
                                 </span>
                                 <hr class="my-3" />
 
-                                Total Harga ({{$order->pengiriman->total_qty }} barang)<span class="font-weight-bold float-right"> Rp {{ \General::priceFormat($order->total_awal) }}</span>
+                                Total Harga ({{$order->pengiriman->total_qty }} barang)<span class="font-weight-bold float-right text-dark"> Rp {{ \General::priceFormat($order->total_awal) }}</span>
                                 <hr class="my-3" />
 
-                                Total Ongkos Kirim ({{$order->pengiriman->total_berat }} gr)<span class="font-weight-bold float-right"> Rp {{ \General::priceFormat($order->biaya_pengiriman) }}</span>
+                                Total Ongkos Kirim ({{$order->pengiriman->total_berat }} gr)<span class="font-weight-bold float-right text-dark"> Rp {{ \General::priceFormat($order->biaya_pengiriman) }}</span>
                                 <hr class="my-3" />
 
-                                Pajak ({{$order->persen_pajak+0}}%)<span class="font-weight-bold float-right"> Rp {{$order->jumlah_pajak+0}}</span>
+                                Pajak ({{$order->persen_pajak+0}}%)<span class="font-weight-bold float-right text-dark"> Rp {{$order->jumlah_pajak+0}}</span>
                                 <hr class="my-3" />
 
-                                <span class="font-weight-bold">Total Bayar</span><span class="font-weight-bold float-right text-success"> Rp {{ \General::priceFormat($order->total_akhir) }}</span>
+                                <span class="font-weight-bold text-dark">Total Bayar</span><span class="font-weight-bold float-right text-success"> Rp {{ \General::priceFormat($order->total_akhir) }}</span>
                                 <br>
 
                             </address>

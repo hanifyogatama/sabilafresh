@@ -68,7 +68,6 @@ class Produk extends Model
         return [
             0 => 'tidak aktif',
             1 => 'aktif',
-            
         ];
     }
 
@@ -81,7 +80,7 @@ class Produk extends Model
         ];
     }
 
-    
+
     function status_label()
     {
         $statuses = $this->statuses();
@@ -116,8 +115,13 @@ class Produk extends Model
         return str_ireplace(
             [' seconds', ' second', ' minutes', ' minute', ' hours', ' hour', ' days', ' day', ' weeks', ' week'],
             [' detik', ' detik', ' menit', ' menit', ' jam', ' jam', ' hari', ' hari', ' minggu', ' minggu'],
-            $carbonObject->diffForHumans(null, true).' yang lalu'
+            $carbonObject->diffForHumans(null, true) . ' yang lalu'
         );
+    }
+
+    public function changeStatusProduct()
+    {
+        $xx = Produk::inventoriProduk()->qty;
     }
 
 

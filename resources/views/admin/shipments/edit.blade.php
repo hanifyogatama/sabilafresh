@@ -6,7 +6,7 @@
         <div class="col-lg-6">
             <div class="card card-default">
                 <div class="card-header card-header-border-bottom">
-                    <h2>Order Shipment #{{ $shipment->pemesanan->kode }}</h2>
+                    <h2>{{ $shipment->pemesanan->kode }}</h2>
                 </div>
                 <div class="card-body">
                     @include('admin.partials.flash', ['$errors' => $errors])
@@ -14,38 +14,37 @@
                     {!! Form::hidden('id') !!}
                     <div class="form-group row">
                         <div class="col-md-6">
-                            {!! Form::label('nama_depan', 'First name') !!}
+                            {!! Form::label('nama_depan', 'Nama Depan') !!}
                             {!! Form::text('nama_depan', null, ['class' => 'form-control', 'readonly' => true]) !!}
                         </div>
                         <div class="col-md-6">
-                            {!! Form::label('nama_belakang', 'Last name') !!}
+                            {!! Form::label('nama_belakang', 'Nama Belakang') !!}
                             {!! Form::text('nama_belakang', null, ['class' => 'form-control', 'readonly' => true]) !!}
                         </div>
                     </div>
 
                     <div class="form-group">
-                        {!! Form::label('alamat', 'Home number and street name') !!}
+                        {!! Form::label('alamat', 'Alamat ') !!}
                         {!! Form::text('alamat', null, ['class' => 'form-control', 'readonly' => true]) !!}
                     </div>
 
-                    <div class="form-group">
-                        {!! Form::label('provinsi_id', 'Province') !!}
+                    <div class="form-group" style="display: none;">
                         {!! Form::select('provinsi_id', $provinces, $shipment->provinsi_id, ['id' => 'province-id', 'class' => 'form-control', 'disabled' => true]) !!}
                     </div>
 
                     <div class="form-group row">
-                        <div class="col-md-6">
-                            {!! Form::label('city_id', 'City') !!}
+                        <div class="col-md-6" style="display: none;">
+                           
                             {!! Form::select('kota_id', $cities, $shipment->city_id, ['id' => 'city-id', 'class' => 'form-control', 'disabled' => true])!!}
                         </div>
                         <div class="col-md-6">
-                            {!! Form::label('kodepos', 'Postcode / zip') !!}
+                            {!! Form::label('kodepos', 'Kode pos') !!}
                             {!! Form::text('kodepos', null, ['class' => 'form-control', 'readonly' => true]) !!}
                         </div>
                     </div>
                     <div class="form-group row">
-                        <div class="col-md-6">
-                            {!! Form::label('no_hp', 'Phone') !!}
+                        <div class="col-md-6" >
+                            {!! Form::label('no_hp', 'No Hp') !!}
                             {!! Form::text('no_hp', null, ['class' => 'form-control', 'readonly' => true]) !!}
                         </div>
                         <div class="col-md-6">
@@ -55,7 +54,7 @@
                     </div>
                     <div class="form-group row">
                         <div class="col-md-6">
-                            {!! Form::label('total_qty', 'Quantity') !!}
+                            {!! Form::label('total_qty', 'Jumlah Banyak') !!}
                             {!! Form::text('total_qty', null, ['class' => 'form-control', 'readonly' => true]) !!}
                         </div>
                         <div class="col-md-6">
@@ -78,28 +77,28 @@
         <div class="col-lg-6">
             <div class="card card-default">
                 <div class="card-header card-header-border-bottom">
-                    <h2>Detail Order</h2>
+                    <h2>Pengiriman</h2>
                 </div>
                 <div class="card-body">
                     <div class="row">
                         <div class="col-xl-6 col-lg-6">
-                            <p class="text-dark mb-2" style="font-weight: normal; font-size:16px; text-transform: uppercase;">Billing Address</p>
+                            <p class="text-dark mb-2" style="font-weight: normal; font-size:16px; text-transform: uppercase;">Detail Pengiriman</p>
                             <address>
                                 {{ $shipment->pemesanan->nama_depan_konsumen }} {{ $shipment->pemesanan->nama_belakang_konsumen }}
                                 <br> {{ $shipment->pemesanan->alamat_konsumen }}
-                                <br> Email: {{ $shipment->pemesanan->email_konsumen }}
-                                <br> Phone: {{ $shipment->pemesanan->no_hp_konsumen }}
-                                <br> Postcode: {{ $shipment->pemesanan->kode_pos_konsumen }}
+                                <br> {{ $shipment->pemesanan->email_konsumen }}
+                                <br> {{ $shipment->pemesanan->no_hp_konsumen }}
+                                <br> {{ $shipment->pemesanan->kodepos_konsumen }}
                             </address>
                         </div>
                         <div class="col-xl-6 col-lg-6">
-                            <p class="text-dark mb-2" style="font-weight: normal; font-size:16px; text-transform: uppercase;">Details</p>
+                            <p class="text-dark mb-2" style="font-weight: normal; font-size:16px; text-transform: uppercase;"></p>
                             <address>
-                                ID: <span class="text-dark">#{{ $shipment->pemesanan->kode }}</span>
+                                <span class="text-dark">{{ $shipment->pemesanan->kode }}</span>
                                 <br> {{ \General::datetimeFormat($shipment->pemesanan->order_date) }}
                                 <br> Status: {{ $shipment->pemesanan->status }}
-                                <br> Payment Status: {{ $shipment->pemesanan->status_pembayaran }}
-                                <br> Shipped by: {{ $shipment->pemesanan->layanan_kurir }}
+                                <br> Status Pembayaran: {{ $shipment->pemesanan->status_pembayaran }}
+                                <br> {{ $shipment->pemesanan->layanan_kurir }}
                             </address>
                         </div>
                     </div>

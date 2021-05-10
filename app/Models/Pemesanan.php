@@ -122,8 +122,6 @@ class Pemesanan extends Model
         return $this->status_pembayaran == self::PAID;
     }
 
-    
-
 	public function isCreated()
 	{
 		return $this->status == self::CREATED;

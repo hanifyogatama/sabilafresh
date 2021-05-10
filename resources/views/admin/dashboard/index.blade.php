@@ -1,19 +1,75 @@
 @extends('admin.layout')
 
 @section('content')
-<div class="section-header">
-
-    <div class="col-lg-10">
-        <h1>Dashboard</h1>
+<div class="row">
+    <div class="col-lg-4 col-md-4 col-sm-12">
+        <div class="card card-statistic-2">
+            <div class="card-stats">
+                <div class="card-stats-title mb-0 font-weight-bold">Statistik Penjualan
+                </div>
+                <div class="card-stats-items">
+                    <div class="card-stats-item">
+                        <div class="card-stats-item-count">24</div>
+                        <div class="card-stats-item-label">Pending</div>
+                    </div>
+                    <div class="card-stats-item">
+                        <div class="card-stats-item-count">12</div>
+                        <div class="card-stats-item-label">Shipping</div>
+                    </div>
+                    <div class="card-stats-item">
+                        <div class="card-stats-item-count">23</div>
+                        <div class="card-stats-item-label">Completed</div>
+                    </div>
+                </div>
+            </div>
+            <div class="card-icon shadow-primary bg-primary">
+                <i class="fas fa-archive"></i>
+            </div>
+            <div class="card-wrap">
+                <div class="card-header">
+                    <h4>Total Pemesanan</h4>
+                </div>
+                <div class="card-body">
+                    59
+                </div>
+            </div>
+        </div>
     </div>
-    <div class="col-lg-2 ml-5">
-        @role('Admin')
-        <span class="badge btn-info">Admin</span>
-        @endrole
-        @role('Owner')
-        <span class="badge btn-danger">Owner</span>
-        @endrole
-
+    <div class="col-lg-4 col-md-4 col-sm-12">
+        <div class="card card-statistic-2">
+            <div class="card-chart">
+                <canvas id="balance-chart" height="80"></canvas>
+            </div>
+            <div class="card-icon shadow-primary bg-primary">
+                <i class="fas fa-dollar-sign"></i>
+            </div>
+            <div class="card-wrap">
+                <div class="card-header">
+                    <h4>Balance</h4>
+                </div>
+                <div class="card-body">
+                    $187,13
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-4 col-md-4 col-sm-12">
+        <div class="card card-statistic-2">
+            <div class="card-chart">
+                <canvas id="sales-chart" height="80"></canvas>
+            </div>
+            <div class="card-icon shadow-primary bg-primary">
+                <i class="fas fa-shopping-bag"></i>
+            </div>
+            <div class="card-wrap">
+                <div class="card-header">
+                    <h4>Sales</h4>
+                </div>
+                <div class="card-body">
+                    4,732
+                </div>
+            </div>
+        </div>
     </div>
 </div>
 
@@ -183,77 +239,7 @@
 <!-- produk -->
 
 <!-- report orders -->
-<!-- <div class="row">
-    <div class="col-lg-4 col-md-4 col-sm-12">
-        <div class="card card-statistic-2">
-            <div class="card-stats">
-                <div class="card-stats-title mb-0 font-weight-bold">Statistik Penjualan
-                </div>
-                <div class="card-stats-items">
-                    <div class="card-stats-item">
-                        <div class="card-stats-item-count">24</div>
-                        <div class="card-stats-item-label">Pending</div>
-                    </div>
-                    <div class="card-stats-item">
-                        <div class="card-stats-item-count">12</div>
-                        <div class="card-stats-item-label">Shipping</div>
-                    </div>
-                    <div class="card-stats-item">
-                        <div class="card-stats-item-count">23</div>
-                        <div class="card-stats-item-label">Completed</div>
-                    </div>
-                </div>
-            </div>
-            <div class="card-icon shadow-primary bg-primary">
-                <i class="fas fa-archive"></i>
-            </div>
-            <div class="card-wrap">
-                <div class="card-header">
-                    <h4>Total Pemesanan</h4>
-                </div>
-                <div class="card-body">
-                    59
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="col-lg-4 col-md-4 col-sm-12">
-        <div class="card card-statistic-2">
-            <div class="card-chart">
-                <canvas id="balance-chart" height="80"></canvas>
-            </div>
-            <div class="card-icon shadow-primary bg-primary">
-                <i class="fas fa-dollar-sign"></i>
-            </div>
-            <div class="card-wrap">
-                <div class="card-header">
-                    <h4>Balance</h4>
-                </div>
-                <div class="card-body">
-                    $187,13
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="col-lg-4 col-md-4 col-sm-12">
-        <div class="card card-statistic-2">
-            <div class="card-chart">
-                <canvas id="sales-chart" height="80"></canvas>
-            </div>
-            <div class="card-icon shadow-primary bg-primary">
-                <i class="fas fa-shopping-bag"></i>
-            </div>
-            <div class="card-wrap">
-                <div class="card-header">
-                    <h4>Sales</h4>
-                </div>
-                <div class="card-body">
-                    4,732
-                </div>
-            </div>
-        </div>
-    </div>
-</div> -->
+
 
 <div class="row">
     <div class="col-md-4 ">
@@ -463,7 +449,7 @@
         <div class="card">
             <div class="card-header">
                 <div class="col-md-9 pl-0">
-                    <h4 class="d-inline text-dark">Faktur Terbaru</h4>
+                    <h4 class="d-inline text-dark">Invoice Terbaru</h4>
                 </div>
                 <div class="col-md-3 pl-4">
                     @if($orders->count() >= 4)

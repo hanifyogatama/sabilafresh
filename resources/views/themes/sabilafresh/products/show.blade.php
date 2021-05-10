@@ -174,7 +174,16 @@
                             {!! Form::number('qty', 1, ['min' => 1, 'max' => $product->inventoriProduk->qty, 'required' => true]) !!}
                         </div>
                         <div class="col-md-5 pt-3">
-                            <p>Stok: <span class="text-dark font-weight-bold ">{{ $product->inventoriProduk->qty }}</span></p>
+                            <p>Stok <span class="text-dark font-weight-bold ">
+                           
+                            
+                            @if($product->inventoriProduk->qty != 0)
+                            : {{ $product->inventoriProduk->qty }}
+                            @else
+                            habis
+                            @endif
+                            
+                            </span></p>
                         </div>
                         <!-- @if($product->inventoriProduk->qty == 0)
                         <span class="text-danger">stok habis</span>
@@ -182,22 +191,6 @@
 
                         
                     </div>
-
-
-
-
-                    <!-- <div class="qty mt-5">
-                        <span class="minus bg-dark">-</span>
-                        <input type="number" class="count" name="qty" value="1" max="4">
-                        <span class="plus bg-dark">+</span>
-                    </div> -->
-
-                    <!-- <div class="pl-2 quickview-plus-minus">
-                        <div class="cart-plus-minus">
-                            {!! Form::number('qty', 1, ['class' => 'cart-plus-minus-box', 'readonly','placeholder' => 'qty']) !!}
-                        </div>
-                    </div> -->
-
                     <div class="row px-2 mt-4 mb-2">
                         <div class="col">
                             <a class="btn btn-outline-light-green bg-white btn-block add-to-fav" href="" product-slug="{{ $product->slug }}"><i class="fa fa-heart"></i> Wishlist</a>

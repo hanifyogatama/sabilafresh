@@ -16,13 +16,16 @@
             <div class="dropdown-menu dropdown-menu-right">
                 <div class="dropdown-title text-center"><span class="text-primary">{{ date('d-F-Y') }}</span></div>
 
+                @role('Admin')
+                <a class="dropdown-item has-icon text-center">Admin</a>
+                @endrole
+                @role('Owner')
+                <a class="dropdown-item has-icon text-center">Owner</a>
+                @endrole
+                <div class="dropdown-divider"></div>
                 <a href="{{ url('admin/users/'. \Auth::user()->id) }}" class="dropdown-item has-icon">
                     <i class="far fa-user"></i> Profile
                 </a>
-
-                <!-- <a href="features-settings.html" class="dropdown-item has-icon">
-                    <i class="fas fa-cog"></i> Settings
-                </a> -->
                 <div class="dropdown-divider"></div>
                 <a href="{{ url('logout') }}" class="dropdown-item has-icon text-danger">
                     <i class="fas fa-sign-out-alt"></i> Logout

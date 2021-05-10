@@ -13,13 +13,13 @@ class CreateTrigger extends Migration
      */
     public function up()
     {
-        DB::unprepared('
-        CREATE TRIGGER tr_status AFTER UPDATE ON `inventori_produk.qty` FOR EACH ROW
-            BEGIN
-                UPDATE INTO produk (`status`) 
-                VALUES (2, NEW.status);
-            END
-        ');
+        // DB::unprepared('
+        // CREATE TRIGGER tr_status AFTER UPDATE ON `inventori_produk.qty` FOR EACH ROW
+        //     BEGIN
+        //         UPDATE INTO produk (`status`) 
+        //         VALUES (2, NEW.status);
+        //     END
+        // ');
     }
 
     /**
@@ -29,6 +29,6 @@ class CreateTrigger extends Migration
      */
     public function down()
     {
-        DB::unprepared('DROP TRIGGER `tr_User_Default_Member_Role`');
+        // DB::unprepared('DROP TRIGGER `tr_User_Default_Member_Role`');
     }
 }
