@@ -27,7 +27,7 @@
             </div>
             <div class="card-wrap">
                 <div class="card-header">
-                    <h4 class="text-dark">Jumlah Pemesanan</h4>
+                    <h4 class="text-dark">Jumlah Statistik</h4>
                 </div>
                 <div class="card-body">
                     {{ $ordersNoCancel->count() }}
@@ -56,7 +56,7 @@
             </div>
             <div class="card-wrap">
                 <div class="card-header">
-                    <h4 class="text-dark">Jumlah Pembayaran</h4>
+                    <h4 class="text-dark">Jumlah Statistik</h4>
                 </div>
                 <div class="card-body">
                 {{ $ordersPaid->count() + $ordersUnpaid->count() }}
@@ -89,7 +89,7 @@
             </div>
             <div class="card-wrap">
                 <div class="card-header">
-                    <h4 class="text-dark">Jumlah Pengiriman</h4>
+                    <h4 class="text-dark">Jumlah Statistik</h4>
                 </div>
                 <div class="card-body">
                     {{$processedShipping->count() + $shippedShipping->count() +  $shippedNotProcessed->count()  }}
@@ -403,9 +403,11 @@
                 <div class="col-sm-10">
                     <h6 class="text-dark pl-4 pb-3">Kategori Produk <span class="py-1 badge badge-primary">{{$categories->count()}}</span></h6>
                 </div>
+                @role('Admin')
                 @if($categories->count() >= 6)
                 <div class="col"><a href="{{ url('admin/categories') }}" class="btn btn-round btn-primary px-3 py-0">Lihat Semua</a></div>
                 @endif
+                @endrole
             </div>
             <div class="card-body d-flex justify-content-start mt-0 pt-0">
                 @forelse($categories as $category)
@@ -491,10 +493,11 @@
                     <h4 class="d-inline text-dark">Invoice Terbaru</h4>
                 </div>
                 <div class="col-md-3 pl-4">
+                @role('Admin')
                     @if($orders->count() >= 4)
                     <a href="{{ url('admin/orders') }}" class="btn btn-round btn-primary ml-2 px-3 py-0">Lihat Semua</a>
                     @endif
-
+                @endrole                            
                 </div>
             </div>
             <div class="card-body">
@@ -509,7 +512,12 @@
                             @forelse ($orders->take(4) as $order)
                             <tr>
                                 <td>
+                                    @role('Admin')
                                     <a href="{{ url('admin/orders/'. $order->id) }}">{{ $order->kode }}</a><br>
+                                    @endrole
+                                    @role('Owner') 
+                                    <span href="{{ url('admin/orders/'. $order->id) }}">{{ $order->kode }}</span><br>
+                                     @endrole   
                                     <span style=" font-size: 12px; font-weight: normal" class="text-capitalize"> {{$order->nama_depan_konsumen}} {{$order->nama_belakang_konsumen}}</span>
                                 </td>
                                 <td>
