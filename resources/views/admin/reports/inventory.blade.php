@@ -28,7 +28,7 @@
                     {!! Form::close() !!}
                     <table class="table table-bordered table-striped">
                         <thead>
-                            <th>ID Barang</th>
+                            <th>Kode Barang</th>
                             <th>Nama Barang</th>
                             <th>Stok</th>
                         </thead>

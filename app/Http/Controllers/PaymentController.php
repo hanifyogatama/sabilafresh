@@ -129,7 +129,7 @@ class PaymentController extends Controller
         $code = $request->query('order_id');
         $order = Pemesanan::where('kode', $code)->firstOrFail();
 
-        \Session::flash('error', "Sorry, we couldn't process your payment.");
+        \Session::flash('error', "maaf,proses pembayaran gagal");
 
         return redirect('orders/received/' . $order->id);
     }
@@ -140,7 +140,7 @@ class PaymentController extends Controller
         $code = $request->query('order_id');
         $order = Pemesanan::where('kode', $code)->firstOrFail();
 
-        \Session::flash('error', "Sorry, we couldn't process your payment.");
+        \Session::flash('error', "maaf,proses pembayaran tidak bisa dilanjutkan");
 
         return redirect('orders/received/' . $order->id);
     }

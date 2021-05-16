@@ -26,5 +26,14 @@ class ProductImageRequest extends FormRequest
         return [
             'image' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
         ];
+   
+    }
+
+    public function messages()
+    {
+        return [
+            'image.required'         => 'gambar belum diisi',
+            'image.image'           => 'cek kembali format file',
+        ];
     }
 }

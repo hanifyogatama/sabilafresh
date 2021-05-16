@@ -29,8 +29,8 @@ class HomeController extends Controller
     {
         $products = Produk::active();
 
-        // $products = Produk::popular()->get();
-        // $this->data['products'] = $products;
+        $popularProducts = Produk::popular()->get();
+        $this->data['popularProducts'] = $popularProducts;
 
         $slides = GambarSlide::active()->orderBy('id', 'ASC')->get();
         $this->data['slides'] = $slides;
@@ -38,9 +38,9 @@ class HomeController extends Controller
         $this->data['categories'] = Kategori::parentCategories()
             ->orderBy('id', 'asc')
             ->get();
-            
-        $this->data['products'] = $products->orderBy('created_at','desc')->get();
-        
+
+        $this->data['products'] = $products->orderBy('created_at', 'desc')->get();
+
         return $this->load_theme('home', $this->data);
     }
 }

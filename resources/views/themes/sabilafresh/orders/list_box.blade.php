@@ -6,7 +6,18 @@
                     <img class="mt-0" src="{{ asset('themes/sabilafresh/assets/img/front/trolley.svg') }}" alt="" width="30px">
                 </div>
                 <div class="col-sm-9 p-0">
-                    <span style="color: #03AC0E; font-weight: 600;">Belanja </span><br>
+                    <span style="color: #03AC0E; font-weight: 600;">Belanja </span>
+                    @php
+                    $orderDate = date_create($order->tanggal_pemesanan);
+                    $dueDate = date_create();
+                    $diff = date_diff($orderDate, $dueDate);
+                    $newDiff = $diff->d;
+                    @endphp
+
+                    @if($newDiff >= 1 && $order->status_pembayaran == 'unpaid')
+                    <span class="text-danger"> | Transaksi expired</span>
+                    @endif
+                    <br>
                     <span class="" style="font-size: 12px; font-weight: normal"> {{date('d F Y', strtotime($order->tanggal_pemesanan))}}</span>
                 </div>
 
@@ -15,6 +26,8 @@
                     <span class="text-capitalize font-weight-bold border border-info rounded text-info px-2 py-1">{{ $order->status }}</span>
                     @elseif($order->status == 'completed' )
                     <span class="text-capitalize text-success font-weight-bold border border-success rounded text-white px-2 py-1">{{ $order->status }}</span>
+                    @elseif($order->status == 'confirmed' )
+                    <span class="text-capitalize text-warning font-weight-bold border border-warning rounded text-white px-2 py-1">{{ $order->status }}</span>
                     @else
                     <span class="text-capitalize text-danger font-weight-bold border border-danger rounded text-white px-2 py-1">{{ $order->status }}</span>
                     @endif
@@ -24,6 +37,7 @@
             <hr />
             <div class="row">
                 <div class="col-sm-10">
+                    <span class="small text-capitalize text-dark" style="font-weight: 600; ">{{ $order->kode }}</span>
                     @foreach ($order->itemPemesanan->take(1) as $item)
                     <div class="row mt-2">
                         <div class="col-md-1">

@@ -38,15 +38,14 @@
 <body>
     <h2>Laporan Produk</h2>
     <hr>
-    <p>Period : {{ \General::datetimeFormat($startDate, 'd M Y') }} - {{ \General::datetimeFormat($endDate, 'd M Y') }}</p>
+    <p>Tanggal : {{ \General::datetimeFormat($startDate, 'd M Y') }} - {{ \General::datetimeFormat($endDate, 'd M Y') }}</p>
     <table>
         <thead>
             <tr>
+                <th>Kode Barang</th>
                 <th>Nama Produk</th>
-                <th>SKU</th>
-                <th>Items Sold</th>
-                <th>Net Revenue</th>
-                <th>Orders</th>
+                <th>Produk Terjual</th>
+                <th>Pendapatan</th>
                 <th>Stock</th>
             </tr>
         </thead>
@@ -56,11 +55,10 @@
             @endphp
             @foreach ($products as $product)
             <tr>
-                <td>{{ $product->nama_produk }}</td>
                 <td>{{ $product->sku }}</td>
+                <td>{{ $product->nama_produk }}</td>
                 <td>{{ $product->items_sold }}</td>
                 <td>{{ \General::priceFormat($product->net_revenue) }}</td>
-                <td>{{ $product->num_of_orders }}</td>
                 <td>{{ $product->stock }}</td>
             </tr>
 
@@ -73,7 +71,6 @@
                 <td>&nbsp;</td>
                 <td>&nbsp;</td>
                 <td>{{ \General::priceFormat($totalNetRevenue) }}</td>
-                <td>&nbsp;</td>
                 <td>&nbsp;</td>
             </tr>
         </tbody>

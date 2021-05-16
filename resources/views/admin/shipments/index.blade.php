@@ -10,19 +10,18 @@
 </div>
 
 <div class="content">
-    <div class="row">
+    <div class="row ">
         <div class="col-lg-12">
             <div class="card card-default">
                 <div class="card-body">
                     @include('admin.partials.flash')
                     <table class="table table-bordered table-stripped">
                         <thead>
-                            <th>Id Pemesanan</th>
-                            <th>Nama</th>
-                            <th>Status</th>
-                            <th>Total Qty</th>
-                            <th>Berat Total (gram)</th>
-                            <th>Action</th>
+                            <th>Kode Pemesanan</th>
+                            <th>Status Pemesanan</th>
+                            <th>Tujuan</th>
+                            <th>Status Pengiriman</th>
+                            <th>Total (gram)</th>
                         </thead>
                         <tbody>
                             @forelse ($shipments as $shipment)
@@ -31,21 +30,40 @@
                                     {{ $shipment->pemesanan->kode }}<br>
                                     <span style="font-size: 12px; font-weight: normal"> {{\General::datetimeFormat($shipment->pemesanan->tanggal_pemesanan)}}</span>
                                 </td>
-                                <td>{{ $shipment->pemesanan->nama_depan_konsumen }} {{ $shipment->pemesanan->nama_belakang_konsumen }}</td>
+
                                 <td>
+                                    @if($shipment->pemesanan->status == 'cancelled')
+                                    {{ $shipment->pemesanan->status }}
+                                    <br>
+                                    <span style="font-size: 12px; font-weight: normal">
+                                        {{\General::datetimeFormat($shipment->pemesanan->cancelled_at)}}
+                                    </span>
+                                    @elseif($shipment->pemesanan->status == 'completed')
+                                    {{ $shipment->pemesanan->status }}
+                                    <br>
+                                    <span style="font-size: 12px; font-weight: normal">
+                                        {{\General::datetimeFormat($shipment->pemesanan->approved_at)}}
+                                    </span>
+                                    @else
+                                    {{ $shipment->pemesanan->status }}
+                                    @endif
+                                </td>
+
+                                <td>{{ $shipment->nama_depan }} {{ $shipment->nama_belakang }}</td>
+
+                                <td>
+                                    @if($shipment->pemesanan->status == 'cancelled')
+                                    <span>{{ $shipment->status }}</span>
+                                    @else
                                     {{ $shipment->status }}
                                     <br>
                                     <span style="font-size: 12px; font-weight: normal">
                                         {{\General::datetimeFormat($shipment->shipped_at)}}
                                     </span>
+                                    @endif
                                 </td>
-                                <td>{{ $shipment->total_qty }}</td>
-                                <td>{{ \General::priceFormat($shipment->total_berat) }}</td>
-                                <td>
-                                    @can('edit_orders')
-                                    <!-- <a href="{{ url('admin/orders/'. $shipment->pemesanan->id) }}" class="btn btn-info btn-sm">show</a> -->
-                                    @endcan
-                                </td>
+
+                                <td>{{ $shipment->total_berat }}</td>
                             </tr>
                             @empty
                             <tr>

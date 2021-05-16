@@ -1,11 +1,11 @@
 <table>
     <thead>
         <tr>
-            <th>No Pemesanan</th>
-            <th>Date</th>
+            <th>Kode Pemesanan</th>
+            <th>Tanggal</th>
             <th>Status</th>
-            <th>Amount</th>
-            <th>Gateway</th>
+            <th>Jumlah</th>
+            <th>Layanan</th>
             <th>Tipe Pembayaran</th>
 
         </tr>

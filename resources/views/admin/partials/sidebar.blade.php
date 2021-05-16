@@ -38,7 +38,7 @@
                 <a href="#" class="nav-link has-dropdown"><i class="fas fa-shopping-cart"></i> <span>Cek Pemesanan</span></a>
                 <ul class="dropdown-menu">
                     <li><a href="{{ url('admin/orders')}}">Pemesanan</a></li>
-                    <!-- <li><a href="{{ url('admin/shipments')}}">Pengiriman</a></li> -->
+                    <li><a href="{{ url('admin/shipments')}}">Pengiriman</a></li>
                 </ul>
             </li>
             @endrole

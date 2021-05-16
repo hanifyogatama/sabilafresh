@@ -19,11 +19,15 @@
             <div class="card card-default">
 
                 <div class="card-body">
-                    @include('admin.partials.flash', ['$errors' => $errors])
+                    <!-- @include('admin.partials.flash', ['$errors' => $errors]) -->
+
                     {!! Form::open(['url' => ['admin/products/images', $product->id], 'method' => 'POST', 'enctype' => 'multipart/form-data']) !!}
                     <div class="form-group">
-                        {!! Form::label('image', 'Produk Gambar') !!}
+                        {!! Form::label('image', 'Produk Gambar (format: jpeg,png,jpg, max 2Mb)') !!}
                         {!! Form::file('image', ['class' => 'form-control-file', 'placeholder' => 'produk gambar']) !!}
+                        @error('image')
+                        <small style="font-weight: 600;" class="text-danger">{{ $message }}</small>
+                        @enderror
                     </div>
                     <div class="form-footer pt-5 border-top ">
                         <a href="{{ url('admin/products/'.$productID.'/images') }}" class="btn btn-secondary btn-default">Kembali</a>

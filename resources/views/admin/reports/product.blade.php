@@ -19,12 +19,11 @@
                     @include('admin.reports.filter')
                     <table class="table table-bordered table-striped">
                         <thead>
-                            <th>Nama</th>
-                            <th>ID Barang</th>
+                            <th>Kode Barang</th>
+                            <th>Nama Produk</th>
                             <th>Produk Terjual</th>
-                            <th>Net Revenue</th>
-                            <th>Orders</th>
-                            <th>Stock</th>
+                            <th>Pendapatan</th>
+                            <th>Stok</th>
                         </thead>
                         <tbody>
                             @php
@@ -32,11 +31,10 @@
                             @endphp
                             @forelse ($products as $product)
                             <tr>
-                                <td>{{ $product->nama_produk }}</td>
                                 <td>{{ $product->sku }}</td>
+                                <td>{{ $product->nama_produk }}</td>
                                 <td>{{ $product->items_sold }}</td>
-                                <td>{{ \General::priceFormat($product->net_revenue) }}</td>
-                                <td>{{ $product->num_of_orders }}</td>
+                                <td>Rp {{ \General::priceFormat($product->net_revenue) }}</td>
                                 <td>{{ $product->stock }}</td>
                             </tr>
 
@@ -54,7 +52,7 @@
                                 <td>&nbsp;</td>
                                 <td>&nbsp;</td>
                                 <td>&nbsp;</td>
-                                <td>{{ \General::priceFormat($totalNetRevenue) }}</td>
+                                <td>Rp {{ \General::priceFormat($totalNetRevenue) }}</td>
                                 <td>&nbsp;</td>
                                 <td>&nbsp;</td>
                             </tr>

@@ -41,7 +41,7 @@
     <table>
         <thead>
             <tr>
-                <th>No Produk</th>
+                <th>Kode Produk</th>
                 <th>Nama</th>
                 <th>Stok</th>
             </tr>

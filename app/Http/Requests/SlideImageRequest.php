@@ -34,4 +34,13 @@ class SlideImageRequest extends FormRequest
 
         return $rules;
     }
+
+    public function messages()
+    {
+        return [
+            'image.required'         => 'gambar belum diisi',
+            'image.image'           => 'cek kembali format file',
+            'status.required'       => 'status belum dipilih',
+        ];
+    }
 }

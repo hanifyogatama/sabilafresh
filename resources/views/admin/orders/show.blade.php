@@ -5,12 +5,31 @@
 <div class="section-header">
     <h1>{{ $order->kode }}</h1>
     <div class="section-header-breadcrumb">
-
     </div>
 </div>
 
 <div class="content">
-    <div class="invoice-wrapper rounded bg-white py-5 px-3 px-md-4 px-lg-5">
+    <div class="invoice-wrapper shadow-sm rounded bg-white py-5 px-3 px-md-4 px-lg-5">
+        <div class="row mb-1">
+            <div class="col-md-12 d-flex flex-row-reverse ">
+
+                @if($order->status == 'completed' )
+                <span class=" border border-success rounded p-1 mb-3 font-weight-bold text-success">{{$order->status}} </span>
+                @elseif($order->status == 'created' )
+                <span class=" border border-info rounded p-1 mb-3 font-weight-bold text-info">{{$order->status}} </span>
+                @elseif($order->status == 'confirmed' )
+                <span class=" border border-warning rounded p-1 mb-3 font-weight-bold text-warning">{{$order->status}} </span>
+                @elseif($order->status == 'cancelled' )
+                <span class=" border border-danger rounded p-1 mb-3 font-weight-bold text-danger">{{$order->status}} : {{ $order->isCancelled() ? ''. \General::datetimeFormat($order->cancelled_at) .'' : null}} </span>
+                @else
+                <span class=" border border-dark rounded p-1 mb-3 font-weight-bold text-dark">{{$order->status}} </span>
+                @endif
+
+
+            </div>
+        </div>
+
+
         <div class="row border rounded px-3 py-3 mx-0">
             <div class="col-md-12 p-0 ">
                 <p class="text-dark mb-2" style="font-weight: bold; font-size:16px; text-transform: capitalize;">Detail Pemesan</p>
@@ -40,10 +59,31 @@
                         <div class="col-sm-7 text-left text-danger text-capitalize"> {{ \General::datetimeFormat($order->batas_pembayaran) }}</div>
                     </div>
 
+                    @php
+                    $orderDate = date_create($order->tanggal_pemesanan);
+                    $dueDate = date_create();
+                    $dateDiff = date_diff($orderDate,$dueDate);
+                    $diff = $dateDiff->d;
+                    @endphp
+
+
                     <div class="row pt-2">
                         <div class="col-sm-5">Status Pembayaran</div>
+                        @if($order->status_pembayaran == 'paid')
                         <div class="col-sm-7 text-left text-success font-weight-bold text-capitalize"> {{ $order->status_pembayaran }}</div>
+                        @elseif($diff <= 1 && $order->status_pembayaran == 'unpaid')
+                            <div class="col-sm-7 text-left text-danger font-weight-bold text-capitalize"> {{ $order->status_pembayaran }}</div>
+                            @elseif($diff >= 1 && $order->status_pembayaran == 'unpaid')
+                            <div class="col-sm-7 text-left"><span id="expired" class="font-weight-bold text-danger text-capitalize">Transaksi expired</span></div>
+                            @endif
                     </div>
+
+                    @if ($order->isCancelled())
+                    <div class="row pt-2">
+                        <div class="col-sm-5">Catatan Pembatalan</div>
+                        <div class="col-sm-7 text-left text-dark text-capitalize"> {{ $order->catatan_pembatalan}}</div>
+                    </div>
+                    @endif
                 </address>
             </div>
         </div>
@@ -136,12 +176,14 @@
 
                 @if (!$order->trashed())
                 @if ($order->isPaid() && $order->isConfirmed())
-                <a href="{{ url('admin/shipments/'. $order->pengiriman->id .'/edit')}}" class="btn btn-block mt-2 btn-lg btn-primary btn-pill"> Proses</a>
+                <a href="{{ url('admin/shipments/'. $order->pengiriman->id .'/edit')}}" class="btn btn-block mt-2 btn-lg btn-primary btn-pill"> Proses Pengiriman</a>
                 @endif
 
                 @if (in_array($order->status, [\App\Models\Pemesanan::CREATED, \App\Models\Pemesanan::CONFIRMED]))
-                <a href="{{ url('admin/orders/'. $order->id .'/cancel')}}" class="btn btn-block mt-2 btn-lg btn-warning btn-pill"> Cancel</a>
+                <a href="{{ url('admin/orders/'. $order->id .'/cancel')}}" class="btn btn-block mt-2 btn-lg btn-warning btn-pill"> Batal Pemesanan</a>
                 @endif
+
+
 
                 @if ($order->isDelivered())
                 <a href="#" class="btn btn-block mt-2 btn-lg btn-success btn-pill" onclick="event.preventDefault();
@@ -152,19 +194,19 @@
                 @endif
 
                 @if (!in_array($order->status, [\App\Models\Pemesanan::DELIVERED, \App\Models\Pemesanan::COMPLETED]))
-                <!-- <a href="#" class="btn btn-block mt-2 btn-lg btn-secondary btn-pill delete" order-id="{{ $order->id }}"> Remove</a> -->
+                <!-- <a href="#" class="btn btn-block mt-2 btn-lg btn-danger btn-pill delete" order-id="{{ $order->id }}"> Hapus Pesanan</a>
 
                 {!! Form::open(['url' => 'admin/orders/'. $order->id, 'class' => 'delete', 'id' => 'delete-form-'. $order->id, 'style' => 'display:none']) !!}
                 {!! Form::hidden('_method', 'DELETE') !!}
-                {!! Form::close() !!}
+                {!! Form::close() !!} -->
                 @endif
                 @else
-                <!-- <a href="{{ url('admin/orders/restore/'. $order->id)}}" class="btn btn-block mt-2 btn-lg btn-outline-secondary btn-pill restore"> Restore</a>
-                <a href="#" class="btn btn-block mt-2 btn-lg btn-danger btn-pill delete" order-id="{{ $order->id }}"> Remove Permanently</a> -->
+
+                <!-- <a href="#" class="btn btn-block mt-2 btn-lg btn-danger btn-pill delete" order-id="{{ $order->id }}"> Remove Permanently</a>
 
                 {!! Form::open(['url' => 'admin/orders/'. $order->id, 'class' => 'delete', 'id' => 'delete-form-'. $order->id, 'style' => 'display:none']) !!}
                 {!! Form::hidden('_method', 'DELETE') !!}
-                {!! Form::close() !!}
+                {!! Form::close() !!} -->
                 @endif
             </div>
         </div>

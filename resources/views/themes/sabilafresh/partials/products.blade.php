@@ -8,7 +8,7 @@
                         @if ($product->gambarProduk->first())
                         <img src="{{ asset('storage/'.$product->gambarProduk->first()->gambar_medium) }}" alt="{{ $product->nama }}">
                         @else
-                        <img src="{{ asset('themes/sabilafarm/assets/img/product/fashion-colorful/1.jpg') }}" alt="{{ $product->nama }}">
+                        <img src="{{ asset('themes/sabilafresh/assets/img/front/no_image.png') }}" alt="{{ $product->nama }}">
                         @endif
                     </a>
 
@@ -40,7 +40,7 @@
         @empty
         <div class="col">
             <div class="row mx-auto">
-                <img class="mx-auto" src="{{ asset('themes/sabilafresh/assets/img/front/empty-box.svg') }}" alt="" width="250px">
+                <img class="mx-auto" src="{{ asset('themes/sabilafresh/assets/img/front/empty-box.svg') }}" alt="" width="150px">
             </div>
             <div class="row mt-2">
                 <p class="mx-auto" style="font-weight: 400;">Produk kosong atau tidak ditemukan</p>

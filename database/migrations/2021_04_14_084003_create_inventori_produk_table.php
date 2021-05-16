@@ -16,7 +16,6 @@ class CreateInventoriProdukTable extends Migration
         Schema::create('inventori_produk', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->unsignedBigInteger('produk_id');
-            
             $table->integer('qty');
             $table->timestamps();
 

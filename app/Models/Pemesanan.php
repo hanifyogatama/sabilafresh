@@ -52,6 +52,7 @@ class Pemesanan extends Model
 
     public const PAID   = 'paid';
     public const UNPAID = 'unpaid';
+    public const EXPAIRED = 'expired';
 
     public const STATUSES = [
         self::CREATED   => 'Created',
@@ -97,7 +98,7 @@ class Pemesanan extends Model
 
         $lastOrderCode = !empty($lastOrder) ? $lastOrder['kode_akhir'] : null;
 
-        $orderCode = $dateCode . '00001';
+        $orderCode = $dateCode . '00002';
         if ($lastOrderCode) {
             $lastOrderNumber = str_replace($dateCode, '', $lastOrderCode);
             $nextOrderNumber = sprintf('%05d', (int)$lastOrderNumber + 1);
@@ -151,4 +152,6 @@ class Pemesanan extends Model
 	{
 		return "{$this->nama_depan_konsumen} {$this->nama_belakang_konsumen }";
 	}
+
+    
 }

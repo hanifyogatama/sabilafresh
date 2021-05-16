@@ -62,7 +62,6 @@
     <script src="{{ URL::asset('admin/assets/modules/summernote/summernote-bs4.js') }}"></script>
     <script src="{{ URL::asset('admin/assets/modules/chocolat/dist/js/jquery.chocolat.min.js') }}"></script>
 
-
     <!-- Page Specific JS File -->
     <script src="{{ URL::asset('admin/assets/js/page/index.js') }}"></script>
     <script src="{{ URL::asset('admin/assets/js/page/bootstrap-modal.js') }}"></script>
@@ -71,7 +70,7 @@
     <script src="{{ URL::asset('admin/assets/js/scripts.js') }}"></script>
     <script src="{{ URL::asset('admin/assets/js/custom.js') }}"></script>
 
-
+    
 
     @if(Session::has('success-add'))
     <script>

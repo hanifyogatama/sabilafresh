@@ -18,7 +18,7 @@
                     @include('admin.reports.filter')
                     <table class="table table-bordered table-striped">
                         <thead>
-                            <th>ID Pemesanan</th>
+                            <th>Kode Pemesanan</th>
                             <th>Tanggal</th>
                             <th>Status</th>
                             <th>Jumlah</th>
@@ -31,13 +31,12 @@
                                 <td>{{ $payment->kode }}</td>
                                 <td>{{ \General::datetimeFormat($payment->created_at) }}</td>
                                 <td>{{ $payment->status }}</td>
-                                <td>{{ \General::priceFormat($payment->jumlah) }}</td>
+                                <td>Rp {{ \General::priceFormat($payment->jumlah) }}</td>
                                 <td>{{ $payment->tipe_pembayaran }}</td>
-
                             </tr>
                             @empty
                             <tr>
-                                <td colspan="8">No records found</td>
+                                <td colspan="8">Data tidak tersedia</td>
                             </tr>
                             @endforelse
                         </tbody>

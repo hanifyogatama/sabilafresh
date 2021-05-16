@@ -10,7 +10,7 @@
 
 		{!! Form::model($user, ['url' => 'orders/checkout']) !!}
 		<div class="row">
-			<div class="col-lg-6 col-md-12 col-12 pt-30">
+			<div class="col-lg-7 col-md-12 col-12 pt-30">
 				<div class="checkbox-form">
 					<h5 style="font-weight: 600;">Checkout</h5>
 					<h6 class="pt-15 " style="font-weight: 600;">Alamat Pengiriman</h6>
@@ -155,53 +155,28 @@
 					</div>
 				</div>
 			</div>
-			<div class="col-lg-6 col-md-12 col-12">
-				<div class="your-order">
-					<h3>Ringkasan Belanja</h3>
+			<div class="col-lg-5 col-md-12 col-12 pt-70 ">
+				<div class="px-4 py-4 rounded-lg shadow bg-white">
+					<h6 class="pt-15 " style="font-weight: 600;">Ringkasan belanja</h6>
 					<div class="your-order-table table-responsive">
 						<table>
-							<thead>
-								<tr>
-									<th class="product-name">Produk</th>
-									<th class="product-total">Total</th>
-								</tr>
-							</thead>
-							<tbody>
-								@forelse ($items as $item)
-								@php
-								$product = isset($item->associatedModel->parent) ? $item->associatedModel->parent : $item->associatedModel;
-								$image = !empty($product->gambarProduk->first()) ? asset('storage/'.$product->gambarProduk->first()->path) : asset('themes/ezone/assets/img/cart/3.jpg')
-								@endphp
-								<tr class="cart_item">
-									<td class="product-name">
-										{{ $item->name }} <strong class="product-quantity"> × {{ $item->quantity }}</strong>
-									</td>
-									<td class="product-total">
-										<span class="amount">{{ number_format(\Cart::get($item->id)->getPriceSum()) }}</span>
-									</td>
-								</tr>
-								@empty
-								<tr>
-									<td colspan="2">The cart is empty! </td>
-								</tr>
-								@endforelse
-							</tbody>
+							
 							<tfoot>
 								<tr class="cart-subtotal">
-									<th>Subtotal</th>
-									<td><span class="amount">{{ number_format(\Cart::getSubTotal()) }}</span></td>
+									<th>Total Harga ({{\Cart::getTotalQuantity()}} barang) </th>
+									<td><span class="amount">Rp {{ number_format(\Cart::getSubTotal()) }}</span></td>
 								</tr>
 								<tr class="cart-subtotal">
 									<th>Pajak</th>
-									<td><span class="amount">{{ number_format(\Cart::getCondition('TAX 0%')->getCalculatedValue(\Cart::getSubTotal())) }}</span></td>
+									<td><span class="amount">Rp {{ number_format(\Cart::getCondition('TAX 0%')->getCalculatedValue(\Cart::getSubTotal())) }}</span></td>
 								</tr>
 								<tr class="cart-subtotal">
-									<th>Biaya pengiriman ({{ $totalWeight }} kg)</th>
+									<th>Biaya pengiriman</th>
 									<td><select id="shipping-cost-option" required name="layanan_kurir"></select></td>
 								</tr>
 								<tr class="order-total">
-									<th> Total</th>
-									<td><strong><span class="total-amount">{{ number_format(\Cart::getTotal()) }}</span></strong>
+									<th class="text-dark"> Total Harga</th>
+									<td><strong class="text-dark">Rp <span class="total-amount text-dark"> {{ number_format(\Cart::getTotal()) }}</span></strong>
 									</td>
 								</tr>
 							</tfoot>
@@ -209,9 +184,8 @@
 					</div>
 					<div class="payment-method">
 						<div class="payment-accordion">
-
-							<div class="order-button-payment">
-								<input type="submit" value="Lanjut" />
+							<div class="mt-0">
+								<input type="submit" class="btn btn-light-green text-capitalize font-weight-bold" value="Lanjut" />
 							</div>
 						</div>
 					</div>

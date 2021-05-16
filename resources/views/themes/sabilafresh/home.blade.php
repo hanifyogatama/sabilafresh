@@ -4,7 +4,6 @@
 @include('themes.sabilafresh.partials.slider')
 @include('themes.sabilafresh.partials.category_products')
 
-
 @include('themes.sabilafresh.partials.popular_products')
 
 <div class="pl-2 mx-4 pr-2 ">

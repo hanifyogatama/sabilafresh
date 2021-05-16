@@ -38,15 +38,15 @@
 <body>
     <h2>Laporan Pembayaran</h2>
     <hr>
-    <p>Period : {{ \General::datetimeFormat($startDate, 'd M Y') }} - {{ \General::datetimeFormat($endDate, 'd M Y') }}</p>
+    <p>Tanggal : {{ \General::datetimeFormat($startDate, 'd M Y') }} - {{ \General::datetimeFormat($endDate, 'd M Y') }}</p>
     <table>
         <thead>
             <tr>
-                <th>No Pemesanan</th>
+                <th>Kode Pemesanan</th>
                 <th>Tanggal</th>
                 <th>Status</th>
                 <th>Jumlah</th>
-                <th>Gateway</th>
+                <th>Layanan</th>
                 <th>Tipe Pembayaran</th>
             </tr>
         </thead>

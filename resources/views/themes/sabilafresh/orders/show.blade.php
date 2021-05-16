@@ -21,8 +21,14 @@
                                 Status <br /> <span class="font-weight-bold text-capitalize">
                                     @if($order->status == 'completed' )
                                     <span class="font-weight-bold text-success text-capitalize">{{ $order->status }}</span>
+                                    <br>
+                                    <span style="font-size: 12px; font-weight: normal">
+                                        {{\General::datetimeFormat($order->approved_at)}}
+                                    </span>
                                     @elseif($order->status == 'created' )
                                     <span class="font-weight-bold text-info text-capitalize">{{ $order->status }}</span>
+                                    @elseif($order->status == 'confirmed' )
+                                    <span class="font-weight-bold text-warning text-capitalize">{{ $order->status }}</span>
                                     @else
                                     <span class="font-weight-bold text-danger text-capitalize">{{ $order->status }}</span>
                                     @endif
@@ -40,15 +46,27 @@
                                 <hr class="my-3" />
                                 @endif
 
+                                @php
+                                $orderDate = date_create($order->tanggal_pemesanan);
+                                $dueDate = date_create();
+                                $diff = date_diff($orderDate, $dueDate);
+                                $newDiff = $diff->d;
+                                @endphp
+
+
+
                                 Status Pembayaran
                                 @if($order->status_pembayaran == 'paid' )
                                 <span class="font-weight-bold text-success text-capitalize float-right">{{ $order->status_pembayaran }}</span>
-                                @else
-                                <span class="font-weight-bold text-danger text-capitalize float-right">{{ $order->status_pembayaran }}</span>
-                                @endif
-                                <hr class="my-3" />
-                                <span class="font-weight-bold" style="color: #03AC0E;">{{ $order->kode }}</span>
-                                <a href="{{ url('orders/received/'. $order->id) }}" class="float-right px-4 py-2 badge badge-success">Lihat</a>
+                                @elseif($newDiff < 1 && $order->status_pembayaran == 'unpaid')
+                                    <span class="font-weight-bold text-danger text-capitalize float-right">{{ $order->status_pembayaran }}</span>
+                                    @elseif($newDiff >= 1 && $order->status_pembayaran == 'unpaid')
+                                    <span id="expired" class="font-weight-bold text-danger text-capitalize float-right">Transaksi expired</span>
+                                    @endif
+
+                                    <hr class="my-3" />
+                                    <span class="font-weight-bold" style="color: #03AC0E;">{{ $order->kode }}</span>
+                                    <a href="{{ url('orders/received/'. $order->id) }}" class="float-right px-4 py-2 badge badge-success">Lihat</a>
 
                             </address>
                         </div>
@@ -116,6 +134,24 @@
                             <div class="row pt-3">
                                 <div class="col-sm-6">Alamat Pengiriman</div>
                                 <div class="col-sm-6 text-left text-dark text-capitalize">{{$order->pengiriman->nama_depan}} {{$order->pengiriman->nama_belakang}}<br>{{$order->pengiriman->no_hp}}<br>{{$order->pengiriman->alamat}}<br>{{$order->pengiriman->kodepos}}</div>
+                            </div>
+                            <div class="row pt-3">
+                                <div class="col-sm-6">Status Pengiriman</div>
+                                <div class="col-sm-6 text-left text-dark text-capitalize">
+                                    @if($order->pengiriman->status == 'shipped' )
+                                    <span class="font-weight-bold text-success text-capitalize">{{ $order->pengiriman->status }}</span>
+                                    <br>
+                                    <span style="font-size: 12px; font-weight: normal">
+                                        {{\General::datetimeFormat($order->pengiriman->shipped_at)}}
+                                    </span>
+                                    @elseif($order->pengiriman->status == 'pending' )
+                                    <span class="font-weight-bold text-info text-capitalize">{{ $order->pengiriman->status }}</span>
+                                    @else
+                                    <span class="font-weight-bold text-danger text-capitalize">{{ $order->pengiriman->status }}</span>
+                                    @endif
+
+
+                                </div>
                             </div>
 
                         </address>

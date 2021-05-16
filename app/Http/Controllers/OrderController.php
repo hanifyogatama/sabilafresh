@@ -406,7 +406,7 @@ class OrderController extends Controller
         $shipmentParams = [
             'user_id' => \Auth::user()->id,
             'pemesanan_id' => $order->id,
-            'status' => Pengiriman::PENDING,
+            'status' => Pengiriman::PROCESSED,
             'total_qty' => \Cart::getTotalQuantity(),
             'total_berat' => $this->_getTotalWeight(),
             'nama_depan' => $shippingFirstName,
@@ -424,10 +424,10 @@ class OrderController extends Controller
 
     private function _sendEmailOrderReceived($order)
     {
-        // $message = new \App\Mail\OrderReceived($order);
-        // \Mail::to(\Auth::user()->email)->send($message);
+        $message = new \App\Mail\OrderReceived($order);
+        \Mail::to(\Auth::user()->email)->send($message);
 
-        \App\Jobs\SendMailOrderReceived::dispatch($order, \Auth::user());
+        // \App\Jobs\SendMailOrderReceived::dispatch($order, \Auth::user());
     }
 
     public function received($orderId)
@@ -435,9 +435,6 @@ class OrderController extends Controller
         $this->data['order'] = Pemesanan::where('id', $orderId)
             ->where('user_id', \Auth::user()->id)
             ->firstOrFail();
-
-
-
 
         return $this->load_theme('orders/received', $this->data);
     }

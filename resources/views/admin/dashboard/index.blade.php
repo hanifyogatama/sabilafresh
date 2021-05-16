@@ -4,8 +4,8 @@
 <div class="row">
     <div class="col-lg-4 col-md-4 col-sm-12">
         <div class="card card-statistic-2">
-            <div class="card-stats">
-                <div class="card-stats-title mb-0 font-weight-bold">Statistik Penjualan
+            <div class="card-stats pb-1">
+                <div class="card-stats-title mb-0 font-weight-bold text-dark">Statistik Pemesanan
                 </div>
                 <div class="card-stats-items">
                     <div class="card-stats-item">
@@ -23,50 +23,76 @@
                 </div>
             </div>
             <div class="card-icon shadow-primary bg-primary">
-                <i class="fas fa-archive"></i>
+                <i class="fas fa-shopping-bag"></i>
             </div>
             <div class="card-wrap">
                 <div class="card-header">
-                    <h4>Total Pemesanan</h4>
+                    <h4 class="text-dark">Jumlah Pemesanan</h4>
                 </div>
                 <div class="card-body">
-                    {{ $orders->count() }}
+                    {{ $ordersNoCancel->count() }}
                 </div>
             </div>
         </div>
     </div>
     <div class="col-lg-4 col-md-4 col-sm-12">
         <div class="card card-statistic-2">
-            <div class="card-chart">
-                <canvas id="balance-chart" height="80"></canvas>
+            <div class="card-stats pb-1">
+                <div class="card-stats-title mb-0 font-weight-bold text-dark">Statistik Pembayaran
+                </div>
+                <div class="card-stats-items">
+                    <div class="card-stats-item">
+                        <div class="card-stats-item-count">{{ $ordersPaid->count() }}</div>
+                        <div style="font-size: 12px;">Paid</div>
+                    </div>
+                    <div class="card-stats-item">
+                        <div class="card-stats-item-count">{{ $ordersUnpaid->count() }}</div>
+                        <div style="font-size: 12px;">Unpaid</div>
+                    </div>
+                                   </div>
             </div>
             <div class="card-icon shadow-primary bg-primary">
                 <i class="fas fa-dollar-sign"></i>
             </div>
             <div class="card-wrap">
                 <div class="card-header">
-                    <h4>Balance</h4>
+                    <h4 class="text-dark">Jumlah Pembayaran</h4>
                 </div>
                 <div class="card-body">
-                    $187,13
+                {{ $ordersPaid->count() + $ordersUnpaid->count() }}
                 </div>
             </div>
         </div>
     </div>
     <div class="col-lg-4 col-md-4 col-sm-12">
         <div class="card card-statistic-2">
-            <div class="card-chart">
-                <canvas id="sales-chart" height="80"></canvas>
+            <div class="card-stats pb-1">
+                <div class="card-stats-title mb-0 font-weight-bold text-dark">Statistik Pengiriman
+                </div>
+                <div class="card-stats-items">
+                    <div class="card-stats-item">
+                        <div class="card-stats-item-count">{{$processedShipping->count()}}</div>
+                        <div style="font-size: 12px;">Processed</div>
+                    </div>
+                    <div class="card-stats-item">
+                        <div class="card-stats-item-count">{{ $shippedShipping->count() }}</div>
+                        <div style="font-size: 12px;">Shipped</div>
+                    </div>
+                    <div class="card-stats-item">
+                        <div class="card-stats-item-count">{{ $shippedNotProcessed->count() }}</div>
+                        <div style="font-size: 9px;">Not Processed</div>
+                    </div>
+                </div>
             </div>
             <div class="card-icon shadow-primary bg-primary">
-                <i class="fas fa-shopping-bag"></i>
+                <i class="fas fa-shipping-fast"></i>
             </div>
             <div class="card-wrap">
                 <div class="card-header">
-                    <h4>Sales</h4>
+                    <h4 class="text-dark">Jumlah Pengiriman</h4>
                 </div>
                 <div class="card-body">
-                    4,732
+                    {{$processedShipping->count() + $shippedShipping->count() +  $shippedNotProcessed->count()  }}
                 </div>
             </div>
         </div>
@@ -250,7 +276,7 @@
                 </span>
                 <span class="col-md-8" style="font-size: 12px;">
                     <h4 class="text-dark">{{ count($lowInventory) }}</h4>
-                    Jumlah Produk Stok Tipis
+                    Jumlah Produk Stok Minim
                 </span>
             </div>
         </div>
@@ -335,7 +361,7 @@
                         @if ($product->gambarProduk->first())
                         <img src="{{ asset('storage/'.$product->gambarProduk->first()->path) }}" alt="{{ $product->nama }}" width="55" class="mr-3 rounded">
                         @else
-                        <img src="{{ asset('themes/sabilafresh/assets/img/product/fashion-colorful/1.jpg') }}" alt="{{ $product->nama }}" width="55" class="mr-3 rounded">
+                        <img src="{{ asset('themes/sabilafresh/assets/img/front/no_image.png') }}" alt="{{ $product->nama }}" width="55" class="mr-3 rounded">
                         @endif
                         <div class="media-body">
                             <div class="float-right">
@@ -410,7 +436,7 @@
     <div class="col-lg-4">
         <div class="card">
             <div class="card-header">
-                <span class="d-inline text-dark font-weight-bold ">Pelanggan Baru</span>
+                <span class="d-inline text-dark font-weight-bold ">Pelanggan Terbaru</span>
                 <div class="card-header-action">
                     @if($customers->count() >= 4)
                     <div class="col"><a href="{{ url('admin/users') }}" class="btn btn-round btn-primary px-3 py-0 ">Lihat Semua</a></div>
@@ -512,6 +538,7 @@
     </div>
 </div>
 <!-- end list new user -->
+
 @stop
 
 @section('chart')

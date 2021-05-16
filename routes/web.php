@@ -63,27 +63,19 @@ Route::group(
         Route::post('products/images/{productID}', 'ProductController@upload_image')->name('products.upload_image');
         Route::delete('products/images/{imageID}', 'ProductController@remove_image')->name('products.remove_image');
 
-        // Route::resource('attributes', 'AttributeController');
-        // Route::get('attributes/{attributeID}/options', 'AttributeController@options')->name('attributes.options');
-        // Route::get('attributes/{attributeID}/add-option', 'AttributeController@add_option')->name('attributes.add_option');
-        // Route::post('attributes/options/{attributeID}', 'AttributeController@store_option')->name('attributes.store_option');
-        // Route::delete('attributes/options/{optionID}', 'AttributeController@remove_option')->name('attributes.remove_option');
-        // Route::get('attributes/options/{optionID}/edit', 'AttributeController@edit_option')->name('attributes.edit_option');
-        // Route::put('attributes/options/{optionID}', 'AttributeController@update_option')->name('attributes.update_option');
-
         Route::resource('roles', 'RoleController');
         Route::resource('users', 'UserController');
         Route::post('users/{userID}', 'UserController@upload_image')->name('users.upload_image');
 
         Route::resource('profile', 'ProfileController');
 
-        // Route::get('orders/trashed', 'OrderController@trashed');
-        // Route::get('orders/restore/{orderID}', 'OrderController@restore');
+ 
 
         Route::resource('orders', 'OrderController');
         Route::get('orders/{orderID}/cancel', 'OrderController@cancel');
         Route::put('orders/cancel/{orderID}', 'OrderController@doCancel');
         Route::post('orders/complete/{orderID}', 'OrderController@doComplete');
+     
 
         Route::resource('shipments', 'ShipmentController');
 
@@ -95,8 +87,6 @@ Route::group(
         Route::get('reports/inventory', 'ReportController@inventory');
         Route::get('reports/payment', 'ReportController@payment');
         Route::get('reports/customer', 'ReportController@customer');
-
-        // Route::get('guides', 'GuidesController@index');
 
 
     }

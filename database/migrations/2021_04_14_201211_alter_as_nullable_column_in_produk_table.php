@@ -15,7 +15,7 @@ class AlterAsNullableColumnInProdukTable extends Migration
     {
         Schema::table('produk', function (Blueprint $table) {
             $table->decimal('harga', 15, 2)->nullable()->change();
-            $table->decimal('berat', 15, 2)->nullable()->change();
+            $table->integer('berat')->nullable()->change();
             $table->text('deskripsi')->nullable()->change();
             $table->text('detail_deskripsi')->nullable()->change();
             $table->integer('status')->nullable()->change();
@@ -31,7 +31,7 @@ class AlterAsNullableColumnInProdukTable extends Migration
     {
         Schema::table('produk', function (Blueprint $table) {
             $table->decimal('harga', 15, 2)->nullable(false)->change();
-            $table->decimal('berat', 15, 2)->nullable(false)->change();
+            $table->integer('berat')->nullable(false)->change();
             $table->text('deskripsi')->nullable(false)->change();
             $table->text('detail_deskripsi')->nullable(false)->change();
             $table->integer('status')->nulllable(false)->change();

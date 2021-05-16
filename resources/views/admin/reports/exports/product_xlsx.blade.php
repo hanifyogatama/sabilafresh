@@ -1,11 +1,10 @@
 <table>
     <thead>
         <tr>
-            <th>Name</th>
-            <th>SKU</th>
+            <th>Kode Produk</th>
+            <th>Nama Produk</th>
             <th>Items Sold</th>
-            <th>Net Revenue</th>
-            <th>Orders</th>
+            <th>Pendapatan</th>
             <th>Stock</th>
         </tr>
     </thead>
@@ -19,7 +18,7 @@
             <td>{{ $product->sku }}</td>
             <td>{{ $product->items_sold }}</td>
             <td>{{ $product->net_revenue }}</td>
-            <td>{{ $product->num_of_orders }}</td>
+
             <td>{{ $product->stock }}</td>
         </tr>
 
@@ -32,7 +31,7 @@
             <td>&nbsp;</td>
             <td>&nbsp;</td>
             <td>{{ $totalNetRevenue }}</td>
-            <td>&nbsp;</td>
+
             <td>&nbsp;</td>
         </tr>
     </tbody>

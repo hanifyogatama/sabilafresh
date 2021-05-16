@@ -8,8 +8,9 @@ class Pengiriman extends Model
 {
     protected $table = "pengiriman";
 
-    public const PENDING = 'pending';
+    public const PROCESSED = 'processed';
     public const SHIPPED = 'shipped';
+    public const FAILED  = 'failed';
 
     protected $fillable = [
         'user_id',

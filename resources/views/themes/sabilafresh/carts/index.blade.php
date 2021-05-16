@@ -23,7 +23,7 @@
                 </div>
                 @php
                 $product = isset($item->associatedModel->parent) ? $item->associatedModel->parent : $item->associatedModel;
-                $image = !empty($product->gambarProduk->first()) ? asset('storage/'.$product->gambarProduk->first()->path) : asset('themes/sabilafresh/assets/img/cart/3.jpg')
+                $image = !empty($product->gambarProduk->first()) ? asset('storage/'.$product->gambarProduk->first()->path) : asset('themes/sabilafresh/assets/img/front/no_image.png')
                 @endphp
                 <div class="row">
                     <div class="col-md-1 pt-2 ">
@@ -64,16 +64,11 @@
                         </div>
                     </div>
                 </div>
-                <!-- start favorite section -->
-
-                <!-- end favorite section -->
             </div>
 
             <div class="shadow fixed-column rounded-lg ">
                 <h6 class="pl-3 mt-3 mb-3" style="font-weight: 600;">Ringkasan belanja</h6>
-
                 <div class="px-3 row">
-
                     <div class="col-lg-8 " style="font-weight: 500;">Total Harga ({{\Cart::getTotalQuantity()}} barang)</div>
                     <div class="col-lg-4"><span>Rp {{ number_format(\Cart::getSubTotal()) }}</span></div>
                 </div>
@@ -86,15 +81,11 @@
                     <h6 class="col-lg-8" style="font-weight: 600;">Total Harga</h6>
                     {{\Cart::clearCartConditions()}}
                     <div class="col-lg-4">Rp {{ number_format(\Cart::getTotal()) }}</div>
-
                 </div>
 
                 <div class="px-5 row pb-4">
                     <a style="color: white !important; font-size: 16px; font-weight: 500;" class=" mt-5 btn btn-light-green btn-block btn-lg" href="{{url('orders/checkout')}}">Beli ({{\Cart::getTotalQuantity()}}) </a>
-
                 </div>
-
-
             </div>
         </div>
         @else
@@ -108,9 +99,7 @@
                     <a style="color: white !important; font-size: 14px; font-weight: 500;" class="px-5 mx-10 btn btn-light-green btn-lg" href="{{url('/')}}">Mulai Belanja</a>
                 </div>
             </div>
-
         </div>
-
         @endif
         {!! Form::close() !!}
     </div>

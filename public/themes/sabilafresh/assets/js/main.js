@@ -701,4 +701,13 @@
         }
     })
 
+    $(function() {
+        var f = document.getElementById('expired');
+        setInterval(function() {
+            f.style.display = (f.style.display == 'none' ? '' : 'none');
+        }, 500); 
+        
+    });
+
+
 })(jQuery);

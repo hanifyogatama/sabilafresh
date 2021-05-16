@@ -99,7 +99,7 @@
                             </div>
 
                             <div class="form-group">
-                                {!! Form::select('jk', ['pria'=>'Pria','wanita'=>'Wanita'], null, ['class' => 'form-control', 'placeholder' => '-- Pilih --']) !!}
+                                {!! Form::select('jk', ['pria'=>'Pria','wanita'=>'Wanita'], null, ['class' => 'form-control', 'placeholder' => '-- Jenis Kelamin --']) !!}
                                 @error('jk')
                                 <small style="font-weight: 600;" class="text-danger">{{ $message }}</small>
                                 @enderror

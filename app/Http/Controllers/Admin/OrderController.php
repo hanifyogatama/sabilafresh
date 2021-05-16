@@ -147,7 +147,7 @@ class OrderController extends Controller
             }
         );
 
-        \Session::flash('success', 'The order has been cancelled');
+        \Session::flash('success', 'pemesanan berhasil di batalkan');
 
         return redirect('admin/orders');
     }
@@ -167,98 +167,9 @@ class OrderController extends Controller
         $order->approved_at = now();
 
         if ($order->save()) {
-            \Session::flash('success', 'Status pemesanan telah complated');
+            \Session::flash('success', 'Status pemesanan telah selesai');
             return redirect('admin/orders');
         }
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        $order = Pemesanan::withTrashed()->findOrFail($id);
-
-        if ($order->trashed()) {
-            $canDestroy = \DB::transaction(
-                function () use ($order) {
-                    ItemPemesanan::where('pemesanan_id', $order->id)->delete();
-                    $order->pengiriman->delete();
-                    $order->forceDelete();
-
-                    return true;
-                }
-            );
-
-            if ($canDestroy) {
-                \Session::flash('success', 'The order has been removed permanently');
-            } else {
-                \Session::flash('success', 'The order could not be removed permanently');
-            }
-
-            return redirect('admin/orders/trashed');
-        } else {
-            $canDestroy = \DB::transaction(
-                function () use ($order) {
-                    if (!$order->isCancelled()) {
-                        foreach ($order->ItemPemesanan as $item) {
-                            InventoriProduk::increaseStock($item->pemesanan_id, $item->qty);
-                        }
-                    };
-
-                    $order->delete();
-
-                    return true;
-                }
-            );
-
-            if ($canDestroy) {
-                \Session::flash('success', 'The order has been removed');
-            } else {
-                \Session::flash('success', 'The order could not be removed');
-            }
-
-            return redirect('admin/orders');
-        }
-    }
-
-    public function restore($id)
-    {
-        $order = Pemesanan::onlyTrashed()->findOrFail($id);
-
-        $canRestore = \DB::transaction(
-            function () use ($order) {
-                $isOutOfStock = false;
-                if (!$order->isCancelled()) {
-                    foreach ($order->ItemPemesanan as $item) {
-                        try {
-                            InventoriProduk::reduceStock($item->pemesanan_id, $item->qty);
-                        } catch (OutOfStock $e) {
-                            $isOutOfStock = true;
-                            \Session::flash('error', $e->getMessage());
-                        }
-                    }
-                };
-
-                if ($isOutOfStock) {
-                    return false;
-                } else {
-                    return $order->restore();
-                }
-            }
-        );
-
-        if ($canRestore) {
-            \Session::flash('success', 'The order has been restored');
-            return redirect('admin/orders');
-        } else {
-            if (!\Session::has('error')) {
-                \Session::flash('error', 'The order could not be restored');
-            }
-            return redirect('admin/orders/trashed');
-        }
-    }
+    }   
+    
 }

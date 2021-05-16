@@ -14,7 +14,7 @@ class AddPanjangToProdukTable extends Migration
     public function up()
     {
         Schema::table('produk', function (Blueprint $table) {
-            $table->decimal('panjang', 10, 2)->after('tinggi');
+            $table->integer('panjang')->after('tinggi');
         });
     }
 

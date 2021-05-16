@@ -14,10 +14,7 @@ class AddParentIdAndTipeToProdukTable extends Migration
     public function up()
     {
         Schema::table('produk', function (Blueprint $table) {
-            $table->unsignedBigInteger('parent_id')->after('id')->nullable();
             $table->string('tipe')->after('sku');
-
-            $table->foreign('parent_id')->references('id')->on('produk');
         });
     }
 
@@ -29,8 +26,6 @@ class AddParentIdAndTipeToProdukTable extends Migration
     public function down()
     {
         Schema::table('produk', function (Blueprint $table) {
-            $table->dropForeign('produk_parent_id_foreign');
-            $table->dropColumn('parent_id');
             $table->dropColumn('tipe');
         });
     }

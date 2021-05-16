@@ -3,7 +3,7 @@
     @php
     $product = $favorite->produk;
     $product = isset($product->parent) ?: $product;
-    $image = !empty($product->gambarProduk->first()) ? asset('storage/'.$product->gambarProduk->first()->gambar_medium) : asset('themes/sabilafresh/assets/img/cart/3.jpg')
+    $image = !empty($product->gambarProduk->first()) ? asset('storage/'.$product->gambarProduk->first()->gambar_medium) : asset('themes/sabilafresh/assets/img/front/no_image.png')
     @endphp
     @include('themes.sabilafresh.favorites.grid_box')
     @empty

@@ -14,9 +14,9 @@ class AlterColumnInProdukTable extends Migration
     public function up()
     {
         Schema::table('produk', function (Blueprint $table) {
-            $table->decimal('lebar', 10, 2)->nullable()->change();
-            $table->decimal('tinggi', 10, 2)->nullable()->change();
-            $table->decimal('panjang', 10, 2)->nullable()->change();
+            $table->integer('lebar')->nullable()->change();
+            $table->integer('tinggi')->nullable()->change();
+            $table->integer('panjang')->nullable()->change();
         });
     }
 
@@ -28,9 +28,9 @@ class AlterColumnInProdukTable extends Migration
     public function down()
     {
         Schema::table('produk', function (Blueprint $table) {
-            $table->decimal('lebar', 10, 2)->nullable(false)->change();
-            $table->decimal('tinggi', 10, 2)->nullable(false)->change();
-            $table->decimal('panjang', 10, 2)->nullable(false)->change();
+            $table->integer('lebar')->nullable(false)->change();
+            $table->integer('tinggi')->nullable(false)->change();
+            $table->integer('panjang')->nullable(false)->change();
         });
     }
 }

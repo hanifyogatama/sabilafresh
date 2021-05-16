@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use DB;
 
 class Produk extends Model
 {
@@ -11,7 +12,6 @@ class Produk extends Model
     // protected $primaryKey = 'id_produk';
 
     protected $fillable = [
-        'parent_id',
         'user_id',
         'sku',
         'tipe',
@@ -43,15 +43,15 @@ class Produk extends Model
         return $this->belongsToMany('App\Models\Kategori');
     }
 
-    public function variants()
-    {
-        return $this->hasMany('App\Models\Produk', 'parent_id')->orderBy('harga', 'ASC');
-    }
+    // public function variants()
+    // {
+    //     return $this->hasMany('App\Models\Produk', 'parent_id')->orderBy('harga', 'ASC');
+    // }
 
-    public function parent()
-    {
-        return $this->belongsTo('App\Models\Produk', 'parent_id');
-    }
+    // public function parent()
+    // {
+    //     return $this->belongsTo('App\Models\Produk', 'parent_id');
+    // }
 
     // public function atributProduk()
     // {
@@ -87,13 +87,12 @@ class Produk extends Model
 
     public function scopeActive($query)
     {
-        return $query->where('status', 1)
-            ->where('parent_id', NULL);
+        return $query->where('status', 1);
     }
 
     function price_label()
     {
-        return ($this->variants->count() > 0) ? $this->variants->first()->harga : $this->harga;
+        return  $this->harga;
     }
 
     // public function configurable()
@@ -114,6 +113,31 @@ class Produk extends Model
             $carbonObject->diffForHumans(null, true) . ' yang lalu'
         );
     }
+
+
+    public function scopePopular($query, $limit = 6)
+    {
+        $month = now()->format('m');
+
+        $query->selectRaw('produk.*,COUNT(item_pemesanan.id) as total_terjual')
+            ->join('item_pemesanan', 'item_pemesanan.produk_id', '=', 'produk.id')
+            ->join('pemesanan', 'item_pemesanan.pemesanan_id', '=', 'pemesanan.id')
+            ->whereRaw(
+                'pemesanan.status = :status_pemesanan AND MONTH(pemesanan.tanggal_pemesanan) = :bulan',
+                [
+                    'status_pemesanan' => Pemesanan::COMPLETED,
+                    'bulan' => $month
+                ]
+            )
+            ->groupBy('produk.id')
+            ->orderBy('total_terjual', 'DESC')
+            ->limit($limit);
+
+        return $query;
+    }
+
+
+
 
     protected $guarded = [];
 }

@@ -14,10 +14,10 @@ class AddColumnToGambarProdukTable extends Migration
     public function up()
     {
         Schema::table('gambar_produk', function (Blueprint $table) {
-            $table->string('gambar_xbesar')->nullable()->after('path');
-            $table->string('gambar_besar')->nullable()->after('gambar_xbesar');
+          
+            $table->string('gambar_besar')->nullable()->after('path');
             $table->string('gambar_medium')->nullable()->after('gambar_besar');
-            $table->string('gambar_kecil')->nullable()->after('gambar_medium');
+     
         });
     }
 
@@ -29,10 +29,10 @@ class AddColumnToGambarProdukTable extends Migration
     public function down()
     {
         Schema::table('gambar_produk', function (Blueprint $table) {
-            $table->dropColumn('gambar_xbesar');
+          
             $table->dropColumn('gambar_besar');
             $table->dropColumn('gambar_medium');
-            $table->dropColumn('gambar_kecil');
+           
         });
     }
 }

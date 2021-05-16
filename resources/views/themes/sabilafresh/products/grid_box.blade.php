@@ -2,10 +2,10 @@
     <div class="shadow product-wrapper mb-15 rounded-lg">
         <div class="product-img">
             <a href="{{ url('product/'. $product->slug) }}">
-                @if ($product->gambarProduk->first())
+                @if($product->gambarProduk->first())
                 <img src="{{ asset('storage/'.$product->gambarProduk->first()->gambar_medium) }}" alt="{{ $product->nama }}">
                 @else
-                <img src="{{ asset('themes/sabilafarm/assets/img/product/fashion-colorful/1.jpg') }}" alt="{{ $product->nama }}">
+                <img src="{{ asset('themes/sabilafresh/assets/img/front/no_image.png') }}" alt="{{ $product->nama }}">
                 @endif
             </a>
 
@@ -28,9 +28,7 @@
                 </div>
 
                 <p class="card-text pt-1" style="font-weight:700; color: black; font-size: 14px !important;">Rp {{ number_format($product->price_label()) }}</p>
-
             </div>
         </div>
     </div>
 </div>
-

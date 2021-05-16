@@ -25,9 +25,7 @@ class ShipmentController extends Controller
      */
     public function index()
     {
-        $shipments = Pengiriman::join('pemesanan', 'pengiriman.pemesanan_id', '=', 'pemesanan.id')
-            ->whereRaw('pemesanan.deleted_at IS NULL')
-            ->orderBy('pengiriman.created_at', 'DESC')->paginate(10);
+        $shipments = Pengiriman::orderBy('created_at', 'DESC')->paginate(10);
         $this->data['shipments'] = $shipments;
 
         return view('admin.shipments.index', $this->data);

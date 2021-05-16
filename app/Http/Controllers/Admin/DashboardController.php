@@ -8,6 +8,7 @@ use App\Models\User;
 use App\Models\Produk;
 use App\Models\InventoriProduk;
 use App\Models\Kategori;
+use App\Models\Pengiriman;
 use App\Models\Pemesanan;
 use App\Models\Role;
 use App\Models\Permission;
@@ -82,7 +83,7 @@ class DashboardController extends Controller
         $lowInventory = \DB::select(\DB::raw($sql2));
         $this->data['lowInventory'] = $lowInventory;
 
-        $orders = Pemesanan::where('status','!=','cancelled')->get();
+        $ordersNoCancel = Pemesanan::where('status', '!=', 'cancelled')->get();
         $this->data['orders'] = $orders;
 
         $ordersCreated = Pemesanan::where('status', '=', 'created')->get();
@@ -94,8 +95,22 @@ class DashboardController extends Controller
         $ordersCompleted = Pemesanan::where('status', '=', 'completed')->get();
         $this->data['ordersCompleted'] = $ordersCompleted;
 
+        $ordersPaid = Pemesanan::where('status_pembayaran', '=', 'paid')->get();
+        $this->data['ordersPaid'] = $ordersPaid;
 
-        return view('admin.dashboard.index', compact('admins', 'categories', 'customers', 'product', 'owners', 'products', 'users', 'orders', 'activeProducts', 'nonActiveProducts', 'inventories', 'inventoryProducts', 'lowInventory', 'orders','ordersCreated','ordersConfirmed','ordersCompleted'));
+        $ordersUnpaid = Pemesanan::where('status_pembayaran', '=', 'unpaid')->get();
+        $this->data['ordersUnpaid'] = $ordersUnpaid;
+
+        $processedShipping = Pengiriman::where('status', '=', 'processed')->get();
+        $this->data['processedShipping'] = $processedShipping;
+
+        $shippedShipping = Pengiriman::where('status', '=', 'shipped')->get();
+        $this->data['shippedShipping'] = $shippedShipping;
+
+        $shippedNotProcessed = Pengiriman::where('status', '=', 'not processed')->get();
+        $this->data['shippedNotProcessed'] = $shippedNotProcessed;
+
+        return view('admin.dashboard.index', compact('admins', 'categories', 'customers', 'product', 'owners', 'products', 'users', 'orders', 'activeProducts', 'nonActiveProducts', 'inventories', 'inventoryProducts', 'lowInventory', 'ordersNoCancel', 'ordersCreated', 'ordersConfirmed', 'ordersCompleted', 'ordersUnpaid', 'ordersPaid','processedShipping','shippedShipping','shippedNotProcessed'));
     }
 
     /**

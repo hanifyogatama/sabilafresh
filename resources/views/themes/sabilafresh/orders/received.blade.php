@@ -93,7 +93,7 @@
                                 <hr />
                                 <div class="row pb-2 pt-2">
                                     <div class="col-sm-8">
-                                        <span class="text-dark">{{ $order->layanan_kurir }} </span>
+                                        <span class="text-dark">{{ $order->layanan_kurir }} ({{$order->pengiriman->total_berat+0 }} gr) </span>
                                     </div>
                                     <div class="col-sm-4">
                                         <span class="text-dark">Rp {{ \General::priceFormat($order->biaya_pengiriman) }}</span>
@@ -125,8 +125,18 @@
                             </div>
                         </div>
 
+                        @php
+                        $orderDate = date_create($order->tanggal_pemesanan);
+                        $dueDate = date_create();
+                        $diff = date_diff($orderDate, $dueDate);
+                        $newDiff = $diff->d;
+                        @endphp
 
-                        @if(!$order->isPaid())
+                        @if(!$order->isPaid() && $newDiff >= 1)
+                        <div class="float-right mr-3 mt-3">
+                            <span class="text-danger"> Transaksi expired</span>
+                        </div>
+                        @elseif(!$order->isPaid())
                         <div class="float-right mr-3 mt-3">
                             <a class="btn btn-light-green btn-sm px-3" href="{{ $order->url_pembayaran }}">Bayar</a>
                         </div>

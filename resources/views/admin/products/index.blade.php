@@ -6,7 +6,6 @@
     <div class="section-header-breadcrumb">
         <div class="breadcrumb-item active"> <a href=""><i class="fas fa-box-open"></i> Katalog</a> </div>
         <div class="breadcrumb-item"><a href="{{url('admin/products')}}">Produk</a></div>
-        <!-- <div class="breadcrumb-item">Table</div> -->
     </div>
 </div>
 
@@ -14,9 +13,6 @@
     <div class="row">
         <div class="col-12">
             <div class="card">
-                <!-- <div class="card-header">
-                    <h4>Kategori</h4>
-                </div> -->
                 <div class="card-body">
 
                     @include('admin.partials.flash')

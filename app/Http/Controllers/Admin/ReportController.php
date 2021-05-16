@@ -167,18 +167,18 @@ class ReportController extends Controller
 		$endDate = $request->input('end');
 
 		if ($startDate && !$endDate) {
-			\Session::flash('error', 'The end date is required if the start date is present');
+			\Session::flash('error', 'tanggal akhir belum dipilih');
 			return redirect('admin/reports/payment');
 		}
 
 		if (!$startDate && $endDate) {
-			\Session::flash('error', 'The start date is required if the end date is present');
+			\Session::flash('error', 'tanggal awal belum dipilih');
 			return redirect('admin/reports/payment');
 		}
 
 		if ($startDate && $endDate) {
 			if (strtotime($endDate) < strtotime($startDate)) {
-				\Session::flash('error', 'The end date should be greater or equal than start date');
+				\Session::flash('error', 'tanggal akhir harus lebih besar dari tanggal awal');
 				return redirect('admin/reports/payment');
 			}
 
@@ -187,7 +187,7 @@ class ReportController extends Controller
 			$diff = $later->diff($earlier)->format("%a");
 
 			if ($diff >= 31) {
-				\Session::flash('error', 'The number of days in the date ranges should be lower or equal to 31 days');
+				\Session::flash('error', 'jumlah hari yang dipilih tidak lebih dari 31 hari');
 				return redirect('admin/reports/payment');
 			}
 		} else {

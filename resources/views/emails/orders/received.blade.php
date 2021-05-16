@@ -2,7 +2,7 @@
 # Terimakasih telah berbelanja di Sabilafresh
 
 
-## No Order #{{ $order->kode }} ({{\General::datetimeFormat($order->tanggal_pemesanan)}})
+## NO Invoice #{{ $order->kode }} ({{\General::datetimeFormat($order->tanggal_pemesanan)}})
 
 @component('mail::table')
 | Nama Produk | Qty | harga |

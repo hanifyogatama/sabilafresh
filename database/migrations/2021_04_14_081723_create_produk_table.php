@@ -21,9 +21,9 @@ class CreateProdukTable extends Migration
             $table->string('slug');
             $table->text('info_produk')->nullable();
             $table->decimal('harga', 15, 2); // price
-            $table->decimal('berat', 10, 2); //weight
-            $table->decimal('lebar', 10, 2); // width
-            $table->decimal('tinggi', 10, 2); // height
+            $table->integer('berat'); //weight
+            $table->integer('lebar'); // width
+            $table->integer('tinggi'); // height
             $table->text('deskripsi'); // short_description
             $table->text('detail_deskripsi'); // description
             $table->integer('status');

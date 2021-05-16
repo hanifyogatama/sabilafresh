@@ -27,8 +27,8 @@
                             @forelse ($product->gambarProduk as $image)
                             <div class="tab-pane fade {{ ($i == 1) ? 'active show' : '' }}" id="pro-details{{ $i}}" role="tabpanel">
                                 <div class="easyzoom easyzoom--overlay">
-                                    @if ($image->gambar_medium && $image->gambar_xbesar)
-                                    <a href="{{ asset('storage/'.$image->gambar_xbesar) }}">
+                                    @if ($image->gambar_medium && $image->gambar_besar)
+                                    <a href="{{ asset('storage/'.$image->gambar_besar) }}">
                                         <img src="{{ asset('storage/'.$image->gambar_medium) }}" alt="{{ $product->nama }}" style="border-radius: 3%;">
                                     </a>
                                     @else
@@ -42,7 +42,7 @@
                             $i++
                             @endphp
                             @empty
-                            No image found!
+                            <img src="{{ asset('themes/sabilafresh/assets/img/front/no_image.png') }}" alt="{{ $product->nama }}" width="240px" style="border-radius: 3%;">
                             @endforelse
                         </div>
 
@@ -62,7 +62,7 @@
                             $i++
                             @endphp
                             @empty
-                            No image found!
+                            <img src="{{ asset('themes/sabilafresh/assets/img/front/no_image.png') }}" alt="{{ $product->nama }}" width="50px" style="border-radius: 5%;" >
                             @endforelse
                         </div>
                     </div>
@@ -211,14 +211,11 @@
                         </div>
                     </div>
                     {!! Form::close() !!}
-                    <a href="https://api.whatsapp.com/send?phone=6289676310705&text=Saya%20tertarik%20untuk%20membeli%20produk%20ini%20segera." target="_blank">Chat</a>
+                    <a class="pl-2" href="https://api.whatsapp.com/send?phone=6289676310705&text=Saya%20tertarik%20untuk%20membeli%20produk%20ini%20segera." target="_blank">Chat</a>
                 </div>
 
             </div>
         </div>
     </div>
 </div>
-
-
-
 @endsection

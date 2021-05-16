@@ -11,18 +11,16 @@ $formTitle = !empty($slide) ? 'Edit' : 'Tambah'
     <div class="section-header-breadcrumb">
         <div class="breadcrumb-item active"> <a href=""><i class="fas fa-cogs"></i> Setting</a> </div>
         <div class="breadcrumb-item"><a href="{{url('admin/categories')}}">Kategori</a></div>
-        <!-- <div class="breadcrumb-item">Table</div> -->
     </div>
 </div>
-
 
 <div class="content">
     <div class="row">
         <div class="col-lg-6">
             <div class="card card-default">
-
                 <div class="card-body">
-                    @include('admin.partials.flash', ['$errors' => $errors])
+                    <!-- @include('admin.partials.flash', ['$errors' => $errors]) -->
+
                     @if (!empty($slide))
                     {!! Form::model($slide, ['url' => ['admin/slides', $slide->id], 'method' => 'PUT', 'enctype' => 'multipart/form-data']) !!}
                     {!! Form::hidden('id') !!}
@@ -32,13 +30,19 @@ $formTitle = !empty($slide) ? 'Edit' : 'Tambah'
 
                     @if (empty($slide))
                     <div class="form-group">
-                        {!! Form::label('image', 'Gambar (ukuran : xxx)') !!}
+                        {!! Form::label('image', 'Gambar (ukuran : 1920x1080 | jpeg,png,jpg | max 4Mb)') !!}
                         {!! Form::file('image', ['class' => 'form-control-file', 'placeholder' => 'product image']) !!}
+                        @error('image')
+                        <small style="font-weight: 600;" class="text-danger">{{ $message }}</small>
+                        @enderror
                     </div>
                     @endif
                     <div class="form-group">
                         {!! Form::label('status', 'Status') !!}
                         {!! Form::select('status', $statuses , null, ['class' => 'form-control', 'placeholder' => '-- Pilih --']) !!}
+                        @error('status')
+                        <small style="font-weight: 600;" class="text-danger">{{ $message }}</small>
+                        @enderror
                     </div>
                     <div class="form-footer pt-5 border-top">
                         <button type="submit" class="btn btn-primary btn-default">Simpan</button>

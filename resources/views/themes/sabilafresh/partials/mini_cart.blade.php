@@ -19,7 +19,7 @@
 		@foreach (\Cart::getContent() as $item)
 		@php
 		$product = isset($item->associatedModel->parent) ? $item->associatedModel->parent : $item->associatedModel;
-		$image = !empty($product->gambarProduk->first()) ? asset('storage/'.$product->gambarProduk->first()->path) : asset('themes/sabilafresh/assets/img/cart/3.jpg')
+		$image = !empty($product->gambarProduk->first()) ? asset('storage/'.$product->gambarProduk->first()->path) : asset('themes/sabilafresh/assets/img/front/no_image.png')
 		@endphp
 		<li class="single-product-cart ">
 			<div class="cart-img">

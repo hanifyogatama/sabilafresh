@@ -70,91 +70,7 @@ class ProductController extends Controller
         return view('admin.products.form', $this->data);
     }
 
-    // private function getConfigurableAttributes()
-    // {
-    //     return Atribut::where('is_configurable', true)->get();
-    // }
 
-
-    // private function generateAttributeCombinations($arrays)
-    // {
-    //     $result = [[]];
-    //     foreach ($arrays as $property => $property_values) {
-    //         $tmp = [];
-    //         foreach ($result as $result_item) {
-    //             foreach ($property_values as $property_value) {
-    //                 $tmp[] = array_merge($result_item, array($property => $property_value));
-    //             }
-    //         }
-    //         $result = $tmp;
-    //     }
-    //     return $result;
-    // }
-
-
-    // private function convertVariantAsName($variant)
-    // {
-    //     $variantName = '';
-
-    //     foreach (array_keys($variant) as $key => $kode) {
-    //         $attributeOptionID = $variant[$kode];
-    //         $attributeOption = AtributOpsi::find($attributeOptionID);
-
-    //         if ($attributeOption) {
-    //             $variantName .= ' - ' . $attributeOption->nama;
-    //         }
-    //     }
-
-    //     return $variantName;
-    // }
-
-    // private function generateProductVariants($product, $params)
-    // {
-    //     $configurableAttributes = $this->getConfigurableAttributes();
-
-    //     $variantAttributes = [];
-    //     foreach ($configurableAttributes as $attribute) {
-    //         $variantAttributes[$attribute->kode] = $params[$attribute->kode];
-    //     }
-
-    //     $variants = $this->generateAttributeCombinations($variantAttributes);
-
-    //     if ($variants) {
-    //         foreach ($variants as $variant) {
-    //             $variantParams = [
-    //                 'parent_id' => $product->id,
-    //                 'user_id' => Auth::user()->id,
-    //                 'sku' => $product->sku . '-' . implode('-', array_values($variant)),
-    //                 'tipe' => 'simple',
-    //                 'nama' => $product->nama . $this->convertVariantAsName($variant),
-    //             ];
-
-    //             $variantParams['slug'] = Str::slug($variantParams['nama']);
-
-    //             $newProductVariant = Produk::create($variantParams);
-
-    //             $categoryIds = !empty($params['category_ids']) ? $params['category_ids'] : [];
-    //             $newProductVariant->kategories()->sync($categoryIds);
-
-    //             // $this->saveProductAttributeValues($newProductVariant, $variant);
-    //         }
-    //     }
-    // }
-
-    // private function saveProductAttributeValues($product, $variant)
-    // {
-    //     foreach (array_values($variant) as $attributeOptionID) {
-    //         $attributeOption = AtributOpsi::find($attributeOptionID);
-
-    //         $attributeValueParams = [
-    //             'produk_id' => $product->id,
-    //             'atribut_id' => $attributeOption->atribut_id,
-    //             'nama' => $attributeOption->nama,
-    //         ];
-
-    //         AtributProduk::create($attributeValueParams);
-    //     }
-    // }
 
 
     /**
@@ -174,9 +90,6 @@ class ProductController extends Controller
             $product = Produk::create($params);
             $product->kategories()->sync($categoryIds);
 
-            // if ($params['tipe'] == 'configurable') {
-            //     $this->generateProductVariants($product, $params);
-            // }
 
             return $product;
         });
@@ -361,15 +274,6 @@ class ProductController extends Controller
     {
         $resizedImage = [];
 
-        $smallImageFilePath = $folder . '/small/' . $fileName;
-        $size = explode('x', GambarProduk::SMALL);
-        list($width, $height) = $size;
-
-        $smallImageFile = \Image::make($image)->fit($width, $height)->stream();
-        if (\Storage::put('public/' . $smallImageFilePath, $smallImageFile)) {
-            $resizedImage['gambar_kecil'] = $smallImageFilePath;
-        }
-
         $mediumImageFilePath = $folder . '/medium/' . $fileName;
         $size = explode('x', GambarProduk::MEDIUM);
         list($width, $height) = $size;
@@ -380,21 +284,12 @@ class ProductController extends Controller
         }
 
         $largeImageFilePath = $folder . '/large/' . $fileName;
-        $size = explode('x', GambarProduk::LARGE);
+        $size = explode('x', GambarProduk::X_LARGE);
         list($width, $height) = $size;
 
         $largeImageFile = \Image::make($image)->fit($width, $height)->stream();
         if (\Storage::put('public/' . $largeImageFilePath, $largeImageFile)) {
             $resizedImage['gambar_besar'] = $largeImageFilePath;
-        }
-
-        $xlargeImageFilePath = $folder . '/xlarge/' . $fileName;
-        $size = explode('x', GambarProduk::X_LARGE);
-        list($width, $height) = $size;
-
-        $xlargeImageFile = \Image::make($image)->fit($width, $height)->stream();
-        if (\Storage::put('public/' . $xlargeImageFilePath, $xlargeImageFile)) {
-            $resizedImage['gambar_xbesar'] = $xlargeImageFilePath;
         }
 
         return $resizedImage;
@@ -405,10 +300,10 @@ class ProductController extends Controller
         $image = GambarProduk::findOrFail($id);
 
         Storage::disk('public')->delete($image->path);
-        Storage::disk('public')->delete($image->gambar_xbesar);
+
         Storage::disk('public')->delete($image->gambar_besar);
         Storage::disk('public')->delete($image->gambar_medium);
-        Storage::disk('public')->delete($image->gambar_kecil);
+
 
         if ($image->delete()) {
             Session::flash('success', 'Gambar berhasi dihapus');
