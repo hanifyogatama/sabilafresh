@@ -710,4 +710,10 @@
     });
 
 
+    // $(function() {
+    //     $(".preload").fadeOut(1000, function() {
+    //         $(".content-app").fadeIn(5000);        
+    //     });
+    // });
+
 })(jQuery);

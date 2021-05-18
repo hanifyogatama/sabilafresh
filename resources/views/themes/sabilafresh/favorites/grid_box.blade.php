@@ -9,7 +9,7 @@
                 <td class="product-remove">
                     {!! Form::open(['url' => 'favorites/'. $favorite->id, 'class' => 'delete', 'style' => 'display:inline-block']) !!}
                     {!! Form::hidden('_method', 'DELETE') !!}
-                    <button style="background-color: transparent; color: black; border: 2px; cursor: pointer;" type="submit"><i class="fa fa-heart fa-2x" style="color: #dc3545 ; margin-top: 8px;"></i></button>
+                    <button style="background-color: transparent; color: black; border: 2px; cursor: pointer;" type="submit"><i title="remove" class="fa fa-heart fa-2x" style="color: #dc3545 ; margin-top: 8px;"></i></button>
                     {!! Form::close() !!}
                 </td>
             </span>

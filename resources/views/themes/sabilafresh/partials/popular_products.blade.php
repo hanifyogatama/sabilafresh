@@ -1,10 +1,10 @@
-<div class="mt-30 mb-10 ml-30 mr-30 pt-10 pl-3">
+<div class="mt-30 mb-10 ml-30 mr-30 pt-10 pl-3 ">
     <div class="row">
         <h4 class="mr-4 pb-2" style="font-weight: 700;">Produk populer</h4>
     </div>
     <div class="row">
         @forelse ($popularProducts as $product)
-       
+
         <div class="col px-0">
             <div class="shadow product-dashboard mb-15 rounded-lg ">
                 <div class="product-img-2">

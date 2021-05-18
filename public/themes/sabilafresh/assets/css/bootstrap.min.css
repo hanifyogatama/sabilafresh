@@ -10398,13 +10398,21 @@ ul.timeline > li:before {
 	text-align:center;
     font-size:30px;
 	box-shadow: 2px 2px 3px #999;
-    z-index:9999;
+    z-index:9998;
 }
 
 .my-float-whatsapp{
 	margin-top:16px;
 }
 
+/* .content-app {display:none;}
+.preload { width:100px;
+    height: 100px;
+    position: fixed;
+    top: 50%;
+    bottom: 50%;
+    z-index:9999;
+    left: 50%;} */
 
 
 /*# sourceMappingURL=bootstrap.min.css.map */
