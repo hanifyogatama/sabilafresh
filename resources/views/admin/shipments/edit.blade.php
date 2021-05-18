@@ -101,7 +101,7 @@
 
                     <div class="form-group" style="width: 500px;">
                         {!! Form::label('no_resi','Nomor Resi')!!}
-                        {!! Form::text('no_resi', null, ['class' => 'form-control']) !!}
+                        {!! Form::text('no_resi', null, ['class' => 'form-control','autocomplete'=>'off']) !!}
                     </div>
 
                     <div class="form-group row" style="display: none;">

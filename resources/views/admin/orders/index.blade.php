@@ -38,7 +38,34 @@
                                     <span style="font-size: 12px; font-weight: normal"> {{ $order->email_konsumen }}</span>
                                 </td>
                                 <td>{{ $order->status }}</td>
-                                <td>{{ $order->status_pembayaran }}</td>
+
+                                @php
+                                $orderDate = date_create($order->tanggal_pemesanan);
+                                $dueDate = date_create();
+                                $dateDiff = date_diff($orderDate,$dueDate);
+                                $diff = $dateDiff->d;
+                                @endphp
+
+
+
+
+
+                                <td>
+                                    @if($order->status_pembayaran == 'paid')
+                                    {{ $order->status_pembayaran }}
+                                    @elseif($diff < 1 && $order->status_pembayaran == 'unpaid')
+                                        {{ $order->status_pembayaran }}
+                                        @elseif($diff >= 1 && $order->status_pembayaran == 'unpaid')
+                                        unpaid<br>
+                                        <span style="font-size: 10px; font-weight: bold" class="text-danger"> Transaksi Expaired</span>
+                                        @endif
+
+                                </td>
+
+
+
+
+
                                 <td>
                                     @can('edit_orders')
                                     <a href="{{ url('admin/orders/'. $order->id) }}" class="btn btn-info btn-sm">Detail</a>

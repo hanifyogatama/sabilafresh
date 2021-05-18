@@ -66,15 +66,14 @@
                     $diff = $dateDiff->d;
                     @endphp
 
-
                     <div class="row pt-2">
                         <div class="col-sm-5">Status Pembayaran</div>
                         @if($order->status_pembayaran == 'paid')
                         <div class="col-sm-7 text-left text-success font-weight-bold text-capitalize"> {{ $order->status_pembayaran }}</div>
-                        @elseif($diff <= 1 && $order->status_pembayaran == 'unpaid')
+                        @elseif($diff < 1 && $order->status_pembayaran == 'unpaid')
                             <div class="col-sm-7 text-left text-danger font-weight-bold text-capitalize"> {{ $order->status_pembayaran }}</div>
                             @elseif($diff >= 1 && $order->status_pembayaran == 'unpaid')
-                            <div class="col-sm-7 text-left"><span id="expired" class="font-weight-bold text-danger text-capitalize">Transaksi expired</span></div>
+                            <div class="col-sm-7 text-left"><span id="expired" class="font-weight-bold text-danger text-capitalize">Unpaid (Transaksi expired)</span></div>
                             @endif
                     </div>
 
@@ -120,7 +119,13 @@
 
                     <div class="row pt-2">
                         <div class="col-sm-5">Status Pengiriman</div>
-                        <div class="col-sm-7 text-left text-dark text-capitalize"> {{ $order->pengiriman->status}} </div>
+                        @if($order->pengiriman->status == 'processed')
+                        <div class="col-sm-7 text-left text-info font-weight-bold text-capitalize"> {{ $order->pengiriman->status}} </div>
+                        @elseif($order->pengiriman->status == 'shipped')
+                        <div class="col-sm-7 text-left text-success font-weight-bold text-capitalize"> {{ $order->pengiriman->status}} </div>
+                        @else
+                        <div class="col-sm-7 text-left text-danger font-weight-bold text-capitalize"> {{ $order->pengiriman->status}} </div>
+                        @endif
                     </div>
 
                 </address>
@@ -182,8 +187,6 @@
                 @if (in_array($order->status, [\App\Models\Pemesanan::CREATED, \App\Models\Pemesanan::CONFIRMED]))
                 <a href="{{ url('admin/orders/'. $order->id .'/cancel')}}" class="btn btn-block mt-2 btn-lg btn-warning btn-pill"> Batal Pemesanan</a>
                 @endif
-
-
 
                 @if ($order->isDelivered())
                 <a href="#" class="btn btn-block mt-2 btn-lg btn-success btn-pill" onclick="event.preventDefault();

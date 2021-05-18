@@ -1,9 +1,8 @@
 {!! Form::open(['url'=> Request::path(),'method'=>'GET','class' => 'input-daterange form-inline']) !!}
 <div class="row mb-4">
     <div class="col-md-3 col-sm-3">
-        <input type="text" class="form-control input-block" name="searchInput" value="{{ !empty(request()->input('searchInput')) ? request()->input('searchInput') : '' }}" placeholder="kode / nama">
+        <input type="text" class="form-control input-block" autocomplete="off" name="searchInput" value="{{ !empty(request()->input('searchInput')) ? request()->input('searchInput') : '' }}" placeholder="kode / nama">
     </div>
-
 
     <div class="col-md-3 col-sm-3">
         <div class="input-group input-block">
