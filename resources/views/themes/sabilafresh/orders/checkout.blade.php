@@ -185,7 +185,7 @@
 					<div class="payment-method">
 						<div class="payment-accordion">
 							<div class="mt-0">
-								<input type="submit" class="btn btn-light-green text-capitalize font-weight-bold" value="Lanjut" />
+								<input style="background-color: #03AC0E;";" type="submit" class="btn btn-light-green text-capitalize font-weight-bold" value="Lanjut" />
 							</div>
 						</div>
 					</div>

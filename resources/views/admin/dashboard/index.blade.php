@@ -411,10 +411,10 @@
             </div>
             <div class="card-body d-flex justify-content-start mt-0 pt-0">
                 @forelse($categories as $category)
-                <div class="media mr-3 p-2 shadow-sm btn-round">
+                <div class="media mr-3 p-2 btn-round" style="box-shadow: 0 0 0.25rem rgba(0, 0, 0, 0.10)">
                     <div class="row">
                         <div class="col-sm-3 pt-1">
-                            <div class="btn btn-outline-primary shadow-sm border btn-custom" style="border-radius: 50%;">{{ $category->produks->count() }}</div>
+                            <div class="btn btn-outline-primary border btn-custom" style="border-radius: 50%;">{{ $category->produks->count() }}</div>
                         </div>
                         <div class="col">
                             <div class="media-body pt-2 pl-2">

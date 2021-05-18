@@ -78,12 +78,15 @@
         <div class="row mt-4 justify-content-end">
             <div class="col-md-7">
                 <div class="card-body">
-                    @include('admin.partials.flash', ['$errors' => $errors])
+                    <!-- @include('admin.partials.flash', ['$errors' => $errors]) -->
                     {!! Form::model($order, ['url' => ['admin/orders/cancel', $order->id], 'method' => 'PUT']) !!}
                     {!! Form::hidden('id') !!}
                     <div class="form-group">
                         {!! Form::label('catatan_pembatalan', 'Catatan Pembatalan') !!}
                         {!! Form::textarea('catatan_pembatalan', null, ['class' => 'form-control','style' =>'height: 160px !important']) !!}
+                        @error('catatan_pembatalan')
+                        <small style="font-weight: 600;" class="text-danger">{{ $message }}</small>
+                        @enderror
                     </div>
                     <div class="form-footer pt-5 border-top">
                         <button type="submit" class="btn btn-primary btn-default">Batalkan Pemesanan</button>

@@ -122,9 +122,15 @@ class OrderController extends Controller
      */
     public function doCancel(Request $request, $id)
     {
-        $request->validate([
-            'catatan_pembatalan' => 'required|max:255',
-        ]);
+        $this->validate(
+            $request,
+            [
+                'catatan_pembatalan' => 'required|max:255',
+            ], 
+            [
+                'catatan_pembatalan.required' => 'catatan pembatalan belum diisi',
+            ]
+        );
 
         $order = Pemesanan::findOrFail($id);
 
@@ -170,6 +176,5 @@ class OrderController extends Controller
             \Session::flash('success', 'Status pemesanan telah selesai');
             return redirect('admin/orders');
         }
-    }   
-    
+    }
 }

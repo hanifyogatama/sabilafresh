@@ -46,8 +46,6 @@ class ShipmentController extends Controller
         // return view('admin.shipments.index', $this->data);
     }
 
-
-
     /**
      * Show the form for editing the specified resource.
      *
@@ -61,15 +59,20 @@ class ShipmentController extends Controller
         $this->data['provinces'] = $this->getProvinces();
         $this->data['cities'] = isset($shipment->provinsi) ? $this->getCities($shipment->provinsi) : [];
 
-        
+
         return view('admin.shipments.edit', $this->data);
     }
 
     public function update(Request $request, $id)
     {
-        $request->validate(
+        $this->validate(
+            $request,
             [
                 'no_resi' => 'required|max:255',
+            ],
+
+            [
+                'no_resi.required' => 'no resi belum diisi',
             ]
         );
 

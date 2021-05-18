@@ -12,7 +12,7 @@
         <div class="col-md-12">
             <div class="card">
                 <div class="card-body">
-                    @include('admin.partials.flash', ['$errors' => $errors])
+                    <!-- @include('admin.partials.flash', ['$errors' => $errors]) -->
                     <div class="row border rounded px-3 py-3 mx-0 mt-3">
                         <div class="col-md-12 p-0 ">
                             <p class="text-dark mb-2" style="font-weight: bold; font-size:16px; text-transform: capitalize;">Detail Pengiriman</p>
@@ -102,6 +102,9 @@
                     <div class="form-group" style="width: 500px;">
                         {!! Form::label('no_resi','Nomor Resi')!!}
                         {!! Form::text('no_resi', null, ['class' => 'form-control','autocomplete'=>'off']) !!}
+                        @error('no_resi')
+                        <small style="font-weight: 600;" class="text-danger">{{ $message }}</small>
+                        @enderror
                     </div>
 
                     <div class="form-group row" style="display: none;">

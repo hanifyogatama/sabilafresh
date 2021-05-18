@@ -17,4 +17,8 @@
 </div>
 @include('themes.sabilafresh.partials.advertise')
 
+<a  href="https://api.whatsapp.com/send?phone=6289676310705&text=Saya%20tertarik%20untuk%20membeli%20produk%20ini%20segera." class="float-whatsapp" target="_blank">
+    <i class="fab fa-whatsapp my-float-whatsapp"></i>
+</a>
+
 @endsection
