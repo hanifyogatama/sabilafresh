@@ -49,7 +49,7 @@ class ProductController extends Controller
     public function index(Request $request)
     {
 
-    
+
 
         $products = Produk::active();
 
@@ -100,12 +100,8 @@ class ProductController extends Controller
 
             if ($lowPrice && $highPrice) {
                 $products = $products->where('harga', '>=', $lowPrice)
-                    ->where('harga', '<=', $highPrice)
-                    ->orWhereHas('variants', function ($query) use ($lowPrice, $highPrice) {
-                        $query->where('harga', '>=', $lowPrice)
-                            ->where('harga', '<=', $highPrice);
-                    });
-
+                    ->where('harga', '<=', $highPrice);
+                    
                 $this->data['minPrice'] = $lowPrice;
                 $this->data['maxPrice'] = $highPrice;
             }

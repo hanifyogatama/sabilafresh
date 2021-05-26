@@ -123,7 +123,7 @@ class Produk extends Model
             ->join('item_pemesanan', 'item_pemesanan.produk_id', '=', 'produk.id')
             ->join('pemesanan', 'item_pemesanan.pemesanan_id', '=', 'pemesanan.id')
             ->whereRaw(
-                'pemesanan.status = :status_pemesanan AND MONTH(pemesanan.tanggal_pemesanan) = :bulan',
+                'pemesanan.status = :status_pemesanan AND MONTH(pemesanan.tanggal_pemesanan) = :bulan AND produk.status = active',
                 [
                     'status_pemesanan' => Pemesanan::COMPLETED,
                     'bulan' => $month

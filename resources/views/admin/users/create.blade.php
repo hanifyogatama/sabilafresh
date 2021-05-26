@@ -21,6 +21,13 @@
                     {!! Form::open(['route' => ['users.store'] ]) !!}
 
                     <input type="hidden" name="is_admin" class="form-control" value="1" />
+                    <div class="form-group @if ($errors->has('nama_depan')) has-error @endif">
+                        {!! Form::label('nama_depan', 'Nama') !!}
+                        {!! Form::text('nama_depan', null, ['class' => 'form-control', 'placeholder' => 'Name']) !!}
+                        @error('nama_depan')
+                        <small style="font-weight: 600;" class="text-danger">{{ $message }}</small>
+                        @enderror
+                    </div>
                     @include('admin.users.form')
                     <div class="form-group @if ($errors->has('roles')) has-error @endif">
                         {!! Form::label('roles[]', 'Roles') !!}
