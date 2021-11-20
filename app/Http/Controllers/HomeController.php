@@ -27,10 +27,12 @@ class HomeController extends Controller
      */
     public function index()
     {
-        $products = Produk::active();
+         $products = Produk::active();
 
-        $popularProducts = Produk::popular()->get();
-        $this->data['popularProducts'] = $popularProducts;
+        // ----------------------------------------------------------------------------- EDIT DI SINI
+
+        // $popularProducts = Produk::popular()->get();
+        // $this->data['popularProducts'] = $popularProducts;
 
         $slides = GambarSlide::active()->orderBy('id', 'ASC')->get();
         $this->data['slides'] = $slides;

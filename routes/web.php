@@ -87,8 +87,6 @@ Route::group(
         Route::get('reports/inventory', 'ReportController@inventory');
         Route::get('reports/payment', 'ReportController@payment');
         Route::get('reports/customer', 'ReportController@customer');
-
-
     }
 );
 

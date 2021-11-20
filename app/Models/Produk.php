@@ -115,26 +115,29 @@ class Produk extends Model
     }
 
 
-    public function scopePopular($query, $limit = 6)
-    {
-        $month = now()->format('m');
+    
+    // ---------------------------------------------------------------- EDIT DI SINI
 
-        $query->selectRaw('produk.*,COUNT(item_pemesanan.id) as total_terjual')
-            ->join('item_pemesanan', 'item_pemesanan.produk_id', '=', 'produk.id')
-            ->join('pemesanan', 'item_pemesanan.pemesanan_id', '=', 'pemesanan.id')
-            ->whereRaw(
-                'pemesanan.status = :status_pemesanan AND MONTH(pemesanan.tanggal_pemesanan) = :bulan AND produk.status = active',
-                [
-                    'status_pemesanan' => Pemesanan::COMPLETED,
-                    'bulan' => $month
-                ]
-            )
-            ->groupBy('produk.id')
-            ->orderBy('total_terjual', 'DESC')
-            ->limit($limit);
+    // public function scopePopular($query, $limit = 6)
+    // {
+    //     $month = now()->format('m');
 
-        return $query;
-    }
+    //     $query->selectRaw('produk.*,COUNT(item_pemesanan.id) as total_terjual')
+    //         ->join('item_pemesanan', 'item_pemesanan.produk_id', '=', 'produk.id')
+    //         ->join('pemesanan', 'item_pemesanan.pemesanan_id', '=', 'pemesanan.id')
+    //         ->whereRaw(
+    //             'pemesanan.status = :status_pemesanan AND MONTH(pemesanan.tanggal_pemesanan) = :bulan AND produk.status = active',
+    //             [
+    //                 'status_pemesanan' => Pemesanan::COMPLETED,
+    //                 'bulan' => $month
+    //             ]
+    //         )
+    //         ->groupBy('produk.id')
+    //         ->orderBy('total_terjual', 'DESC')
+    //         ->limit($limit);
+
+    //     return $query;
+    // }
 
 
 
